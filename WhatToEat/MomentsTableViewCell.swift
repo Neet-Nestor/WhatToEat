@@ -82,10 +82,12 @@ class MomentsTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func setData(name:String,imagePic:String,content:String,imgData:[String],indexRow:NSIndexPath,selectItem:Bool,like:[String],likeItem:Bool,CommentNameArray:[String],CommentArray:[String]){
+    // return height of Comments
+    func setData(name:String,imagePic:String,content:String,imgData:[String],indexRow:NSIndexPath,selectItem:Bool,like:[String],likeItem:Bool,CommentNameArray:[String],CommentArray:[String]) -> CGFloat{
         var h = cellHeightByData(data: content)
         let h1 = cellHeightByData1(imageNum: imgData.count)
         var h2:CGFloat = 0.0
+        var totalyCommentHeight:CGFloat = 0.0
         nameLabel.text = name
         avatorImage.image = UIImage(named: imagePic)
         if h<13*5{
@@ -176,17 +178,23 @@ class MomentsTableViewCell: UITableViewCell {
             }
             for i in 0..<CommentNameArray.count{
                 let comment_view = CommentView()
-                comment_view.frame = CGRect(origin: CGPoint(x:55,y:h3+(CGFloat(i*20))), size:CGSize(width:UIScreen.main.bounds.width - 10 - 55 - 15,height:20))
                 //comment_view.nameLabel.text = CommentNameArray[i]
-                
                 var mutableString = NSMutableAttributedString(string: "\(CommentNameArray[i]): \(CommentArray[i])")
                 mutableString.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.blue, range: NSRange(location:0,length:CommentNameArray[i].count))
                 // set label Attribute
+                let h4 = "\(CommentNameArray[i]): \(CommentArray[i])".stringHeightWith(fontSize: 15, width: 300)
+                NSLog("\(h4)")
                 comment_view.commentLabel.attributedText = mutableString
+                comment_view.commentLabel.frame = CGRect(origin: CGPoint(x:0,y:2), size: CGSize(width:300,height:h4))
+                comment_view.frame = CGRect(origin: CGPoint(x:55,y:h3+(totalyCommentHeight)), size:CGSize(width:UIScreen.main.bounds.width - 10 - 55 - 15,height:h4))
+                totalyCommentHeight = totalyCommentHeight + h4
+                //comment_view.commentLabel.sizeToFit()
+                //comment_view.sizeToFit()
                 self.contentView.addSubview(comment_view)
             }
         }
         self.contentView.addSubview(self.menuview)
+        return totalyCommentHeight
     }
     
     @objc func clickDown(_ sender:UIButton){

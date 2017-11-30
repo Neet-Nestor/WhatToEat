@@ -23,6 +23,7 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
     var replyViewDraw:CGFloat!
     var test = UITextField()
     var commentView = PingLunFun()
+    var comment_height:CGFloat = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,7 +90,7 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
         if cell == nil{
             cell = MomentsTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: identify)
         }
-        cell!.setData(name: dataItem[indexPath.row]["name"]! as! String, imagePic: dataItem[indexPath.row]["avator"]! as! String,content: dataItem[indexPath.row]["content"]! as! String,imgData: dataItem[indexPath.row]["imageUrls"]! as! [String],indexRow:indexPath as NSIndexPath,selectItem: selectItems[indexPath.row],like:goodComm[indexPath.row]["good"]!,likeItem:likeItems[indexPath.row],CommentNameArray:goodComm[indexPath.row]["commentName"]! ,CommentArray:goodComm[indexPath.row]["comment"]! )
+        comment_height = cell!.setData(name: dataItem[indexPath.row]["name"]! as! String, imagePic: dataItem[indexPath.row]["avator"]! as! String,content: dataItem[indexPath.row]["content"]! as! String,imgData: dataItem[indexPath.row]["imageUrls"]! as! [String],indexRow:indexPath as NSIndexPath,selectItem: selectItems[indexPath.row],like:goodComm[indexPath.row]["good"]!,likeItem:likeItems[indexPath.row],CommentNameArray:goodComm[indexPath.row]["commentName"]! ,CommentArray:goodComm[indexPath.row]["comment"]! )
 //        cell!.displayView.tapedImageV = {[unowned self] index in
 //            cell!.pbVC.show(inVC: self,index: index)
 //        }
@@ -111,12 +112,12 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         return cell!
     }
-    
+ 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
         var h_content = cellHeightByData(data: dataItem[indexPath.row]["content"]! as! String)
         let h_image = cellHeightByData1(imageNum: (dataItem[indexPath.row]["imageUrls"]! as AnyObject).count)
         var h_like:CGFloat = 0.0
-        let h_comment = cellHeightByCommentNum(Comment: goodComm[indexPath.row]["commentName"]!.count)
+        // let h_comment = cellHeightByCommentNum(Comment: goodComm[indexPath.row]["commentName"]!.count)
         if h_content>13*5{
             if !self.selectItems[indexPath.row]{
                 h_content = 13*5
@@ -125,14 +126,15 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
         if goodComm[indexPath.row]["good"]!.count > 0{
             h_like = 40
         }
-        return h_content + h_image + 50 + 20 + h_like + h_comment
+        return h_content + h_image + 40 + h_like + comment_height
     }
+
     
     func headerView() ->UIView{
         
         imagePicView.frame = CGRect(origin: CGPoint(x:0, y:0), size: CGSize(width:self.view.bounds.width, height:225))
         imagePic.frame = CGRect(origin: CGPoint(x:0, y:0), size: CGSize(width:self.view.bounds.width, height:200))
-        imagePic.image = UIImage(named: "background")
+        imagePic.image = UIImage(named: "22")
         imagePicView.addSubview(imagePic)
         imagePic.clipsToBounds = true
         self.nameLable.frame = CGRect(origin: CGPoint(x:0, y:170), size: CGSize(width:60, height:18))

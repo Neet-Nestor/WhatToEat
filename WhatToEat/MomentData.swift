@@ -104,12 +104,14 @@ var goodComm = [
     [
         "good":["那位长者","Stuart Reges"],
         "commentName":[
-            "Donald Trump",
-            "刘家良"
+            "Donald Trump"
+            ,"刘家良"
+            ,"Test"
         ],
         "comment":[
-            "Fake!!",
-            "真狗"
+            "Just test a different vocabulary of length!!"
+            ,"tesssdfsdfdasfsfasdfsadfsdfasdfsasdf"
+            ,"真狗"
         ]
     ],
     [

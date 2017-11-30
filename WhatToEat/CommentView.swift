@@ -18,10 +18,12 @@ class CommentView: UIView {
        // self.nameLabel.frame = CGRect(origin: CGPoint(x: 0,y: 2), size: CGSize(width:100, height:20))
         //self.nameLabel.textAlignment = .left
         //self.nameLabel.font = UIFont.systemFont(ofSize: 15)
-        self.commentLabel.frame = CGRect(origin: CGPoint(x:0,y:2), size: CGSize(width:300,height:20))
+        self.commentLabel.frame = CGRect(origin: CGPoint(x:0,y:2), size: CGSize(width:300,height:0))
         self.commentLabel.font = UIFont.systemFont(ofSize: 15)
         self.nameLabel.textColor = UIColor.blue
         self.commentLabel.textAlignment = .left
+        self.commentLabel.lineBreakMode = .byWordWrapping;
+        self.commentLabel.numberOfLines = 0;
         //self.addSubview(nameLabel)
         self.addSubview(commentLabel)
         

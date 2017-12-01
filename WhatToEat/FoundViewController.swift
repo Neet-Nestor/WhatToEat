@@ -7,13 +7,19 @@
 //
 
 import UIKit
+import FBSDKCoreKit
+import FacebookLogin
 import FacebookShare
 import TwitterKit
 
 class FoundViewController: UIViewController {
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        if (FBSDKAccessToken.current() != nil) {
+            // User is logged in, do work such as go to next view controller.
+        }
 
         // Do any additional setup after loading the view.
         let logInButton = TWTRLogInButton(logInCompletion: { session, error in
@@ -24,6 +30,15 @@ class FoundViewController: UIViewController {
             }
         })
         logInButton.center = self.view.center
+        let loginButton = LoginButton(readPermissions: [ .publicProfile, .email, .userFriends ])
+        loginButton.center = CGPoint(x: view.center.x,y:view.center.y + 200)
+        let shareContent = LinkShareContent(url: URL(string:"https://newsroom.fb.com/")!)
+        let FBShareBtn = ShareButton<LinkShareContent>()
+        FBShareBtn.content = shareContent
+        FBShareBtn.center = CGPoint(x: view.center.x,y:view.center.y + 150)
+        loginButton.frame.size = CGSize(width: 100, height:FBShareBtn.frame.height)
+        self.view.addSubview(loginButton)
+        self.view.addSubview(FBShareBtn)
         self.view.addSubview(logInButton)
     }
 
@@ -45,6 +60,7 @@ class FoundViewController: UIViewController {
         shareDialog.completion = { result in
             // Handle share results
         }
+        shareDialog.content
         
         try? shareDialog.show()
     }

@@ -537,11 +537,11 @@
 			isa = PBXGroup;
 			children = (
 				498C3E391FCF8F7500D1108D /* Frameworks */,
+				499313E91FB0E40F0048EE36 /* AppDelegate.swift */,
 				DF60C04C1FCE307600F8F390 /* Address.swift */,
 				498C41D71FD0C64C00D1108D /* FinishViewController.swift */,
 				DF60C04D1FCE307600F8F390 /* Coordinate.swift */,
 				DF60C04E1FCE307600F8F390 /* Restaurant.swift */,
-				499313E91FB0E40F0048EE36 /* AppDelegate.swift */,
 				499313EB1FB0E40F0048EE36 /* ViewController.swift */,
 				499313ED1FB0E40F0048EE36 /* Main.storyboard */,
 				499313F01FB0E40F0048EE36 /* Assets.xcassets */,

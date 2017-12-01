@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FacebookShare
+import TwitterKit
 
 class FoundViewController: UIViewController {
 
@@ -14,6 +16,15 @@ class FoundViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        let logInButton = TWTRLogInButton(logInCompletion: { session, error in
+            if (session != nil) {
+                print("signed in as \(session?.userName)");
+            } else {
+                print("error: \(error?.localizedDescription)");
+            }
+        })
+        logInButton.center = self.view.center
+        self.view.addSubview(logInButton)
     }
 
     override func didReceiveMemoryWarning() {
@@ -26,6 +37,20 @@ class FoundViewController: UIViewController {
         self.navigationItem.title = "Congratulation!"
     }
 
+    @IBAction func shareToFB(_ sender: UIButton) {
+        var content = LinkShareContent(url: URL(string:"https://newsroom.fb.com/")!)
+        let shareDialog = ShareDialog(content: content)
+        shareDialog.mode = .native
+        shareDialog.failsOnInvalidData = true
+        shareDialog.completion = { result in
+            // Handle share results
+        }
+        
+        try? shareDialog.show()
+    }
+ 
+    
+    
     /*
     // MARK: - Navigation
 

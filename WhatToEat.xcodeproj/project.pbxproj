@@ -122,6 +122,7 @@
 		498C40511FCF9AD700D1108D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 498C402A1FCF9AD600D1108D /* Info.plist */; };
 		498C40531FCFA20500D1108D /* DisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498C40521FCFA20500D1108D /* DisplayView.swift */; };
 		498C41D81FD0C64C00D1108D /* FinishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498C41D71FD0C64C00D1108D /* FinishViewController.swift */; };
+		498C41F51FD23F9000D1108D /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498C41F41FD23F9000D1108D /* SettingsTableViewController.swift */; };
 		499313EA1FB0E40F0048EE36 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499313E91FB0E40F0048EE36 /* AppDelegate.swift */; };
 		499313EC1FB0E40F0048EE36 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499313EB1FB0E40F0048EE36 /* ViewController.swift */; };
 		499313EF1FB0E40F0048EE36 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 499313ED1FB0E40F0048EE36 /* Main.storyboard */; };
@@ -269,6 +270,7 @@
 		498C402A1FCF9AD600D1108D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		498C40521FCFA20500D1108D /* DisplayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayView.swift; sourceTree = "<group>"; };
 		498C41D71FD0C64C00D1108D /* FinishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishViewController.swift; sourceTree = "<group>"; };
+		498C41F41FD23F9000D1108D /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		499313E61FB0E40F0048EE36 /* WhatToEat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhatToEat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		499313E91FB0E40F0048EE36 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		499313EB1FB0E40F0048EE36 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -515,6 +517,16 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		498C41F31FD1BFE000D1108D /* object */ = {
+			isa = PBXGroup;
+			children = (
+				DF60C04C1FCE307600F8F390 /* Address.swift */,
+				DF60C04D1FCE307600F8F390 /* Coordinate.swift */,
+				DF60C04E1FCE307600F8F390 /* Restaurant.swift */,
+			);
+			path = object;
+			sourceTree = "<group>";
+		};
 		499313DD1FB0E40F0048EE36 = {
 			isa = PBXGroup;
 			children = (
@@ -536,12 +548,10 @@
 		499313E81FB0E40F0048EE36 /* WhatToEat */ = {
 			isa = PBXGroup;
 			children = (
+				498C41F31FD1BFE000D1108D /* object */,
 				498C3E391FCF8F7500D1108D /* Frameworks */,
 				499313E91FB0E40F0048EE36 /* AppDelegate.swift */,
-				DF60C04C1FCE307600F8F390 /* Address.swift */,
 				498C41D71FD0C64C00D1108D /* FinishViewController.swift */,
-				DF60C04D1FCE307600F8F390 /* Coordinate.swift */,
-				DF60C04E1FCE307600F8F390 /* Restaurant.swift */,
 				499313EB1FB0E40F0048EE36 /* ViewController.swift */,
 				499313ED1FB0E40F0048EE36 /* Main.storyboard */,
 				499313F01FB0E40F0048EE36 /* Assets.xcassets */,
@@ -561,6 +571,7 @@
 				498C3D721FCF4A9A00D1108D /* MomentsTableViewCell.swift */,
 				498C3D741FCF4B1900D1108D /* CommentLikeView.swift */,
 				498C3D761FCF621A00D1108D /* Menu.swift */,
+				498C41F41FD23F9000D1108D /* SettingsTableViewController.swift */,
 			);
 			path = WhatToEat;
 			sourceTree = "<group>";
@@ -768,6 +779,7 @@
 				498C3FED1FCF945F00D1108D /* NVActivityIndicatorAnimationCubeTransition.swift in Sources */,
 				498C40501FCF9AD700D1108D /* VideoViewController.swift in Sources */,
 				498C3F901FCF944E00D1108D /* Fetch.swift in Sources */,
+				498C41F51FD23F9000D1108D /* SettingsTableViewController.swift in Sources */,
 				498C3F9B1FCF944E00D1108D /* String+Haneke.swift in Sources */,
 				498C3FE01FCF945F00D1108D /* NVActivityIndicatorAnimationBallPulseRise.swift in Sources */,
 				498C3FE81FCF945F00D1108D /* NVActivityIndicatorAnimationBallSpinFadeLoader.swift in Sources */,

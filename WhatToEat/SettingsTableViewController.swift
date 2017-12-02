@@ -1,19 +1,15 @@
 //
-//  SettingTableViewController.swift
+//  SettingsTableViewController.swift
 //  WhatToEat
 //
-//  Created by Student User on 11/28/17.
+//  Created by Student User on 12/1/17.
 //  Copyright © 2017 Nestor Qin. All rights reserved.
 //
 
 import UIKit
-import FacebookLogin
-import FacebookCore
 
-class SettingTableViewController: UITableViewController {
+class SettingsTableViewController: UITableViewController {
 
-    @IBOutlet weak var logInCell: UITableViewCell!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -22,9 +18,6 @@ class SettingTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        // Handle clicks on the cell
-        // logInCell.addTarget(self, action: @selector(self.loginButtonClicked) forControlEvents: .TouchUpInside)
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -33,7 +26,7 @@ class SettingTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-/*
+
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 0
@@ -43,7 +36,7 @@ class SettingTableViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         return 0
     }
-*/
+
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
@@ -98,22 +91,5 @@ class SettingTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (indexPath.row == 0 && indexPath.section == 0) {
-            let loginManager = LoginManager()
-            //readPermissions: [ .publicProfile, .email, .userFriends ]
-            loginManager.logIn(readPermissions:[.publicProfile, .email, .userFriends], viewController: self) { loginResult in
-                switch loginResult {
-                case .failed(let error):
-                    print(error)
-                case .cancelled:
-                    print("User cancelled login.")
-                case .success(let grantedPermissions, let declinedPermissions, let accessToken):
-                    print("Logged in!")
-                }
-        }
-    }
-    }
 
 }

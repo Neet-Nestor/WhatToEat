@@ -21,16 +21,22 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>twitterkit-fgu8UmO7uQ9TX4ivyzCNZOa8S</string>
+				<string>fb690304267826071</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>FacebookAppID</key>
+	<string>690304267826071</string>
+	<key>FacebookDisplayName</key>
+	<string>WhatToEat</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-		<string>twitter</string>
-		<string>twitterauth</string>
+		<string>fbapi</string>
+		<string>fb-messenger-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -53,26 +59,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-    
-    <key>CFBundleURLTypes</key>
-    <array>
-        <dict>
-            <key>CFBundleURLSchemes</key>
-            <array>
-                <string>fb690304267826071</string>
-            </array>
-        </dict>
-    </array>
-    <key>FacebookAppID</key>
-    <string>690304267826071</string>
-    <key>FacebookDisplayName</key>
-    <string>WhatToEat</string>
-    <key>LSApplicationQueriesSchemes</key>
-    <array>
-        <string>fbapi</string>
-        <string>fb-messenger-api</string>
-        <string>fbauth2</string>
-        <string>fbshareextension</string>
-    </array>
 </dict>
 </plist>

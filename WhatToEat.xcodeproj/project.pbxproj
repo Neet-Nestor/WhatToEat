@@ -52,6 +52,7 @@
 		499313F11FB0E40F0048EE36 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 499313F01FB0E40F0048EE36 /* Assets.xcassets */; };
 		499313F41FB0E40F0048EE36 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 499313F21FB0E40F0048EE36 /* LaunchScreen.storyboard */; };
 		49F573041FC6B82700E55E3B /* RestaurantListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F573031FC6B82700E55E3B /* RestaurantListCell.swift */; };
+		CC8641961FD3FB58004D79C5 /* RestaurantTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8641951FD3FB58004D79C5 /* RestaurantTableViewController.swift */; };
 		DF60C04F1FCE307600F8F390 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF60C04C1FCE307600F8F390 /* Address.swift */; };
 		DF60C0501FCE307600F8F390 /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF60C04D1FCE307600F8F390 /* Coordinate.swift */; };
 		DF60C0511FCE307600F8F390 /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF60C04E1FCE307600F8F390 /* Restaurant.swift */; };
@@ -106,6 +107,7 @@
 		499313F51FB0E40F0048EE36 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49F573031FC6B82700E55E3B /* RestaurantListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListCell.swift; sourceTree = "<group>"; };
 		7FB6E1D473298E72857EAA3B /* Pods-WhatToEat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhatToEat.release.xcconfig"; path = "Pods/Target Support Files/Pods-WhatToEat/Pods-WhatToEat.release.xcconfig"; sourceTree = "<group>"; };
+		CC8641951FD3FB58004D79C5 /* RestaurantTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantTableViewController.swift; sourceTree = "<group>"; };
 		DF60C04C1FCE307600F8F390 /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		DF60C04D1FCE307600F8F390 /* Coordinate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
 		DF60C04E1FCE307600F8F390 /* Restaurant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 				498C41D71FD0C64C00D1108D /* FinishViewController.swift */,
 				499313EB1FB0E40F0048EE36 /* ViewController.swift */,
 				499313ED1FB0E40F0048EE36 /* Main.storyboard */,
+				CC8641951FD3FB58004D79C5 /* RestaurantTableViewController.swift */,
 				499313F01FB0E40F0048EE36 /* Assets.xcassets */,
 				499313F21FB0E40F0048EE36 /* LaunchScreen.storyboard */,
 				499313F51FB0E40F0048EE36 /* Info.plist */,
@@ -426,6 +429,7 @@
 				495652EE1FD3F5D500E27833 /* Data.swift in Sources */,
 				495653001FD3F5D500E27833 /* UIView+Haneke.swift in Sources */,
 				498C3D691FCF3F4600D1108D /* MomentsViewController.swift in Sources */,
+				CC8641961FD3FB58004D79C5 /* RestaurantTableViewController.swift in Sources */,
 				498C3D651FCE4BF200D1108D /* FoundViewController.swift in Sources */,
 				495652F31FD3F5D500E27833 /* Format.swift in Sources */,
 				498C40531FCFA20500D1108D /* DisplayView.swift in Sources */,
@@ -572,7 +576,7 @@
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = WhatToEat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = edu.uw.wlan.WhatToEat;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.uw.wlan.WhatToEat.jeff;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -591,7 +595,7 @@
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = WhatToEat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = edu.uw.wlan.WhatToEat;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.uw.wlan.WhatToEat.jeff;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;

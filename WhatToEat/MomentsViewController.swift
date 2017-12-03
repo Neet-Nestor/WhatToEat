@@ -37,7 +37,7 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.commentView.commentTextField.delegate = self
         refreshControl.addTarget(self, action: #selector(MomentsViewController.refreshData),
                                  for: UIControlEvents.valueChanged)
-        refreshControl.attributedTitle = NSAttributedString(string: "下拉刷新数据")
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         self.tableView = UITableView(frame: self.view.frame, style:UITableViewStyle.grouped)
         self.tableView!.delegate = self
         self.tableView!.dataSource = self
@@ -132,8 +132,8 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func headerView() ->UIView{
         
-        imagePicView.frame = CGRect(origin: CGPoint(x:0, y:0), size: CGSize(width:self.view.bounds.width, height:225))
-        imagePic.frame = CGRect(origin: CGPoint(x:0, y:0), size: CGSize(width:self.view.bounds.width, height:200))
+        imagePicView.frame = CGRect(origin: CGPoint(x:0, y:-200), size: CGSize(width:self.view.bounds.width, height:225))
+        imagePic.frame = CGRect(origin: CGPoint(x:0, y:-125), size: CGSize(width:self.view.bounds.width, height:350))
         imagePic.image = UIImage(named: "22")
         imagePicView.addSubview(imagePic)
         imagePic.clipsToBounds = true
@@ -154,7 +154,7 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
         imagePicView.addSubview(avatorImage)
         return imagePicView
     }
-    
+    /*
     func scrollViewDidScroll(_ scrollView: UIScrollView){
         let offset:CGPoint = scrollView.contentOffset
         
@@ -165,7 +165,7 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
             imagePic.frame = rect
         }
     }
-    
+    */
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
         if sender.state == .ended {
             self.commentView.commentTextField.resignFirstResponder()

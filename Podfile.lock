@@ -27,12 +27,23 @@ PODS:
   - TwitterCore (3.0.3)
   - TwitterKit (3.2.2):
     - TwitterCore (>= 3.0.3)
+  - Weibo_SDK (3.2.3)
 
 DEPENDENCIES:
   - FacebookCore
   - FacebookLogin
   - FacebookShare
   - TwitterKit
+  - Weibo_SDK (from `https://github.com/sinaweibosdk/weibo_ios_sdk.git`)
+
+EXTERNAL SOURCES:
+  Weibo_SDK:
+    :git: https://github.com/sinaweibosdk/weibo_ios_sdk.git
+
+CHECKOUT OPTIONS:
+  Weibo_SDK:
+    :commit: f5b138320aefe0ed20b76b8510521432f1a6c9ac
+    :git: https://github.com/sinaweibosdk/weibo_ios_sdk.git
 
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
@@ -44,7 +55,8 @@ SPEC CHECKSUMS:
   FBSDKShareKit: 4f525556e0df4cf0f574cb3f01c675434f29d477
   TwitterCore: 549c74ed5f3d6134392dc944c6d215e233e50ad8
   TwitterKit: b9feccfc70bef86fe389c06a63a72fed9f020b9c
+  Weibo_SDK: 652ca78c2f7147a5de5e75e7cbea89838a81772a
 
-PODFILE CHECKSUM: ec59f79ee21c2fdb0745f38faaea7b6850cf3d40
+PODFILE CHECKSUM: 714a18a8adef06bfb47559c83299d0870591d53f
 
 COCOAPODS: 1.3.1

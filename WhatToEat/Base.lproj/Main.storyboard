@@ -51,12 +51,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="94" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="P5g-ND-47O">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="94" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="P5g-ND-47O">
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Lte-9K-4Fd" customClass="RestaurantListCell" customModule="WhatToEat" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="Lte-9K-4Fd" customClass="RestaurantListCell" customModule="WhatToEat" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="94"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Lte-9K-4Fd" id="xKn-Jp-2F5">
@@ -141,6 +140,10 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="0qB-rZ-mwc" id="gNy-Yj-fne"/>
+                                    <outlet property="delegate" destination="0qB-rZ-mwc" id="mXY-A0-doR"/>
+                                </connections>
                             </tableView>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a85-ht-olC">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -153,13 +156,23 @@
                             </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="P5g-ND-47O" firstAttribute="top" secondItem="VKr-a1-m1j" secondAttribute="top" constant="44" id="6gP-ht-B4U"/>
+                            <constraint firstItem="VKr-a1-m1j" firstAttribute="bottom" secondItem="P5g-ND-47O" secondAttribute="bottom" id="pO5-fe-Obz"/>
+                            <constraint firstItem="P5g-ND-47O" firstAttribute="trailing" secondItem="VKr-a1-m1j" secondAttribute="trailing" id="psN-of-1fC"/>
+                            <constraint firstItem="P5g-ND-47O" firstAttribute="leading" secondItem="VKr-a1-m1j" secondAttribute="leading" id="rb0-ab-XGC"/>
+                            <constraint firstItem="P5g-ND-47O" firstAttribute="bottom" secondItem="VKr-a1-m1j" secondAttribute="bottom" id="uDV-pi-ub3"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="VKr-a1-m1j"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Restaurants" id="lu7-i8-Oop"/>
+                    <connections>
+                        <outlet property="tableview" destination="P5g-ND-47O" id="HbT-5K-5Mj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7ot-oF-Pis" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="168.80000000000001" y="173.16341829085459"/>
+            <point key="canvasLocation" x="167.578125" y="172.6207906295754"/>
         </scene>
         <!--Item 1-->
         <scene sceneID="kgS-0F-op5">
@@ -208,9 +221,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="94" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wAs-lo-c7e">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="94" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wAs-lo-c7e">
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="fHu-a6-8fM" customClass="RestaurantListCell" customModule="WhatToEat" customModuleProvider="target">
@@ -289,6 +301,14 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wAs-lo-c7e" firstAttribute="leading" secondItem="6oP-Xo-qWU" secondAttribute="leading" id="7bc-jY-xst"/>
+                            <constraint firstItem="wAs-lo-c7e" firstAttribute="top" secondItem="6oP-Xo-qWU" secondAttribute="top" id="JsC-jF-N0f"/>
+                            <constraint firstItem="6oP-Xo-qWU" firstAttribute="trailing" secondItem="wAs-lo-c7e" secondAttribute="trailing" id="N9x-S4-go2"/>
+                            <constraint firstItem="wAs-lo-c7e" firstAttribute="trailing" secondItem="6oP-Xo-qWU" secondAttribute="trailing" id="Tcy-jl-gms"/>
+                            <constraint firstItem="6oP-Xo-qWU" firstAttribute="bottom" secondItem="wAs-lo-c7e" secondAttribute="bottom" id="o8e-YJ-v4B"/>
+                            <constraint firstItem="wAs-lo-c7e" firstAttribute="bottom" secondItem="6oP-Xo-qWU" secondAttribute="bottom" id="rt6-YG-IQH"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6oP-Xo-qWU"/>
                     </view>
                     <navigationItem key="navigationItem" title="Your Lists" id="hPv-V7-xsZ">
@@ -301,7 +321,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D8O-WR-np1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1896.8" y="-541.07946026986508"/>
+            <point key="canvasLocation" x="1895.5078124999998" y="-541.58125915080518"/>
         </scene>
         <!--Match-->
         <scene sceneID="iWq-V8-hkM">

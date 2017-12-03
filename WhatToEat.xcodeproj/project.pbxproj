@@ -169,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				DF60C04C1FCE307600F8F390 /* Address.swift */,
+				4956515A1FD3D65600E27833 /* RestList.swift */,
 				DF60C04D1FCE307600F8F390 /* Coordinate.swift */,
 				DF60C04E1FCE307600F8F390 /* Restaurant.swift */,
 			);
@@ -209,7 +210,6 @@
 				49F573031FC6B82700E55E3B /* RestaurantListCell.swift */,
 				498C3D601FCCA5C300D1108D /* MainViewController.swift */,
 				498C3D621FCCA64700D1108D /* PreviewListViewController.swift */,
-				4956515A1FD3D65600E27833 /* RestList.swift */,
 				498C3D641FCE4BF200D1108D /* FoundViewController.swift */,
 				498C3D661FCE58F600D1108D /* SettingTableViewController.swift */,
 				498C3D6A1FCF41DE00D1108D /* PingLunFun.swift */,

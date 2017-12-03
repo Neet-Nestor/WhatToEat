@@ -68,11 +68,9 @@ class Restaurant {
     public func getImage() -> UIImage? {
         let url = URL(string: self.image_url)
         var image:UIImage? = nil
-        DispatchQueue.global().async {
-            let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
-            DispatchQueue.main.async {
-                image = UIImage(data: data!)
-            }
+        let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+        if (data != nil) {
+            image = UIImage(data: data!)
         }
         return image
     }
@@ -90,6 +88,14 @@ class Restaurant {
             return self.my_rating!
         } else {
             return 0
+        }
+    }
+    
+    public func getRating() -> Int {
+        if self.my_rating != nil {
+            return self.my_rating!
+        } else {
+            return Int(self.yelp_rating)
         }
     }
     

@@ -7,16 +7,47 @@
 //
 
 import Foundation
+import os.log
 
-class RestList {
-    private var list:[Restaurant]
+class RestList: NSObject, NSCoding {
+
     
-    init(json: [String:Any]) {
+    required convenience init?(coder aDecoder: NSCoder) {
+        guard let name = aDecoder.decodeObject(forKey: "name") as? String else {
+            os_log("Unable to decode the name for a Meal object.", log: OSLog.default, type: .debug)
+            return nil
+        }
+        guard let list = aDecoder.decodeObject(forKey: "list") as? [Restaurant] else {
+            os_log("Unable to decode the name for a Meal object.", log: OSLog.default, type: .debug)
+            return nil
+        }
+        guard let data = aDecoder.decodeObject(forKey: "data") as? [String:Int] else {
+            os_log("Unable to decode the name for a Meal object.", log: OSLog.default, type: .debug)
+            return nil
+        }
+        self.init(name: name, list: list, data: data)
+    }
+    
+    private var name:String
+    public var list:[Restaurant]
+    private var data:[String: Int]
+    
+    init(json: [String:Any], name: String) {
+        self.name = name;
         self.list = []
+        self.data = [:]
         let data = json["businesses"] as! [Any]
         for rest in data {
-            list.append(Restaurant(json: rest as! [String:Any]))
+            var rest = Restaurant(json: rest as! [String:Any])
+            list.append(rest)
+            self.data[rest.getId()] = rest.getRating() * 4
         }
+    }
+    
+    init(name: String, list: [Restaurant], data: [String:Int]) {
+        self.name = name
+        self.list = list
+        self.data = data
     }
     
     // functions
@@ -57,4 +88,25 @@ class RestList {
             self.list.remove(at: self.getIndex(rest))
         }
     }
+    
+    public func save() {
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(self, toFile: RestList.ArchiveURL.path)
+        if isSuccessfulSave {
+            os_log("successfully saved.", log: OSLog.default, type: .debug)
+        } else {
+            os_log("Failed to save...", log: OSLog.default, type: .error)
+        }
+    }
+    
+    //MARK: NSCoding
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(name, forKey: "name")
+        aCoder.encode(list, forKey: "list")
+        aCoder.encode(data, forKey: "data")
+    }
+    
+    //MARK: Archiving Paths
+    
+    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("lists")
 }

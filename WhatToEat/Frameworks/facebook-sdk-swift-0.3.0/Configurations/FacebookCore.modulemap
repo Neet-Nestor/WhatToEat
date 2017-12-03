@@ -1,3 +1,0 @@
-framework module FacebookCore {
-  umbrella header "FacebookCore.h"
-}

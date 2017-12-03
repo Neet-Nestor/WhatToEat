@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import CoreLocation
 
-class RestaurantTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    let latitude = 47.656893
-    let longitude = -122.313282
+class RestaurantTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate {
+    var latitude: Double = 0.0
+    var longitude: Double = 0.0
     var restList : RestList? = nil
     var refresher: UIRefreshControl!
+    let locationManager = CLLocationManager()
 
     @IBOutlet weak var tableview: UITableView!
     
@@ -23,11 +25,59 @@ class RestaurantTableViewController: UIViewController, UITableViewDataSource, UI
         refresher.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refresher.addTarget(self, action: #selector(RestaurantTableViewController.update), for: UIControlEvents.valueChanged)
         tableview.addSubview(refresher)
+        // Ask for Authorisation from the User.
+        self.locationManager.requestAlwaysAuthorization()
+        
+        // For use in foreground
+        self.locationManager.requestWhenInUseAuthorization()
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        } else {
+            showLocationDisabledPopUp()
+        }
+    }
+    
+    // using current locations
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            print(location.coordinate)
+            self.latitude = location.coordinate.latitude
+            self.longitude = location.coordinate.longitude
+        }
         update()
     }
     
+    // If we have been deined access give the user the option to change it
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if(status == CLAuthorizationStatus.denied) {
+            showLocationDisabledPopUp()
+        }
+    }
+    
+    // Show the popup to the user if we have been deined access
+    func showLocationDisabledPopUp() {
+        let alertController = UIAlertController(title: "Background Location Access Disabled",
+                                                message: "In order to get restaurants list we need your location",
+                                                preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        let openAction = UIAlertAction(title: "Open Settings", style: .default) { (action) in
+            if let url = URL(string: UIApplicationOpenSettingsURLString) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+        alertController.addAction(openAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    
     @objc func update() {
-        let url = "https://api.yelp.com/v3/businesses/search?term=restuarant&latitude=\(latitude)&longitude=\(longitude)"
+        let url = "https://api.yelp.com/v3/businesses/search?term=restaurant&latitude=\(latitude)&longitude=\(longitude)"
         let tokenString = "Bearer XC28UCfVfPvioZMT3WdKcZSuf9KgrHeJtWcEyog3xNOkgGJCSFY_Lax7GC6KGwOA2qbFaOS-h9KlYWNP8ihIkrInjz-TcDKGHzrKGLXC89JZkmSkxbolzD6wqcIUWnYx"
         var request = URLRequest(url: URL(string: url)!)
         request.addValue(tokenString, forHTTPHeaderField: "Authorization")

@@ -105,6 +105,11 @@
 		499313F01FB0E40F0048EE36 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		499313F31FB0E40F0048EE36 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		499313F51FB0E40F0048EE36 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		49B9690B1FD5480700D9BD27 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		49B9690C1FD5481600D9BD27 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		49B9690D1FD5483200D9BD27 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		49B9690F1FD5484D00D9BD27 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		49B969101FD54AAA00D9BD27 /* WhatToEat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WhatToEat-Bridging-Header.h"; sourceTree = "<group>"; };
 		49F573031FC6B82700E55E3B /* RestaurantListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListCell.swift; sourceTree = "<group>"; };
 		7FB6E1D473298E72857EAA3B /* Pods-WhatToEat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhatToEat.release.xcconfig"; path = "Pods/Target Support Files/Pods-WhatToEat/Pods-WhatToEat.release.xcconfig"; sourceTree = "<group>"; };
 		CC8641951FD3FB58004D79C5 /* RestaurantTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantTableViewController.swift; sourceTree = "<group>"; };
@@ -222,6 +227,7 @@
 				498C3D741FCF4B1900D1108D /* CommentLikeView.swift */,
 				498C3D761FCF621A00D1108D /* Menu.swift */,
 				498C41F41FD23F9000D1108D /* SettingsTableViewController.swift */,
+				49B969101FD54AAA00D9BD27 /* WhatToEat-Bridging-Header.h */,
 			);
 			path = WhatToEat;
 			sourceTree = "<group>";
@@ -229,6 +235,10 @@
 		53838ADF47E25B938BAF0496 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				49B9690F1FD5484D00D9BD27 /* SystemConfiguration.framework */,
+				49B9690D1FD5483200D9BD27 /* libsqlite3.tbd */,
+				49B9690C1FD5481600D9BD27 /* ImageIO.framework */,
+				49B9690B1FD5480700D9BD27 /* QuartzCore.framework */,
 				E53400A814E8486C331654B9 /* Pods_WhatToEat.framework */,
 			);
 			name = Frameworks;
@@ -374,6 +384,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-WhatToEat/Pods-WhatToEat-resources.sh",
 				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
 				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterShareExtensionUIResources.bundle",
+				"${PODS_ROOT}/Weibo_SDK/libWeiboSDK/WeiboSDK.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -580,6 +591,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = edu.uw.wlan.WhatToEat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "WhatToEat/WhatToEat-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -600,6 +612,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = edu.uw.wlan.WhatToEat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "WhatToEat/WhatToEat-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

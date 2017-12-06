@@ -9,6 +9,7 @@
 import Foundation
 
 class Address: NSObject, NSCoding {
+    // MARK: Encoding and Decoding
     func encode(with aCoder: NSCoder) {
         aCoder.encode(first, forKey: "first")
         aCoder.encode(second, forKey: "second")
@@ -19,9 +20,11 @@ class Address: NSObject, NSCoding {
         self.second = aDecoder.decodeObject(forKey: "second") as? String
     }
     
+    // MARK: Fields
     private var first:String
     private var second:String?
     
+    // MARK: Initializer
     init(_ address: [String]) {
         self.first = address[0]
         self.second = address[1]

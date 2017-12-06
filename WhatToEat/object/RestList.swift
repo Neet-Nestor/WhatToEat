@@ -11,6 +11,14 @@ import os.log
 
 class RestList: NSObject, NSCoding {
 
+    // MARK: Encoding and Decoding
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(name, forKey: "name")
+        aCoder.encode(list, forKey: "list")
+        aCoder.encode(data, forKey: "data")
+        aCoder.encode(kill, forKey: "kill")
+    }
+    
     
     required convenience init?(coder aDecoder: NSCoder) {
         guard let name = aDecoder.decodeObject(forKey: "name") as? String else {
@@ -25,13 +33,20 @@ class RestList: NSObject, NSCoding {
             os_log("Unable to decode the name for a Meal object.", log: OSLog.default, type: .debug)
             return nil
         }
-        self.init(name: name, list: list, data: data)
+        guard let kill = aDecoder.decodeObject(forKey: "kill") as? String else {
+            os_log("Unable to decode the name for a Meal object.", log: OSLog.default, type: .debug)
+            return nil
+        }
+        self.init(name: name, list: list, data: data, kill: kill)
     }
     
+    // MARK: Fields
     public var name:String
     public var list:[Restaurant]
     private var data:[String: Int]
+    private var kill:String?
     
+    // MARK: Initializers
     init(json: [String:Any], name: String) {
         self.name = name;
         self.list = []
@@ -44,13 +59,16 @@ class RestList: NSObject, NSCoding {
         }
     }
     
-    init(name: String, list: [Restaurant], data: [String:Int]) {
+    init(name: String, list: [Restaurant], data: [String:Int], kill: String) {
         self.name = name
         self.list = list
         self.data = data
+        self.kill = kill
     }
     
-    // functions
+    // MARK: Functions
+    
+    // Returns a boolean if the restaurant is in list
     public func contains(_ rest: Restaurant) -> Bool {
         let target = rest.getId()
         for item in self.list {
@@ -61,12 +79,14 @@ class RestList: NSObject, NSCoding {
         return false
     }
     
+    // Add an object into list
     public func add(_ rest: Restaurant) {
         if (!self.contains(rest)) {
             self.list.append(rest);
         }
     }
     
+    // Get the index of an Restaurant object
     public func getIndex(_ rest: Restaurant) -> Int {
         let target = rest.getId()
         if (self.contains(rest)) {
@@ -83,6 +103,7 @@ class RestList: NSObject, NSCoding {
         }
     }
     
+    // Get the Restaurant with given name
     public func getRest(_ withid:String) -> Restaurant? {
         for item in self.list {
             if item.getId() == withid {
@@ -92,12 +113,14 @@ class RestList: NSObject, NSCoding {
         return nil
     }
     
+    // Remove the Restaurant object in list
     public func remove(_ rest: Restaurant) {
         if (self.contains(rest)) {
             self.list.remove(at: self.getIndex(rest))
         }
     }
     
+    // Save this object
     public func save() -> String {
         let ArchiveURL = RestList.DocumentsDirectory.appendingPathComponent(self.name).path;
         let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(self, toFile: ArchiveURL)
@@ -109,14 +132,18 @@ class RestList: NSObject, NSCoding {
         return ArchiveURL;
     }
     
-    //MARK: NSCoding
-    func encode(with aCoder: NSCoder) {
-        aCoder.encode(name, forKey: "name")
-        aCoder.encode(list, forKey: "list")
-        aCoder.encode(data, forKey: "data")
+    // Get a random restaurant object
+    public func random() -> Restaurant? {
+        let result = randomHelp()
+        if self.kill != nil {
+            while (result == self.kill) {
+                result = randomHelp()
+            }
+        }
+        return getRest(result)
     }
     
-    public func random() -> Restaurant {
+    private func randomHelp() -> String? {
         var total:Int = 0
         for item in data.keys {
             total = total + data[item]!
@@ -126,19 +153,21 @@ class RestList: NSObject, NSCoding {
         for item in data.keys {
             cur = cur + data[item]!
             if (cur > rand) {
-                return getRest(item)!
+                return item
             }
         }
-        return self.list[0]
+        
+        return nil
     }
     
-    //MARK: Archiving Paths
-    
-    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
-    
-    
+    // Read the RestList stored in the given directory
     public static func read(url: String) -> RestList?  {
-        RestList.DocumentsDirectory.path
+//        RestList.DocumentsDirectory.path
         return NSKeyedUnarchiver.unarchiveObject(withFile: url) as? RestList
     }
+    
+    // MARK: Archiving Paths
+    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+    
+
 }

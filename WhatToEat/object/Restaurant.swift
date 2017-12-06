@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 class Restaurant: NSObject, NSCoding  {
+    // MARK: Encoding and Decoding
     func encode(with aCoder: NSCoder) {
         aCoder.encode(self.id, forKey: "id")
         aCoder.encode(self.name, forKey: "name")
@@ -39,11 +40,8 @@ class Restaurant: NSObject, NSCoding  {
         self.avg_price = aDecoder.decodeObject(forKey: "avg_price") as? Double
         self.my_price = aDecoder.decodeObject(forKey: "my_price") as? [Double]
     }
-    
-    /* To Do:
-    address object
- */
-    // Restaurant Fields
+
+    // MARK: Restaurant Fields
     private var id:String
     private var name:String
     private var image_url:String
@@ -58,6 +56,8 @@ class Restaurant: NSObject, NSCoding  {
     private var phone:String
     private var avg_price:Double?
     private var my_price:[Double]?
+    
+    // MARK: Initializer
     
     // Json Initializer
     init(json: [String:Any]) {
@@ -86,7 +86,7 @@ class Restaurant: NSObject, NSCoding  {
         }
     }
     
-    // Getters
+    // MARK: Getters
     public func getId() -> String {
         return self.id
     }
@@ -164,7 +164,7 @@ class Restaurant: NSObject, NSCoding  {
         }
     }
     
-    // Setters
+    // MARK: Setters
     public func addTag(_ aTag: String) {
         self.tags.append(aTag)
     }

@@ -16,7 +16,6 @@ class RestList: NSObject, NSCoding {
         aCoder.encode(name, forKey: "name")
         aCoder.encode(list, forKey: "list")
         aCoder.encode(data, forKey: "data")
-        aCoder.encode(kill, forKey: "kill")
     }
     
     
@@ -33,11 +32,7 @@ class RestList: NSObject, NSCoding {
             os_log("Unable to decode the name for a Meal object.", log: OSLog.default, type: .debug)
             return nil
         }
-        guard let kill = aDecoder.decodeObject(forKey: "kill") as? String else {
-            os_log("Unable to decode the name for a Meal object.", log: OSLog.default, type: .debug)
-            return nil
-        }
-        self.init(name: name, list: list, data: data, kill: kill)
+        self.init(name: name, list: list, data: data)
     }
     
     // MARK: Fields
@@ -59,11 +54,10 @@ class RestList: NSObject, NSCoding {
         }
     }
     
-    init(name: String, list: [Restaurant], data: [String:Int], kill: String) {
+    init(name: String, list: [Restaurant], data: [String:Int]) {
         self.name = name
         self.list = list
         self.data = data
-        self.kill = kill
     }
     
     // MARK: Functions
@@ -134,13 +128,8 @@ class RestList: NSObject, NSCoding {
     
     // Get a random restaurant object
     public func random() -> Restaurant? {
-        let result = randomHelp()
-        if self.kill != nil {
-            while (result == self.kill) {
-                result = randomHelp()
-            }
-        }
-        return getRest(result)
+        var result = randomHelp()
+        return getRest(result!)
     }
     
     private func randomHelp() -> String? {

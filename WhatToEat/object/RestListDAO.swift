@@ -43,7 +43,7 @@ class RestListDAO: NSObject, NSCoding {
 
     // Get a specific list with certain name.
     public func getList(_ name: String) -> RestList? {
-        if (self.list.keys.contains(name) {
+        if (self.list.keys.contains(name)) {
             return RestList.read(url: list[name]!)
         }
         return nil

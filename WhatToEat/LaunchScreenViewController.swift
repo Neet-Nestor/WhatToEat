@@ -14,9 +14,9 @@ class LaunchScreenViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     let locationManager = CLLocationManager()
     
-    @IBAction func btnPress(_ sender: Any) {
-        showMain()
-    }
+//    @IBAction func btnPress(_ sender: Any) {
+//        showMain()
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,13 +31,33 @@ class LaunchScreenViewController: UIViewController, CLLocationManagerDelegate {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.requestLocation()
+        } else {
+            showLocationDisabledPopUp()
         }
+    }
+    
+    // Show the popup to the user if we have been deined access
+    func showLocationDisabledPopUp() {
+        let alertController = UIAlertController(title: "Background Location Access Disabled",
+                                                message: "In order to get restaurants list we need your location",
+                                                preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "Use without location", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        let openAction = UIAlertAction(title: "Open Settings", style: .default) { (action) in
+            if let url = URL(string: UIApplicationOpenSettingsURLString) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+        alertController.addAction(openAction)
+        
+        self.present(alertController, animated: true, completion: nil)
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
         print("locations = \(locValue.latitude) \(locValue.longitude)")
-       // print(Common.haha())
         saveToRestList(latitude : locValue.latitude, longitude : locValue.longitude)
         showMain()
     }
@@ -45,7 +65,7 @@ class LaunchScreenViewController: UIViewController, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Failed to find user's location: \(error.localizedDescription)")
         saveToRestList(latitude : 37.785834, longitude : -122.406417)
-        showMain()
+        showLocationDisabledPopUp()
     }
     
     private func saveToRestList(latitude : Double, longitude : Double) {
@@ -55,6 +75,9 @@ class LaunchScreenViewController: UIViewController, CLLocationManagerDelegate {
         request.addValue(tokenString, forHTTPHeaderField: "Authorization")
         let session = URLSession.shared
         let tache = session.dataTask(with: request) { (data, response, error) -> Void in
+//            if (error != nil) {
+//                return
+//            }
             let responseParse = response as! HTTPURLResponse
             if (responseParse.statusCode == 200) {
                 // save data to object

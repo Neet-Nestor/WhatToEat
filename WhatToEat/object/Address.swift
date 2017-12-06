@@ -8,7 +8,17 @@
 
 import Foundation
 
-class Address {
+class Address: NSObject, NSCoding {
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(first, forKey: "first")
+        aCoder.encode(second, forKey: "second")
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        self.first = aDecoder.decodeObject(forKey: "first") as! String
+        self.second = aDecoder.decodeObject(forKey: "second") as? String
+    }
+    
     private var first:String
     private var second:String?
     

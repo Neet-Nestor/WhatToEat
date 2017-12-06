@@ -9,7 +9,37 @@
 import Foundation
 import UIKit
 
-class Restaurant {
+class Restaurant: NSObject, NSCoding  {
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.id, forKey: "id")
+        aCoder.encode(self.name, forKey: "name")
+        aCoder.encode(image_url, forKey: "image_url")
+        aCoder.encode(url, forKey: "url")
+        aCoder.encode(yelp_rating, forKey: "yelp_rating")
+        aCoder.encode(my_rating, forKey: "my_rating")
+        aCoder.encode(tags, forKey: "tags")
+        aCoder.encode(coordinate, forKey: "coordinate")
+        aCoder.encode(address, forKey: "address")
+        aCoder.encode(phone, forKey: "phone")
+        aCoder.encode(avg_price, forKey: "avg_price")
+        aCoder.encode(my_price, forKey: "my_price")
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        self.id = aDecoder.decodeObject(forKey: "id") as! String
+        self.name = aDecoder.decodeObject(forKey: "name") as! String
+        self.image_url = aDecoder.decodeObject(forKey: "image_url") as! String
+        self.url = aDecoder.decodeObject(forKey: "url") as! String
+        self.yelp_rating = aDecoder.decodeObject(forKey: "yelp_rating") as? Double
+        self.my_rating = aDecoder.decodeObject(forKey: "my_rating") as? Int
+        self.tags = aDecoder.decodeObject(forKey: "tags") as! [String]
+        self.coordinate = aDecoder.decodeObject(forKey: "coordinate") as! Coordinate
+        self.address = aDecoder.decodeObject(forKey: "address") as! Address
+        self.phone = aDecoder.decodeObject(forKey: "phone") as! String
+        self.avg_price = aDecoder.decodeObject(forKey: "avg_price") as? Double
+        self.my_price = aDecoder.decodeObject(forKey: "my_price") as? [Double]
+    }
+    
     /* To Do:
     address object
  */
@@ -18,7 +48,7 @@ class Restaurant {
     private var name:String
     private var image_url:String
     private var url:String
-    private var yelp_rating:Double
+    private var yelp_rating:Double?
     private var my_rating:Int?
     private var tags:[String]
     private var coordinate: Coordinate
@@ -26,7 +56,7 @@ class Restaurant {
 //    private var longitude:Double
     private var address: Address
     private var phone:String
-    private var avg_price:Double
+    private var avg_price:Double?
     private var my_price:[Double]?
     
     // Json Initializer
@@ -80,7 +110,11 @@ class Restaurant {
     }
     
     public func getYelp_Rating() -> Double {
-        return self.yelp_rating
+        if(self.yelp_rating == nil) {
+            return 0.0
+        } else {
+            return self.yelp_rating!
+        }
     }
     
     public func getMy_Rating() -> Int {
@@ -95,7 +129,7 @@ class Restaurant {
         if self.my_rating != nil {
             return self.my_rating!
         } else {
-            return Int(self.yelp_rating)
+            return Int(self.getYelp_Rating())
         }
     }
     
@@ -117,7 +151,10 @@ class Restaurant {
     
     public func getAvg$() -> Double {
         if my_price == nil {
-            return self.avg_price
+            if self.avg_price == nil {
+                0.0
+            }
+            return self.avg_price!
         } else {
             var result = 0.0;
             for price in my_price! {

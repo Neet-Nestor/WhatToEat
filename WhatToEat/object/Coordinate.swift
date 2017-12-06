@@ -8,9 +8,19 @@
 
 import Foundation
 
-class Coordinate {
-    private var latitude:Double
-    private var longitude:Double
+class Coordinate :NSObject, NSCoding {
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(latitude, forKey: "latitude")
+        aCoder.encode(longitude, forKey: "longitude")
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        self.latitude = aDecoder.decodeObject(forKey: "latitude") as? Double
+        self.longitude = aDecoder.decodeObject(forKey: "longitude") as? Double
+    }
+    
+    private var latitude:Double?
+    private var longitude:Double?
     
     init(latitude: Double, longitude: Double) {
         self.latitude = latitude
@@ -18,11 +28,11 @@ class Coordinate {
     }
     
     // getter
-    public func getLatitude() -> Double {
+    public func getLatitude() -> Double? {
         return self.latitude
     }
     
-    public func getLongitude() -> Double {
+    public func getLongitude() -> Double? {
         return self.longitude
     }
     
@@ -30,7 +40,10 @@ class Coordinate {
     
     // Get Distance in KM
     public func getKmDistance(other: Coordinate) -> Double{
-        return getDistanceFromLatLonInKm(lat1: self.latitude, lon1: self.longitude, lat2: other.getLatitude(), lon2: other.getLongitude())
+        if (self.latitude == nil || self.longitude == nil || other.longitude == nil || other.latitude == nil) {
+            return 0.0
+        }
+        return getDistanceFromLatLonInKm(lat1: self.latitude!, lon1: self.longitude!, lat2: other.getLatitude()!, lon2: other.getLongitude()!)
     }
 
     private func getDistanceFromLatLonInKm(lat1: Double, lon1: Double, lat2: Double, lon2: Double) -> Double{

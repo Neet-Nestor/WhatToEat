@@ -28,7 +28,7 @@ class RestList: NSObject, NSCoding {
         self.init(name: name, list: list, data: data)
     }
     
-    private var name:String
+    public var name:String
     public var list:[Restaurant]
     private var data:[String: Int]
     
@@ -89,13 +89,15 @@ class RestList: NSObject, NSCoding {
         }
     }
     
-    public func save() {
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(self, toFile: RestList.ArchiveURL.path)
+    public func save() -> String {
+        let ArchiveURL = RestList.DocumentsDirectory.appendingPathComponent(self.name).path;
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(self, toFile: ArchiveURL)
         if isSuccessfulSave {
             os_log("successfully saved.", log: OSLog.default, type: .debug)
         } else {
             os_log("Failed to save...", log: OSLog.default, type: .error)
         }
+        return ArchiveURL;
     }
     
     //MARK: NSCoding
@@ -108,5 +110,9 @@ class RestList: NSObject, NSCoding {
     //MARK: Archiving Paths
     
     static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
-    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("lists")
+    
+    
+    public static func read(url: String) -> RestList?  {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: url) as? RestList
+    }
 }

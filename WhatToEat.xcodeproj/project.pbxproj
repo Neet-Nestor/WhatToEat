@@ -52,7 +52,9 @@
 		499313F11FB0E40F0048EE36 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 499313F01FB0E40F0048EE36 /* Assets.xcassets */; };
 		499313F41FB0E40F0048EE36 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 499313F21FB0E40F0048EE36 /* LaunchScreen.storyboard */; };
 		49F573041FC6B82700E55E3B /* RestaurantListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F573031FC6B82700E55E3B /* RestaurantListCell.swift */; };
+		CC32FD751FD65B0D00F774B2 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC32FD741FD65B0D00F774B2 /* Common.swift */; };
 		CC8641961FD3FB58004D79C5 /* RestaurantTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8641951FD3FB58004D79C5 /* RestaurantTableViewController.swift */; };
+		CCFB0AE91FD4CAE300A0FA23 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFB0AE81FD4CAE300A0FA23 /* LaunchScreenViewController.swift */; };
 		DF60C04F1FCE307600F8F390 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF60C04C1FCE307600F8F390 /* Address.swift */; };
 		DF60C0501FCE307600F8F390 /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF60C04D1FCE307600F8F390 /* Coordinate.swift */; };
 		DF60C0511FCE307600F8F390 /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF60C04E1FCE307600F8F390 /* Restaurant.swift */; };
@@ -107,7 +109,9 @@
 		499313F51FB0E40F0048EE36 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49F573031FC6B82700E55E3B /* RestaurantListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListCell.swift; sourceTree = "<group>"; };
 		7FB6E1D473298E72857EAA3B /* Pods-WhatToEat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhatToEat.release.xcconfig"; path = "Pods/Target Support Files/Pods-WhatToEat/Pods-WhatToEat.release.xcconfig"; sourceTree = "<group>"; };
+		CC32FD741FD65B0D00F774B2 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		CC8641951FD3FB58004D79C5 /* RestaurantTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantTableViewController.swift; sourceTree = "<group>"; };
+		CCFB0AE81FD4CAE300A0FA23 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
 		DF60C04C1FCE307600F8F390 /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		DF60C04D1FCE307600F8F390 /* Coordinate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
 		DF60C04E1FCE307600F8F390 /* Restaurant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
@@ -168,6 +172,7 @@
 		498C41F31FD1BFE000D1108D /* object */ = {
 			isa = PBXGroup;
 			children = (
+				CC32FD741FD65B0D00F774B2 /* Common.swift */,
 				DF60C04C1FCE307600F8F390 /* Address.swift */,
 				4956515A1FD3D65600E27833 /* RestList.swift */,
 				DF60C04D1FCE307600F8F390 /* Coordinate.swift */,
@@ -203,6 +208,7 @@
 				498C41D71FD0C64C00D1108D /* FinishViewController.swift */,
 				499313EB1FB0E40F0048EE36 /* ViewController.swift */,
 				499313ED1FB0E40F0048EE36 /* Main.storyboard */,
+				CCFB0AE81FD4CAE300A0FA23 /* LaunchScreenViewController.swift */,
 				CC8641951FD3FB58004D79C5 /* RestaurantTableViewController.swift */,
 				499313F01FB0E40F0048EE36 /* Assets.xcassets */,
 				499313F21FB0E40F0048EE36 /* LaunchScreen.storyboard */,
@@ -404,6 +410,7 @@
 				495652EF1FD3F5D500E27833 /* DiskCache.swift in Sources */,
 				498C3D751FCF4B1900D1108D /* CommentLikeView.swift in Sources */,
 				498C3D6D1FCF43F500D1108D /* extention.swift in Sources */,
+				CC32FD751FD65B0D00F774B2 /* Common.swift in Sources */,
 				498C3D711FCF493800D1108D /* CommentView.swift in Sources */,
 				498C3D6F1FCF48C400D1108D /* MomentData.swift in Sources */,
 				498C3D771FCF621A00D1108D /* Menu.swift in Sources */,
@@ -433,6 +440,7 @@
 				498C3D651FCE4BF200D1108D /* FoundViewController.swift in Sources */,
 				495652F31FD3F5D500E27833 /* Format.swift in Sources */,
 				498C40531FCFA20500D1108D /* DisplayView.swift in Sources */,
+				CCFB0AE91FD4CAE300A0FA23 /* LaunchScreenViewController.swift in Sources */,
 				498C41D81FD0C64C00D1108D /* FinishViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -9,14 +9,15 @@
 import Foundation
 import CoreLocation
 
-class Common: NSObject, CLLocationManagerDelegate {
+class Common {
 
-    public func getLocation() -> (Double?, Double?) {
-        let locManager = CLLocationManager()
-        locManager.requestWhenInUseAuthorization()
-        let currentLocation = locManager.location
-        print(currentLocation)
-        return (currentLocation?.coordinate.latitude, currentLocation?.coordinate.longitude)
+//    public enum listName {
+//        case baseOnLocation
+//        case custom
+//    }
+    
+    public static func haha() -> Int {
+        return 0
     }
 
 }

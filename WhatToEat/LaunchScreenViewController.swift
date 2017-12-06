@@ -37,13 +37,40 @@ class LaunchScreenViewController: UIViewController, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
         print("locations = \(locValue.latitude) \(locValue.longitude)")
+       // print(Common.haha())
+        saveToRestList(latitude : locValue.latitude, longitude : locValue.longitude)
         showMain()
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Failed to find user's location: \(error.localizedDescription)")
-        //locations = 37.785834 -122.406417
+        saveToRestList(latitude : 37.785834, longitude : -122.406417)
         showMain()
+    }
+    
+    private func saveToRestList(latitude : Double, longitude : Double) {
+        let url = "https://api.yelp.com/v3/businesses/search?term=restaurant&latitude=\(latitude)&longitude=\(longitude)"
+        let tokenString = "Bearer XC28UCfVfPvioZMT3WdKcZSuf9KgrHeJtWcEyog3xNOkgGJCSFY_Lax7GC6KGwOA2qbFaOS-h9KlYWNP8ihIkrInjz-TcDKGHzrKGLXC89JZkmSkxbolzD6wqcIUWnYx"
+        var request = URLRequest(url: URL(string: url)!)
+        request.addValue(tokenString, forHTTPHeaderField: "Authorization")
+        let session = URLSession.shared
+        let tache = session.dataTask(with: request) { (data, response, error) -> Void in
+            let responseParse = response as! HTTPURLResponse
+            if (responseParse.statusCode == 200) {
+                // save data to object
+                let dict = try! JSONSerialization.jsonObject(with: data!, options: [])
+                let restList = RestList(json: dict as! [String : Any], name: "baseOnLocation")
+                let dao = RestListDAO()
+                dao.savelist(restList)
+                dao.save()
+            } else {
+                //send alert when status code is not 200
+                let alert = UIAlertController(title: "Alert", message: "statusCode: \(responseParse.statusCode)", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
+        tache.resume()
     }
 
     override func didReceiveMemoryWarning() {

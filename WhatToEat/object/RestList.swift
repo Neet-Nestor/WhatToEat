@@ -28,7 +28,7 @@ class RestList: NSObject, NSCoding {
         self.init(name: name, list: list, data: data)
     }
     
-    private var name:String
+    public var name:String
     public var list:[Restaurant]
     private var data:[String: Int]
     
@@ -83,19 +83,30 @@ class RestList: NSObject, NSCoding {
         }
     }
     
+    public func getRest(_ withid:String) -> Restaurant? {
+        for item in self.list {
+            if item.getId() == withid {
+                return item
+            }
+        }
+        return nil
+    }
+    
     public func remove(_ rest: Restaurant) {
         if (self.contains(rest)) {
             self.list.remove(at: self.getIndex(rest))
         }
     }
     
-    public func save() {
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(self, toFile: RestList.ArchiveURL.path)
+    public func save() -> String {
+        let ArchiveURL = RestList.DocumentsDirectory.appendingPathComponent(self.name).path;
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(self, toFile: ArchiveURL)
         if isSuccessfulSave {
             os_log("successfully saved.", log: OSLog.default, type: .debug)
         } else {
             os_log("Failed to save...", log: OSLog.default, type: .error)
         }
+        return ArchiveURL;
     }
     
     //MARK: NSCoding
@@ -105,8 +116,29 @@ class RestList: NSObject, NSCoding {
         aCoder.encode(data, forKey: "data")
     }
     
+    public func random() -> Restaurant {
+        var total:Int = 0
+        for item in data.keys {
+            total = total + data[item]!
+        }
+        var rand:Int = Int(arc4random_uniform(UInt32(total)))
+        var cur:Int = 0
+        for item in data.keys {
+            cur = cur + data[item]!
+            if (cur > rand) {
+                return getRest(item)!
+            }
+        }
+        return self.list[0]
+    }
+    
     //MARK: Archiving Paths
     
     static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
-    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("lists")
+    
+    
+    public static func read(url: String) -> RestList?  {
+        RestList.DocumentsDirectory.path
+        return NSKeyedUnarchiver.unarchiveObject(withFile: url) as? RestList
+    }
 }

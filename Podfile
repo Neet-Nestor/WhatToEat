@@ -4,4 +4,6 @@ target 'WhatToEat' do
   pod 'FacebookLogin'
   pod 'FacebookShare'
   pod 'TwitterKit'
+  pod "Weibo_SDK", :git => "https://github.com/sinaweibosdk/weibo_ios_sdk.git" 
+  pod 'NVActivityIndicatorView'
 end

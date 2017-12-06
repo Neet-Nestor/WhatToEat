@@ -9,9 +9,18 @@
 import UIKit
 import FBSDKCoreKit
 import FacebookCore
+import TwitterKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
+    func didReceiveWeiboRequest(_ request: WBBaseRequest!) {
+        
+    }
+    
+    func didReceiveWeiboResponse(_ response: WBBaseResponse!) {
+        
+    }
+    
 
     var window: UIWindow?
     
@@ -19,14 +28,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         // Add any custom logic here.
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
+        //WeiboSDK.enableDebugMode(true)
+        //WeiboSDK.registerApp("521970512")
+        Twitter.sharedInstance().start(withConsumerKey: "fgu8UmO7uQ9TX4ivyzCNZOa8S", consumerSecret: "7sdPZL7MEKlTJ7akP8uQ8Ir8Y4YdzTrvVt7QjhkFybzWhjoBov")
         return true
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         // let handled: Bool = FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
         // Add any custom logic here.
-        let handled: Bool = SDKApplicationDelegate.shared.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
-        return handled
+        /*
+        if (url.scheme == "wb521970512") {
+            let weiboHandled = WeiboSDK.handleOpen(url, delegate: self)
+            return weiboHandled
+        } else if (url.scheme == "fb690304267826071") {
+ */
+            let handled: Bool = SDKApplicationDelegate.shared.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
+            return handled
+        //}
+        NSLog("scheme: \(url)")
+        
+        //return false
+    }
+    
+    func application(_ app: UIApplication,
+                     open url: URL,
+                     options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        return WeiboSDK.handleOpen(url, delegate: self as! WeiboSDKDelegate)
     }
     
     /*

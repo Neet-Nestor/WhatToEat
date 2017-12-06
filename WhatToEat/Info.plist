@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>kRedirectURL</key>
+	<string>https://api.weibo.com/oauth2/default.html</string>
+	<key>kAppKey</key>
+	<string>521970512</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>This app will use the location data to search for the restaurants nearby.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
@@ -25,7 +29,9 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
+				<string>wb521970512</string>
 				<string>fb690304267826071</string>
+				<string>twitterkit-fgu8UmO7uQ9TX4ivyzCNZOa8S</string>
 			</array>
 		</dict>
 	</array>
@@ -37,10 +43,9 @@
 	<string>WhatToEat</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-		<string>fbapi</string>
-		<string>fb-messenger-api</string>
 		<string>fbauth2</string>
-		<string>fbshareextension</string>
+		<string>twitter</string>
+		<string>twitterauth</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

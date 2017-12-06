@@ -21,25 +21,25 @@ class FoundViewController: UIViewController {
             // User is logged in, do work such as go to next view controller.
         }
 
-        // Do any additional setup after loading the view.
-        let logInButton = TWTRLogInButton(logInCompletion: { session, error in
+        let loginButton = LoginButton(readPermissions: [ .publicProfile, .email, .userFriends ])
+        // loginButton.center = CGPoint(x: view.center.x,y:750)
+        let shareContent = LinkShareContent(url: URL(string:"https://newsroom.fb.com/")!)
+        let FBShareBtn = ShareButton<LinkShareContent>()
+        FBShareBtn.content = shareContent
+        FBShareBtn.center = self.view.center
+        // loginButton.frame.size = CGSize(width: 80, height:FBShareBtn.frame.height)
+        // self.view.addSubview(loginButton)
+        let TwilogInButton = TWTRLogInButton(logInCompletion: { session, error in
             if (session != nil) {
                 print("signed in as \(session?.userName)");
             } else {
                 print("error: \(error?.localizedDescription)");
             }
         })
-        logInButton.center = self.view.center
-        let loginButton = LoginButton(readPermissions: [ .publicProfile, .email, .userFriends ])
-        // loginButton.center = CGPoint(x: view.center.x,y:750)
-        let shareContent = LinkShareContent(url: URL(string:"https://newsroom.fb.com/")!)
-        let FBShareBtn = ShareButton<LinkShareContent>()
-        FBShareBtn.content = shareContent
-        FBShareBtn.center = CGPoint(x: 150,y:650)
-        // loginButton.frame.size = CGSize(width: 80, height:FBShareBtn.frame.height)
-        // self.view.addSubview(loginButton)
+        TwilogInButton.center = CGPoint(x: 150,y:500)
+        self.view.addSubview(TwilogInButton)
         self.view.addSubview(FBShareBtn)
-        self.view.addSubview(logInButton)
+        self.view.addSubview(loginButton)
     }
 
     override func didReceiveMemoryWarning() {
@@ -66,6 +66,18 @@ class FoundViewController: UIViewController {
     }
  
     
+    @IBAction func weibo(_ sender: Any) {
+        do {
+            let WBRequest = try WBAuthorizeRequest()
+            try WBRequest.redirectURI = "https://api.weibo.com/oauth2/default.html"
+            try WBRequest.scope = "all"
+            try WeiboSDK.send(WBRequest)
+            
+        }
+        catch (let error) {
+            NSLog("\(error)")
+        }
+    }
     
     /*
     // MARK: - Navigation

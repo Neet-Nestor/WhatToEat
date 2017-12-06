@@ -11,17 +11,16 @@ import CoreLocation
 
 class MainViewController: UIViewController {
     
-    let locationManager = CLLocationManager()
-
+    @IBOutlet weak var matchBtn: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        // Ask for Authorisation from the User.
-        self.locationManager.requestAlwaysAuthorization()
-        
-        // For use in foreground
-        self.locationManager.requestWhenInUseAuthorization()
+        matchBtn.layer.borderWidth = 2
+        matchBtn.layer.borderColor = UIColor.black.cgColor
+        matchBtn.layer.cornerRadius = matchBtn.frame.width / 2.0
+        matchBtn.clipsToBounds = true
     }
 
     override func didReceiveMemoryWarning() {

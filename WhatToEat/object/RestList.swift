@@ -83,6 +83,15 @@ class RestList: NSObject, NSCoding {
         }
     }
     
+    public func getRest(_ withid:String) -> Restaurant? {
+        for item in self.list {
+            if item.getId() == withid {
+                return item
+            }
+        }
+        return nil
+    }
+    
     public func remove(_ rest: Restaurant) {
         if (self.contains(rest)) {
             self.list.remove(at: self.getIndex(rest))
@@ -107,12 +116,29 @@ class RestList: NSObject, NSCoding {
         aCoder.encode(data, forKey: "data")
     }
     
+    public func random() -> Restaurant {
+        var total:Int = 0
+        for item in data.keys {
+            total = total + data[item]!
+        }
+        var rand:Int = Int(arc4random_uniform(UInt32(total)))
+        var cur:Int = 0
+        for item in data.keys {
+            cur = cur + data[item]!
+            if (cur > rand) {
+                return getRest(item)!
+            }
+        }
+        return self.list[0]
+    }
+    
     //MARK: Archiving Paths
     
     static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
     
     
     public static func read(url: String) -> RestList?  {
+        RestList.DocumentsDirectory.path
         return NSKeyedUnarchiver.unarchiveObject(withFile: url) as? RestList
     }
 }

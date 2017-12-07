@@ -65,7 +65,7 @@ class Restaurant: NSObject, NSCoding  {
         self.name = json["name"] as! String
         self.image_url = json["image_url"] as! String
         self.url = json["url"] as! String
-        self.yelp_rating = json["rating"] as! Double
+        self.yelp_rating = json["rating"] as? Double
         self.tags = []
         for dict in json["categories"] as! [[String:String]] {
             self.tags.append(dict["title"]!)
@@ -76,13 +76,15 @@ class Restaurant: NSObject, NSCoding  {
 //        self.longitude = coordinates["longitude"]!
         self.address = Address((json["location"] as! [String:Any])["display_address"] as! [String])
         self.phone = json["display_phone"] as! String
-        let price = json["price"] as! String
-        if (price == "$") {
-            self.avg_price = 10.0
-        } else if (price == "$$") {
-            self.avg_price = 20.0
-        } else {
-            self.avg_price = 50.0
+        self.avg_price = 0
+        if let price = json["price"] as? String {
+            if (price == "$") {
+                self.avg_price = 10.0
+            } else if (price == "$$") {
+                self.avg_price = 20.0
+            } else {
+                self.avg_price = 50.0
+            }
         }
     }
     

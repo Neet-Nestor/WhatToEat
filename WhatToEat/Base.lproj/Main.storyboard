@@ -16,7 +16,7 @@
         <scene sceneID="g8B-Dd-z0s">
             <objects>
                 <navigationController id="Z8t-a2-hcs" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Moments" id="GHd-0G-cU0"/>
+                    <tabBarItem key="tabBarItem" title="Moments" image="icons8-share-50" id="GHd-0G-cU0"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="3Eg-Dh-pXo">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -404,7 +404,7 @@
         <scene sceneID="gbT-CK-r4S">
             <objects>
                 <navigationController id="CZx-dK-uJB" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Nearby" id="iyO-ax-NpI"/>
+                    <tabBarItem key="tabBarItem" title="Nearby" image="icons8-restaurant-table-filled-50" id="iyO-ax-NpI"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Dkv-sM-52c">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -452,7 +452,7 @@
             </objects>
             <point key="canvasLocation" x="1057" y="-1288"/>
         </scene>
-        <!--Item 1-->
+        <!--Main View Controller-->
         <scene sceneID="kgS-0F-op5">
             <objects>
                 <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="H0F-N9-zxj" customClass="MainViewController" customModule="WhatToEat" customModuleProvider="target" sceneMemberID="viewController">
@@ -497,7 +497,6 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="jlc-Cl-shy"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 1" id="mDN-yh-Knb"/>
                     <navigationItem key="navigationItem" id="xSm-eR-83P"/>
                     <connections>
                         <outlet property="matchBtn" destination="RND-4K-oz2" id="KhA-xo-AG8"/>
@@ -774,7 +773,7 @@
         <scene sceneID="i1n-oP-u8k">
             <objects>
                 <navigationController id="FU1-kq-c05" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Match" id="0zk-Pf-rpy"/>
+                    <tabBarItem key="tabBarItem" title="Match" image="icons8-search-filled-50" id="0zk-Pf-rpy"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="v4T-e4-JRw">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -856,10 +855,10 @@
             </objects>
             <point key="canvasLocation" x="3439" y="-541"/>
         </scene>
-        <!--View Controller-->
+        <!--History View Controller-->
         <scene sceneID="PHF-bF-g2k">
             <objects>
-                <viewController storyboardIdentifier="HistoryVC" id="LTO-a5-lhf" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HistoryVC" hidesBottomBarWhenPushed="YES" id="LTO-a5-lhf" customClass="HistoryViewController" customModule="WhatToEat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SFM-IJ-Ru3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1018,7 +1017,7 @@
             </objects>
             <point key="canvasLocation" x="-4127" y="-209"/>
         </scene>
-        <!--Item-->
+        <!--Me-->
         <scene sceneID="J5k-fC-Edg">
             <objects>
                 <viewController id="eeq-Dq-87G" sceneMemberID="viewController">
@@ -1043,7 +1042,7 @@
                         <viewLayoutGuide key="safeArea" id="Wbb-Pi-nlD"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="aeD-o4-SIM"/>
-                    <navigationItem key="navigationItem" id="uw4-PV-KX2"/>
+                    <navigationItem key="navigationItem" title="Me" id="DK1-7i-cah"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WHL-cV-shI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1354,7 +1353,7 @@
         <scene sceneID="X2M-yq-IVf">
             <objects>
                 <navigationController id="PuA-s9-vDu" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Me" id="6qF-BW-aHE"/>
+                    <tabBarItem key="tabBarItem" title="Me" image="icons8-user-50" id="6qF-BW-aHE"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="mGs-RH-Aa5">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1372,6 +1371,10 @@
         <image name="TwitterShareButton" width="183" height="60"/>
         <image name="emptyStar_2x" width="75" height="75"/>
         <image name="facebook-icon" width="200" height="200"/>
+        <image name="icons8-restaurant-table-filled-50" width="25" height="25"/>
+        <image name="icons8-search-filled-50" width="25" height="25"/>
+        <image name="icons8-share-50" width="25" height="25"/>
+        <image name="icons8-user-50" width="25" height="25"/>
         <image name="restaurant" width="50" height="50"/>
     </resources>
 </document>

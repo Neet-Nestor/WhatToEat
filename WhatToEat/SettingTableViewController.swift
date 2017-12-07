@@ -118,5 +118,11 @@ class SettingTableViewController: UITableViewController {
             present(historyVC!, animated: true, completion: nil)
         }*/
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.destination is HistoryViewController) {
+            segue.destination.navigationItem.title = "History"
+        }
+    }
 
 }

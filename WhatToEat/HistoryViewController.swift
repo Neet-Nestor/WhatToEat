@@ -2,7 +2,7 @@
 //  HistoryViewController.swift
 //  WhatToEat
 //
-//  Created by Student User on 12/6/17.
+//  Created by Student User on 12/7/17.
 //  Copyright © 2017 Nestor Qin. All rights reserved.
 //
 
@@ -12,6 +12,7 @@ class HistoryViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         // Do any additional setup after loading the view.
     }
 

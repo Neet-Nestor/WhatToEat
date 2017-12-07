@@ -50,9 +50,9 @@
 		499313EF1FB0E40F0048EE36 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 499313ED1FB0E40F0048EE36 /* Main.storyboard */; };
 		499313F11FB0E40F0048EE36 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 499313F01FB0E40F0048EE36 /* Assets.xcassets */; };
 		499313F41FB0E40F0048EE36 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 499313F21FB0E40F0048EE36 /* LaunchScreen.storyboard */; };
-		49A1F9F21FD8BBF1006DA131 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A1F9F11FD8BBF1006DA131 /* HistoryViewController.swift */; };
 		49A1F9F71FD8DE70006DA131 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A1F9F61FD8DE70006DA131 /* AddViewController.swift */; };
 		49A1F9F91FD91927006DA131 /* AddContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A1F9F81FD91927006DA131 /* AddContainerViewController.swift */; };
+		49B4FFE61FD9B4EA00FAD007 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B4FFE51FD9B4EA00FAD007 /* HistoryViewController.swift */; };
 		49F573041FC6B82700E55E3B /* RestaurantListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F573031FC6B82700E55E3B /* RestaurantListCell.swift */; };
 		CC8641961FD3FB58004D79C5 /* RestaurantTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8641951FD3FB58004D79C5 /* RestaurantTableViewController.swift */; };
 		CCBA0AF61FD78EF600D3F9AB /* RestListDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBA0AF51FD78EF600D3F9AB /* RestListDAO.swift */; };
@@ -109,9 +109,9 @@
 		499313F01FB0E40F0048EE36 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		499313F31FB0E40F0048EE36 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		499313F51FB0E40F0048EE36 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		49A1F9F11FD8BBF1006DA131 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		49A1F9F61FD8DE70006DA131 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 		49A1F9F81FD91927006DA131 /* AddContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContainerViewController.swift; sourceTree = "<group>"; };
+		49B4FFE51FD9B4EA00FAD007 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		49B9690B1FD5480700D9BD27 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		49B9690C1FD5481600D9BD27 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		49B9690D1FD5483200D9BD27 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -242,7 +242,7 @@
 				498C3D741FCF4B1900D1108D /* CommentLikeView.swift */,
 				498C3D761FCF621A00D1108D /* Menu.swift */,
 				49B969101FD54AAA00D9BD27 /* WhatToEat-Bridging-Header.h */,
-				49A1F9F11FD8BBF1006DA131 /* HistoryViewController.swift */,
+				49B4FFE51FD9B4EA00FAD007 /* HistoryViewController.swift */,
 			);
 			path = WhatToEat;
 			sourceTree = "<group>";
@@ -420,7 +420,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				495652EB1FD3F5D500E27833 /* Cache.swift in Sources */,
-				49A1F9F21FD8BBF1006DA131 /* HistoryViewController.swift in Sources */,
 				495652FB1FD3F5D500E27833 /* NSURLResponse+Haneke.swift in Sources */,
 				DF60C0501FCE307600F8F390 /* Coordinate.swift in Sources */,
 				CCBA0AF61FD78EF600D3F9AB /* RestListDAO.swift in Sources */,
@@ -459,6 +458,7 @@
 				498C3D6B1FCF41DE00D1108D /* PingLunFun.swift in Sources */,
 				495652EE1FD3F5D500E27833 /* Data.swift in Sources */,
 				495653001FD3F5D500E27833 /* UIView+Haneke.swift in Sources */,
+				49B4FFE61FD9B4EA00FAD007 /* HistoryViewController.swift in Sources */,
 				498C3D691FCF3F4600D1108D /* MomentsViewController.swift in Sources */,
 				49A1F9F71FD8DE70006DA131 /* AddViewController.swift in Sources */,
 				CC8641961FD3FB58004D79C5 /* RestaurantTableViewController.swift in Sources */,

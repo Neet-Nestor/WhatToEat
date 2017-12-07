@@ -9,9 +9,11 @@
 import UIKit
 import CoreLocation
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     @IBOutlet weak var matchBtn: UIButton!
+    @IBOutlet weak var listPicker: UIPickerView!
+    var lists = ["Match Nearby"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +23,8 @@ class MainViewController: UIViewController {
         matchBtn.layer.borderColor = UIColor.black.cgColor
         matchBtn.layer.cornerRadius = matchBtn.frame.width / 2.0
         matchBtn.clipsToBounds = true
+        listPicker.delegate = self
+        listPicker.dataSource = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -28,7 +32,21 @@ class MainViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
     
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return lists.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return lists[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+    }
 
     /*
     // MARK: - Navigation

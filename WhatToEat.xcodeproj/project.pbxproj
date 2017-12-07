@@ -45,12 +45,12 @@
 		498C3D771FCF621A00D1108D /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498C3D761FCF621A00D1108D /* Menu.swift */; };
 		498C40531FCFA20500D1108D /* DisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498C40521FCFA20500D1108D /* DisplayView.swift */; };
 		498C41D81FD0C64C00D1108D /* FinishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498C41D71FD0C64C00D1108D /* FinishViewController.swift */; };
-		498C41F51FD23F9000D1108D /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498C41F41FD23F9000D1108D /* SettingsTableViewController.swift */; };
 		499313EA1FB0E40F0048EE36 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499313E91FB0E40F0048EE36 /* AppDelegate.swift */; };
 		499313EC1FB0E40F0048EE36 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499313EB1FB0E40F0048EE36 /* ViewController.swift */; };
 		499313EF1FB0E40F0048EE36 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 499313ED1FB0E40F0048EE36 /* Main.storyboard */; };
 		499313F11FB0E40F0048EE36 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 499313F01FB0E40F0048EE36 /* Assets.xcassets */; };
 		499313F41FB0E40F0048EE36 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 499313F21FB0E40F0048EE36 /* LaunchScreen.storyboard */; };
+		49A1F9F21FD8BBF1006DA131 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A1F9F11FD8BBF1006DA131 /* HistoryViewController.swift */; };
 		49F573041FC6B82700E55E3B /* RestaurantListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F573031FC6B82700E55E3B /* RestaurantListCell.swift */; };
 		CC8641961FD3FB58004D79C5 /* RestaurantTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8641951FD3FB58004D79C5 /* RestaurantTableViewController.swift */; };
 		CCBA0AF61FD78EF600D3F9AB /* RestListDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBA0AF51FD78EF600D3F9AB /* RestListDAO.swift */; };
@@ -100,7 +100,6 @@
 		498C3D761FCF621A00D1108D /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		498C40521FCFA20500D1108D /* DisplayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayView.swift; sourceTree = "<group>"; };
 		498C41D71FD0C64C00D1108D /* FinishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishViewController.swift; sourceTree = "<group>"; };
-		498C41F41FD23F9000D1108D /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		499313E61FB0E40F0048EE36 /* WhatToEat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhatToEat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		499313E91FB0E40F0048EE36 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		499313EB1FB0E40F0048EE36 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -108,6 +107,7 @@
 		499313F01FB0E40F0048EE36 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		499313F31FB0E40F0048EE36 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		499313F51FB0E40F0048EE36 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		49A1F9F11FD8BBF1006DA131 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		49B9690B1FD5480700D9BD27 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		49B9690C1FD5481600D9BD27 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		49B9690D1FD5483200D9BD27 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -235,8 +235,8 @@
 				498C3D721FCF4A9A00D1108D /* MomentsTableViewCell.swift */,
 				498C3D741FCF4B1900D1108D /* CommentLikeView.swift */,
 				498C3D761FCF621A00D1108D /* Menu.swift */,
-				498C41F41FD23F9000D1108D /* SettingsTableViewController.swift */,
 				49B969101FD54AAA00D9BD27 /* WhatToEat-Bridging-Header.h */,
+				49A1F9F11FD8BBF1006DA131 /* HistoryViewController.swift */,
 			);
 			path = WhatToEat;
 			sourceTree = "<group>";
@@ -414,12 +414,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				495652EB1FD3F5D500E27833 /* Cache.swift in Sources */,
+				49A1F9F21FD8BBF1006DA131 /* HistoryViewController.swift in Sources */,
 				495652FB1FD3F5D500E27833 /* NSURLResponse+Haneke.swift in Sources */,
 				DF60C0501FCE307600F8F390 /* Coordinate.swift in Sources */,
 				CCBA0AF61FD78EF600D3F9AB /* RestListDAO.swift in Sources */,
 				495652F71FD3F5D500E27833 /* Log.swift in Sources */,
 				495652EC1FD3F5D500E27833 /* CGSize+Swift.swift in Sources */,
-				498C41F51FD23F9000D1108D /* SettingsTableViewController.swift in Sources */,
 				495652FD1FD3F5D500E27833 /* UIButton+Haneke.swift in Sources */,
 				495652F01FD3F5D500E27833 /* DiskFetcher.swift in Sources */,
 				495652FF1FD3F5D500E27833 /* UIImageView+Haneke.swift in Sources */,

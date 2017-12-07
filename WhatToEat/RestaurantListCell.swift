@@ -13,7 +13,9 @@ class RestaurantListCell: UITableViewCell {
     @IBOutlet weak var miniImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet var stars: [UIImageView]!
-    @IBOutlet var tags: [UILabel]!
+    @IBOutlet weak var tags: UILabel!
+    @IBOutlet weak var address: UILabel!
+    
     
     
     override func awakeFromNib() {

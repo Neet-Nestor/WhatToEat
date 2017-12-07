@@ -41,12 +41,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
         if (url.scheme == "wb521970512") {
             let weiboHandled = WeiboSDK.handleOpen(url, delegate: self)
             return weiboHandled
-        } else if (url.scheme == "fb690304267826071") {
- */
-            let handled: Bool = SDKApplicationDelegate.shared.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
-            return handled
-        //}
-        NSLog("scheme: \(url)")
+        } else
+        if (url.scheme == "fb690304267826071") {*/
+            return SDKApplicationDelegate.shared.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
+        /*} else if (url.scheme == "twitterkit-fgu8UmO7uQ9TX4ivyzCNZOa8S") {
+            return Twitter.sharedInstance().application(application, open: url, options: options)
+        }*/
         
         //return false
     }
@@ -54,7 +54,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
     func application(_ app: UIApplication,
                      open url: URL,
                      options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        return WeiboSDK.handleOpen(url, delegate: self as! WeiboSDKDelegate)
+        /*if (url.scheme == "fb690304267826071") {
+            return SDKApplicationDelegate.shared.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
+        } else if (url.scheme == "twitterkit-fgu8UmO7uQ9TX4ivyzCNZOa8S") {
+            */return Twitter.sharedInstance().application(app, open: url, options: options)
+        //}
     }
     
     /*

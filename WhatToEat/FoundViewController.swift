@@ -14,6 +14,7 @@ import TwitterKit
 
 class FoundViewController: UIViewController {
 
+    @IBOutlet weak var tweetBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,14 +22,18 @@ class FoundViewController: UIViewController {
             // User is logged in, do work such as go to next view controller.
         }
 
-        let loginButton = LoginButton(readPermissions: [ .publicProfile, .email, .userFriends ])
+        // let loginButton = LoginButton(readPermissions: [ .publicProfile, .email, .userFriends ])
         // loginButton.center = CGPoint(x: view.center.x,y:750)
         let shareContent = LinkShareContent(url: URL(string:"https://newsroom.fb.com/")!)
         let FBShareBtn = ShareButton<LinkShareContent>()
         FBShareBtn.content = shareContent
-        FBShareBtn.center = self.view.center
+        //FBShareBtn.frame.origin = CGPoint(x: tweetBtn.frame.minX - FBShareBtn.frame.width - 15, y: tweetBtn.frame.minY)
+        FBShareBtn.frame.origin = CGPoint(x: tweetBtn.frame.origin.x - FBShareBtn.frame.width - 15, y: tweetBtn.frame.origin.y)
+        FBShareBtn.frame.size = CGSize(width: FBShareBtn.frame.width, height: tweetBtn.frame.height)
+
         // loginButton.frame.size = CGSize(width: 80, height:FBShareBtn.frame.height)
         // self.view.addSubview(loginButton)
+        /*
         let TwilogInButton = TWTRLogInButton(logInCompletion: { session, error in
             if (session != nil) {
                 print("signed in as \(session?.userName)");
@@ -36,10 +41,18 @@ class FoundViewController: UIViewController {
                 print("error: \(error?.localizedDescription)");
             }
         })
-        TwilogInButton.center = CGPoint(x: 150,y:500)
+        TwilogInButton.center = CGPoint(x: view.center.x,y:UIScreen.main.bounds.height - TwilogInButton.frame.height - 50)
         self.view.addSubview(TwilogInButton)
+        */
+
         self.view.addSubview(FBShareBtn)
-        self.view.addSubview(loginButton)
+        //self.view.addSubview(loginButton)
+        //FBShareBtn.leadingAnchor.
+        //FBShareBtn.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 15).isActive = true
+       // FBShareBtn.trailingAnchor.constraint(equalTo: self.tweetBtn.leadingAnchor, constant: 15).isActive = true
+        //TwilogInButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 50).isActive = true
+        //let twiXConstraint = NSLayoutConstraint(item: TwilogInButton, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0)
+        //TwilogInButton.addConstraint(twiXConstraint)
     }
 
     override func didReceiveMemoryWarning() {
@@ -65,7 +78,25 @@ class FoundViewController: UIViewController {
         try? shareDialog.show()
     }
  
-    
+    @IBAction func tweet(_ sender: Any) {
+        if (Twitter.sharedInstance().sessionStore.hasLoggedInUsers()) {
+            // App must have at least one logged-in user to compose a Tweet
+            let composer = TWTRComposerViewController.emptyComposer()
+            present(composer, animated: true, completion: nil)
+        } else {
+            // Log in, and then check again
+            Twitter.sharedInstance().logIn { session, error in
+                if session != nil { // Log in succeeded
+                    let composer = TWTRComposerViewController.emptyComposer()
+                    self.present(composer, animated: true, completion: nil)
+                } else {
+                    let alert = UIAlertController(title: "No Twitter Accounts Available", message: "You must log in before presenting a composer.", preferredStyle: .alert)
+                    self.present(alert, animated: false, completion: nil)
+                }
+            }
+        }
+    }
+    /*
     @IBAction func weibo(_ sender: Any) {
         do {
             let WBRequest = try WBAuthorizeRequest()
@@ -78,7 +109,7 @@ class FoundViewController: UIViewController {
             NSLog("\(error)")
         }
     }
-    
+    */
     /*
     // MARK: - Navigation
 

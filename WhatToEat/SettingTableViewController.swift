@@ -112,8 +112,11 @@ class SettingTableViewController: UITableViewController {
                 case .success(let grantedPermissions, let declinedPermissions, let accessToken):
                     print("Logged in!")
                 }
-        }
-    }
+            }
+        } /*else if (indexPath.row == 0 && indexPath.section == 2) {
+            let historyVC = storyboard?.instantiateViewController(withIdentifier: "HistoryVC")
+            present(historyVC!, animated: true, completion: nil)
+        }*/
     }
 
 }

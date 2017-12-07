@@ -232,6 +232,7 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func unwindToMoments(segue:UIStoryboardSegue) { }
 
     /*
     // MARK: - Navigation

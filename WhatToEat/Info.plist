@@ -2,14 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>WhatToEat has to be able to access your photos to upload them to Moments.</string>
 	<key>kRedirectURL</key>
 	<string>https://api.weibo.com/oauth2/default.html</string>
 	<key>kAppKey</key>
 	<string>521970512</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>This app will use the location data to search for the restaurants nearby.</string>
+	<string>WhatToEat will use the location data to search for the restaurants nearby.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app will use the location data to search for the restaurants nearby.</string>
+	<string>WhatToEat will use the location data to search for the restaurants nearby.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>

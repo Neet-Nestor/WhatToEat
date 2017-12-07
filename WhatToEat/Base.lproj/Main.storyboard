@@ -29,6 +29,35 @@
             </objects>
             <point key="canvasLocation" x="-780" y="641"/>
         </scene>
+        <!--Title-->
+        <scene sceneID="sfZ-9b-dRY">
+            <objects>
+                <viewController id="d7U-lt-S1b" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="U2D-CY-Jn4">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="v7f-ic-bJA">
+                                <rect key="frame" x="0.0" y="64" width="375" height="200"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.91270644430051817" green="0.91270644430051817" blue="0.91270644430051817" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="MQh-mD-fhJ"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Title" id="ogU-0s-0YD">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="2lE-63-fhK"/>
+                        <barButtonItem key="rightBarButtonItem" title="Post" id="kWv-uM-nOT"/>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jWk-PF-pCh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="61.600000000000001" y="1378.56071964018"/>
+        </scene>
         <!--Moments-->
         <scene sceneID="ZJB-Rb-KDE">
             <objects>
@@ -39,7 +68,14 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="zph-5t-ztJ"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Moments" id="CFO-dO-J7B"/>
+                    <navigationItem key="navigationItem" title="Moments" id="CFO-dO-J7B">
+                        <barButtonItem key="rightBarButtonItem" title="New" id="gpy-Nx-583">
+                            <connections>
+                                <action selector="newMoment:" destination="5DJ-tk-HRB" id="24K-1K-MXw"/>
+                                <segue destination="d7U-lt-S1b" kind="show" id="U2F-l6-cNa"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yXD-0N-PyN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -58,6 +58,15 @@ class RestaurantTableViewController: UIViewController, UITableViewDataSource, UI
                 cell.stars[index].image = UIImage(named: "filledStar_2x")
             }
         }
+        cell.tags.text = restList?.list[indexPath.row].getTags().joined(separator: ", ")
+        cell.address.text = restList?.list[indexPath.row].getAddr().toString()
+        
+    //todo
+        let dis = restList?.list[indexPath.row].getCoordinate()
+                                                .getKmDistance(other:
+                                                Coordinate(latitude: 37, longitude: -122))
+        cell.distance.text = "\(dis ?? 0) km"
+        cell.cost.text = "$"//restList?.list[indexPath.row].getDollarSign()
         return cell
     }
     
@@ -107,5 +116,4 @@ class RestaurantTableViewController: UIViewController, UITableViewDataSource, UI
         // Pass the selected object to the new view controller.
     }
     */
-
 }

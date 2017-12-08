@@ -15,8 +15,8 @@ class RestaurantListCell: UITableViewCell {
     @IBOutlet var stars: [UIImageView]!
     @IBOutlet weak var tags: UILabel!
     @IBOutlet weak var address: UILabel!
-    
-    
+    @IBOutlet weak var distance: UILabel!
+    @IBOutlet weak var cost: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

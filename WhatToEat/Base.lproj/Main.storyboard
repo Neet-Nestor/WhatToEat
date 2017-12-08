@@ -316,6 +316,8 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="address" destination="2vf-KI-DI4" id="KlC-n0-bTB"/>
+                                            <outlet property="cost" destination="pyj-wJ-riV" id="CWv-9v-KgC"/>
+                                            <outlet property="distance" destination="6zU-9V-oqO" id="EPf-ok-byZ"/>
                                             <outlet property="miniImage" destination="ehx-QE-9Rn" id="INd-L3-97H"/>
                                             <outlet property="nameLabel" destination="Vk0-W2-Wwl" id="dxu-ab-Ngj"/>
                                             <outlet property="tags" destination="O0m-Ii-AP0" id="g93-jD-YsA"/>
@@ -652,6 +654,8 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="address" destination="hcl-e0-njY" id="sVl-W3-Roa"/>
+                                            <outlet property="cost" destination="aor-lR-hdd" id="6lh-GA-iSf"/>
+                                            <outlet property="distance" destination="JOy-op-k3b" id="FaC-z0-Y0j"/>
                                             <outlet property="miniImage" destination="Vw4-40-qQq" id="KLG-ln-H2L"/>
                                             <outlet property="nameLabel" destination="ZqF-62-MHa" id="2ln-5N-GeS"/>
                                             <outlet property="tags" destination="M7j-Bh-cgZ" id="oa6-uZ-5vI"/>

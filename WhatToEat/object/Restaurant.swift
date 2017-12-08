@@ -39,6 +39,7 @@ class Restaurant: NSObject, NSCoding  {
         self.phone = aDecoder.decodeObject(forKey: "phone") as! String
         self.avg_price = aDecoder.decodeObject(forKey: "avg_price") as? Double
         self.my_price = aDecoder.decodeObject(forKey: "my_price") as? [Double]
+        
     }
 
     // MARK: Restaurant Fields
@@ -54,6 +55,7 @@ class Restaurant: NSObject, NSCoding  {
 //    private var longitude:Double
     private var address: Address
     private var phone:String
+//    private var dollarSign:String
     private var avg_price:Double?
     private var my_price:[Double]?
     
@@ -78,6 +80,7 @@ class Restaurant: NSObject, NSCoding  {
         self.phone = json["display_phone"] as! String
         self.avg_price = 0
         if let price = json["price"] as? String {
+//            self.dollarSign = price
             if (price == "$") {
                 self.avg_price = 10.0
             } else if (price == "$$") {
@@ -106,6 +109,10 @@ class Restaurant: NSObject, NSCoding  {
         }
         return image
     }
+    
+//    public func getDollarSign() -> String {
+//        return self.dollarSign
+//    }
     
     public func getURL() -> String {
         return self.url

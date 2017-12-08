@@ -67,7 +67,8 @@ class LaunchScreenViewController: UIViewController, CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Failed to find user's location: \(error.localizedDescription)")
-        Common.saveToRestList(latitude : 37.785834, longitude : -122.406417)
+        Common.saveToRestList(latitude : Common.defaultLocation.getLatitude()!,
+                              longitude : Common.defaultLocation.getLongitude()!)
         showLocationDisabledPopUp()
     }
     

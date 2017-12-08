@@ -61,12 +61,13 @@ class RestaurantTableViewController: UIViewController, UITableViewDataSource, UI
         cell.tags.text = restList?.list[indexPath.row].getTags().joined(separator: ", ")
         cell.address.text = restList?.list[indexPath.row].getAddr().toString()
         
-    //todo
+        let restLocation = restList?.list[indexPath.row].getCoordinate()
+        let myLocation = restList?.getLocation()
         let dis = restList?.list[indexPath.row].getCoordinate()
-                                                .getKmDistance(other:
-                                                Coordinate(latitude: 37, longitude: -122))
+            .getKmDistance(other: (restList?.getLocation())!)
+        
         cell.distance.text = "\(dis ?? 0) km"
-        cell.cost.text = "$"//restList?.list[indexPath.row].getDollarSign()
+        cell.cost.text = restList?.list[indexPath.row].getDollarSign()
         return cell
     }
     
@@ -100,7 +101,8 @@ class RestaurantTableViewController: UIViewController, UITableViewDataSource, UI
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Failed to find user's location: \(error.localizedDescription)")
-        Common.saveToRestList(latitude : 37.785834, longitude : -122.406417)
+        Common.saveToRestList(latitude : Common.defaultLocation.getLatitude()!,
+                              longitude : Common.defaultLocation.getLongitude()!)
         showLocationDisabledPopUp()
         tableview.reloadData()
         refresher.endRefreshing()

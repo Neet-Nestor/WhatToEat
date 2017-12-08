@@ -16,6 +16,7 @@ class RestList: NSObject, NSCoding {
         aCoder.encode(name, forKey: "name")
         aCoder.encode(list, forKey: "list")
         aCoder.encode(data, forKey: "data")
+        aCoder.encode(location, forKey: "location")
     }
     
     
@@ -32,7 +33,12 @@ class RestList: NSObject, NSCoding {
             os_log("Unable to decode the name for a Meal object.", log: OSLog.default, type: .debug)
             return nil
         }
-        self.init(name: name, list: list, data: data)
+        
+        guard let location = aDecoder.decodeObject(forKey: "location") as? Coordinate else {
+            os_log("Unable to decode the name for a Meal object.", log: OSLog.default, type: .debug)
+            return nil
+        }
+        self.init(name: name, list: list, data: data, location: location)
     }
     
     // MARK: Fields
@@ -40,24 +46,29 @@ class RestList: NSObject, NSCoding {
     public var list:[Restaurant]
     private var data:[String: Int]
     private var kill:String?
+    private var location : Coordinate?
     
     // MARK: Initializers
-    init(json: [String:Any], name: String) {
+    init(json: [String:Any], name: String, location : Coordinate? = nil) {
         self.name = name;
         self.list = []
         self.data = [:]
         let data = json["businesses"] as! [Any]
         for rest in data {
-            var rest = Restaurant(json: rest as! [String:Any])
+            let rest = Restaurant(json: rest as! [String:Any])
             list.append(rest)
             self.data[rest.getId()] = rest.getRating() * 4
         }
+        if (location != nil) {
+            self.location = location!
+        }
     }
     
-    init(name: String, list: [Restaurant], data: [String:Int]) {
+    init(name: String, list: [Restaurant], data: [String:Int], location: Coordinate) {
         self.name = name
         self.list = list
         self.data = data
+        self.location = location
     }
     
     // MARK: Functions
@@ -71,6 +82,13 @@ class RestList: NSObject, NSCoding {
             }
         }
         return false
+    }
+    
+    public func getLocation() -> Coordinate {
+        if let location = self.location {
+            return location
+        }
+        return Common.defaultLocation
     }
     
     // Add an object into list

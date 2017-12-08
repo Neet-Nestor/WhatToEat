@@ -24,6 +24,7 @@ class Restaurant: NSObject, NSCoding  {
         aCoder.encode(phone, forKey: "phone")
         aCoder.encode(avg_price, forKey: "avg_price")
         aCoder.encode(my_price, forKey: "my_price")
+        aCoder.encode(dollarSign, forKey: "dollarSign")
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -39,6 +40,7 @@ class Restaurant: NSObject, NSCoding  {
         self.phone = aDecoder.decodeObject(forKey: "phone") as! String
         self.avg_price = aDecoder.decodeObject(forKey: "avg_price") as? Double
         self.my_price = aDecoder.decodeObject(forKey: "my_price") as? [Double]
+        self.dollarSign = aDecoder.decodeObject(forKey: "dollarSign") as? String
         
     }
 
@@ -55,9 +57,9 @@ class Restaurant: NSObject, NSCoding  {
 //    private var longitude:Double
     private var address: Address
     private var phone:String
-//    private var dollarSign:String
     private var avg_price:Double?
     private var my_price:[Double]?
+    private var dollarSign:String?
     
     // MARK: Initializer
     
@@ -80,7 +82,7 @@ class Restaurant: NSObject, NSCoding  {
         self.phone = json["display_phone"] as! String
         self.avg_price = 0
         if let price = json["price"] as? String {
-//            self.dollarSign = price
+            self.dollarSign = price
             if (price == "$") {
                 self.avg_price = 10.0
             } else if (price == "$$") {
@@ -110,9 +112,12 @@ class Restaurant: NSObject, NSCoding  {
         return image
     }
     
-//    public func getDollarSign() -> String {
-//        return self.dollarSign
-//    }
+    public func getDollarSign() -> String {
+        if let value = self.dollarSign {
+            return value
+        }
+        return ""
+    }
     
     public func getURL() -> String {
         return self.url

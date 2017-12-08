@@ -46,7 +46,8 @@ class Coordinate :NSObject, NSCoding {
         if (self.latitude == nil || self.longitude == nil || other.longitude == nil || other.latitude == nil) {
             return 0.0
         }
-        return getDistanceFromLatLonInKm(lat1: self.latitude!, lon1: self.longitude!, lat2: other.getLatitude()!, lon2: other.getLongitude()!)
+        let dis = getDistanceFromLatLonInKm(lat1: self.latitude!, lon1: self.longitude!, lat2: other.getLatitude()!, lon2: other.getLongitude()!)
+        return Double(round(100*dis)/100)
     }
     
     // helper function for getKMDistance

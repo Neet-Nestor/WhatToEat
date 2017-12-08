@@ -16,6 +16,12 @@ class Common {
 //        case custom
 //    }
     
+    public static var defaultLocation : Coordinate {
+        get {
+            return Coordinate(latitude: 37.785834, longitude: -122.406417)
+        }
+    }
+    
     public static func haha() -> Int {
         return 0
     }
@@ -27,14 +33,15 @@ class Common {
         request.addValue(tokenString, forHTTPHeaderField: "Authorization")
         let session = URLSession.shared
         let tache = session.dataTask(with: request) { (data, response, error) -> Void in
-            //            if (error != nil) {
-            //                return
-            //            }
+//            if (error != nil) {
+//                return
+//            }
             let responseParse = response as! HTTPURLResponse
             if (responseParse.statusCode == 200) {
                 // save data to object
                 let dict = try! JSONSerialization.jsonObject(with: data!, options: [])
-                let restList = RestList(json: dict as! [String : Any], name: "baseOnLocation")
+                let restList = RestList(json: dict as! [String : Any], name: "baseOnLocation",
+                                        location: Coordinate(latitude : latitude, longitude : longitude))
                 let dao = RestListDAO()
                 dao.savelist(restList)
                 dao.save()

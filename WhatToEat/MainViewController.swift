@@ -47,6 +47,16 @@ class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.destination is PreviewListViewController) {
+            let previewVC = segue.destination as! PreviewListViewController
+            let dao = RestListDAO.getDAO()
+            previewVC.restList = dao!.getList("baseOnLocation")!
+        }
+    }
+    
+    @IBAction func unwindToMain(segue:UIStoryboardSegue) { }
 
     /*
     // MARK: - Navigation

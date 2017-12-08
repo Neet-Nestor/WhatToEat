@@ -10,10 +10,13 @@ import UIKit
 
 class FinishViewController: UIViewController {
 
+    @IBOutlet weak var nameLabel: UILabel!
+    var restName: String = "Error"
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.nameLabel.text = restName
     }
 
     override func didReceiveMemoryWarning() {

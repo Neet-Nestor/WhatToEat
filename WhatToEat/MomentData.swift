@@ -16,7 +16,6 @@ var dataItem = [
         "avator":"WechatIMG15",
         "content":"写了一天码！！改了一万个报错！！终于把这个朋友圈（仿造）写完了！！！",
         "imageUrls":[
-            "WechatIMG16"
         ]
     ],
     [

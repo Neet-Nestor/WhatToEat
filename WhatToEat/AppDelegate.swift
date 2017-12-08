@@ -30,35 +30,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         //WeiboSDK.enableDebugMode(true)
         //WeiboSDK.registerApp("521970512")
-        Twitter.sharedInstance().start(withConsumerKey: "fgu8UmO7uQ9TX4ivyzCNZOa8S", consumerSecret: "7sdPZL7MEKlTJ7akP8uQ8Ir8Y4YdzTrvVt7QjhkFybzWhjoBov")
+        Twitter.sharedInstance().start(withConsumerKey: "ILt3tj0pk4MUk5Qne45GHRjlD", consumerSecret: "sldP0IAMcqLzgwCAtKvcN3hKgMnTmhF4CCWu7kosQ7aVJFF7zY")
+
         return true
     }
-    
+
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        // let handled: Bool = FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
-        // Add any custom logic here.
-        /*
-        if (url.scheme == "wb521970512") {
-            let weiboHandled = WeiboSDK.handleOpen(url, delegate: self)
-            return weiboHandled
-        } else
-        if (url.scheme == "fb690304267826071") {*/
-            return SDKApplicationDelegate.shared.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
-        /*} else if (url.scheme == "twitterkit-fgu8UmO7uQ9TX4ivyzCNZOa8S") {
-            return Twitter.sharedInstance().application(application, open: url, options: options)
-        }*/
-        
-        //return false
+    // let handled: Bool = FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
+    // Add any custom logic here.
+        let handled: Bool = SDKApplicationDelegate.shared.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
+        return handled
     }
     
     func application(_ app: UIApplication,
                      open url: URL,
                      options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        /*if (url.scheme == "fb690304267826071") {
-            return SDKApplicationDelegate.shared.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
-        } else if (url.scheme == "twitterkit-fgu8UmO7uQ9TX4ivyzCNZOa8S") {
-            */return Twitter.sharedInstance().application(app, open: url, options: options)
-        //}
+        return Twitter.sharedInstance().application(app, open: url, options: options)
     }
     
     /*

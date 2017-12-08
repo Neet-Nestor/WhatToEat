@@ -67,7 +67,7 @@ extension UILabel {
 func cellHeightByData(data:String)->CGFloat{
     
     let content = data
-    let height=content.stringHeightWith(fontSize: 13,width: UIScreen.main.bounds.width - 55 - 10)
+    let height=content.stringHeightWith(fontSize: 15,width: UIScreen.main.bounds.width - 55 - 10)
     return  height
     
 }

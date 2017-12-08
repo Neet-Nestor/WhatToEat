@@ -85,50 +85,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="199.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2fU-vH-V75">
-                                                    <rect key="frame" x="16" y="148" width="46" height="46"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" title="+"/>
-                                                    <connections>
-                                                        <action selector="addImage:" destination="xaa-2A-Uij" eventType="touchUpInside" id="2rH-bu-8JX"/>
-                                                    </connections>
-                                                </button>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qFg-35-MX6">
-                                                    <rect key="frame" x="70" y="149" width="46" height="46"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
                                                 <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Share Your Experience!" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9bR-Iq-eGt">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="141"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection id="5Yc-G2-pco">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="82v-8U-hfn">
-                                        <rect key="frame" x="0.0" y="271" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="82v-8U-hfn" id="b5e-fc-YlA">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection id="xfx-7A-Ep8">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="6rf-GJ-wcw">
-                                        <rect key="frame" x="0.0" y="351" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6rf-GJ-wcw" id="oLH-zR-3Vv">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -140,7 +104,6 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <outlet property="imageView" destination="qFg-35-MX6" id="L8M-Me-vIh"/>
                         <outlet property="momentsEditTableView" destination="deX-wH-XX1" id="HD5-ly-Fdm"/>
                     </connections>
                 </tableViewController>
@@ -737,7 +700,7 @@
                                 </constraints>
                                 <state key="normal" backgroundImage="TwitterShareButton"/>
                                 <connections>
-                                    <action selector="tweet:" destination="Yby-Dw-SOL" eventType="touchUpInside" id="xtD-ox-Gid"/>
+                                    <action selector="tweet:" destination="Yby-Dw-SOL" eventType="touchUpInside" id="JZ8-s0-1PT"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -766,9 +729,6 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <outlet property="tweetBtn" destination="pKF-HQ-sSh" id="NNc-7r-Zew"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HWm-GR-tuf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -18,22 +18,11 @@ class FoundViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if (FBSDKAccessToken.current() != nil) {
-            // User is logged in, do work such as go to next view controller.
-        }
-
-        // let loginButton = LoginButton(readPermissions: [ .publicProfile, .email, .userFriends ])
-        // loginButton.center = CGPoint(x: view.center.x,y:750)
-        let shareContent = LinkShareContent(url: URL(string:"https://newsroom.fb.com/")!)
+        let shareContent = LinkShareContent(url: URL(string:"http://students.washington.edu/qiny8")!)
         let FBShareBtn = ShareButton<LinkShareContent>()
         FBShareBtn.content = shareContent
-        //FBShareBtn.frame.origin = CGPoint(x: tweetBtn.frame.minX - FBShareBtn.frame.width - 15, y: tweetBtn.frame.minY)
-        FBShareBtn.frame.origin = CGPoint(x: tweetBtn.frame.origin.x - FBShareBtn.frame.width - 15, y: tweetBtn.frame.origin.y)
-        FBShareBtn.frame.size = CGSize(width: FBShareBtn.frame.width, height: tweetBtn.frame.height)
-
-        // loginButton.frame.size = CGSize(width: 80, height:FBShareBtn.frame.height)
-        // self.view.addSubview(loginButton)
-        /*
+        FBShareBtn.center = CGPoint(x: view.center.x,y:view.center.y + 150)
+        self.view.addSubview(FBShareBtn)
         let TwilogInButton = TWTRLogInButton(logInCompletion: { session, error in
             if (session != nil) {
                 print("signed in as \(session?.userName)");
@@ -41,15 +30,11 @@ class FoundViewController: UIViewController {
                 print("error: \(error?.localizedDescription)");
             }
         })
-        TwilogInButton.center = CGPoint(x: view.center.x,y:UIScreen.main.bounds.height - TwilogInButton.frame.height - 50)
-        self.view.addSubview(TwilogInButton)
-        */
-
         self.view.addSubview(FBShareBtn)
         //self.view.addSubview(loginButton)
         //FBShareBtn.leadingAnchor.
         //FBShareBtn.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 15).isActive = true
-       // FBShareBtn.trailingAnchor.constraint(equalTo: self.tweetBtn.leadingAnchor, constant: 15).isActive = true
+        //FBShareBtn.trailingAnchor.constraint(equalTo: self.tweetBtn.leadingAnchor, constant: 15).isActive = true
         //TwilogInButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 50).isActive = true
         //let twiXConstraint = NSLayoutConstraint(item: TwilogInButton, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0)
         //TwilogInButton.addConstraint(twiXConstraint)

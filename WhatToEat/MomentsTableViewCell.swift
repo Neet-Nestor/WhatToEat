@@ -50,8 +50,9 @@ class MomentsTableViewCell: UITableViewCell {
         self.contentView.addSubview(nameLabel)
         contentLabel.numberOfLines = 0
         contentLabel.textColor = UIColor.black
-        contentLabel.font = UIFont.systemFont(ofSize: 13)
+        contentLabel.font = UIFont.systemFont(ofSize: 15)
         contentLabel.textAlignment = .justified
+    
         contentLabel.sizeToFit()
         timeLabel.font = UIFont.systemFont(ofSize: 12)
         timeLabel.textColor = UIColor.gray
@@ -179,14 +180,14 @@ class MomentsTableViewCell: UITableViewCell {
             for i in 0..<CommentNameArray.count{
                 let comment_view = CommentView()
                 //comment_view.nameLabel.text = CommentNameArray[i]
-                var mutableString = NSMutableAttributedString(string: "\(CommentNameArray[i]): \(CommentArray[i])")
-                mutableString.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.blue, range: NSRange(location:0,length:CommentNameArray[i].count))
+                let mutableString = NSMutableAttributedString(string: "\(CommentNameArray[i]): \(CommentArray[i])")
+                mutableString.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor(red: 74/255, green: 83/255, blue: 200/255, alpha: 1), range: NSRange(location:0,length:CommentNameArray[i].count))
                 // set label Attribute
-                let h4 = "\(CommentNameArray[i]): \(CommentArray[i])".stringHeightWith(fontSize: 15, width: 300)
+                let h4 = "\(CommentNameArray[i]): \(CommentArray[i])".stringHeightWith(fontSize: 17, width: 300)
                 NSLog("\(h4)")
                 comment_view.commentLabel.attributedText = mutableString
-                comment_view.commentLabel.frame = CGRect(origin: CGPoint(x:0,y:2), size: CGSize(width:300,height:h4))
-                comment_view.frame = CGRect(origin: CGPoint(x:55,y:h3+(totalyCommentHeight)), size:CGSize(width:UIScreen.main.bounds.width - 10 - 55 - 15,height:h4))
+                comment_view.commentLabel.frame = CGRect(origin: CGPoint(x:5,y:2), size: CGSize(width:290,height:h4))
+                comment_view.frame = CGRect(origin: CGPoint(x:55,y:h3+(totalyCommentHeight)), size:CGSize(width:UIScreen.main.bounds.width - 10 - 55 - 15,height:h4 + 5))
                 totalyCommentHeight = totalyCommentHeight + h4
                 //comment_view.commentLabel.sizeToFit()
                 //comment_view.sizeToFit()

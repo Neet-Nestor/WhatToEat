@@ -221,7 +221,7 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @objc func sendComment(_ sender:UIButton){
-        goodComm[sender.tag]["commentName"]!.append("胖大海")
+        goodComm[sender.tag]["commentName"]!.append("Neet")
         goodComm[sender.tag]["comment"]!.append(commentView.commentTextField.text!)
         self.commentView.commentTextField.resignFirstResponder()
         self.tableView?.reloadData()

@@ -40,7 +40,7 @@ class PreviewListViewController: UIViewController, UITableViewDelegate, UITableV
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (restList != nil) {
-            return self.restList!.list.count
+            return self.restList!.count()
         } else {
             return 0
         }
@@ -49,7 +49,8 @@ class PreviewListViewController: UIViewController, UITableViewDelegate, UITableV
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "previewTableCell", for: indexPath) as! RestaurantListCell
         // Configure the cell...
-        let rest = restList?.list[indexPath.row]
+
+        let rest = restList?.getRest(indexPath.row)
         cell.nameLabel.text = rest?.getName()
         cell.miniImage.image = (rest?.getImage())!
         //cell.stars[0].image = UIImage(named: "filledStar_2x")

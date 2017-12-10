@@ -45,29 +45,29 @@ class RestaurantTableViewController: UIViewController, UITableViewDataSource, UI
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (restList != nil) ? restList!.list.count : 0
+        return (restList != nil) ? restList!.count() : 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! RestaurantListCell
-        cell.nameLabel.text = restList?.list[indexPath.row].getName()
-        cell.miniImage.image = (restList?.list[indexPath.row].getImage())!
+        cell.nameLabel.text = restList?.getRest(indexPath.row).getName()
+        cell.miniImage.image = (restList?.getRest(indexPath.row).getImage())!
         //cell.stars[0].image = UIImage(named: "filledStar_2x")
-        if let star = restList?.list[indexPath.row].getRating() {
+        if let star = restList?.getRest(indexPath.row).getRating() {
             for index in 0...(star - 1) {
                 cell.stars[index].image = UIImage(named: "filledStar_2x")
             }
         }
-        cell.tags.text = restList?.list[indexPath.row].getTags().joined(separator: ", ")
-        cell.address.text = restList?.list[indexPath.row].getAddr().toString()
+        cell.tags.text = restList?.getRest(indexPath.row).getTags().joined(separator: ", ")
+        cell.address.text = restList?.getRest(indexPath.row).getAddr().toString()
         
-        let restLocation = restList?.list[indexPath.row].getCoordinate()
+        let restLocation = restList?.getRest(indexPath.row).getCoordinate()
         let myLocation = restList?.getLocation()
-        let dis = restList?.list[indexPath.row].getCoordinate()
+        let dis = restList?.getRest(indexPath.row).getCoordinate()
             .getKmDistance(other: (restList?.getLocation())!)
         
         cell.distance.text = "\(dis ?? 0) km"
-        cell.cost.text = restList?.list[indexPath.row].getDollarSign()
+        cell.cost.text = restList?.getRest(indexPath.row).getDollarSign()
         return cell
     }
     

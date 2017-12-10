@@ -58,7 +58,7 @@ class Restaurant: NSObject, NSCoding  {
     private var address: Address
     private var phone:String
     private var avg_price:Double?
-    private var my_price:[Double]?
+    public var my_price:[Double]?
     private var dollarSign:String?
     
     // MARK: Initializer
@@ -175,6 +175,14 @@ class Restaurant: NSObject, NSCoding  {
                 result = result + price
             }
             return result / Double(my_price!.count)
+        }
+    }
+    
+    public func getLastPrice() -> Double {
+        if self.my_price == nil {
+            return 0
+        } else {
+            return my_price![my_price!.capacity - 1]
         }
     }
     

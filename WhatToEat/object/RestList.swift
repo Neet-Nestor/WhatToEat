@@ -25,7 +25,7 @@ class RestList: NSObject, NSCoding {
             os_log("Unable to decode the name for a Meal object.", log: OSLog.default, type: .debug)
             return nil
         }
-        guard let list = aDecoder.decodeObject(forKey: "list") as? [Restaurant] else {
+        guard let list = aDecoder.decodeObject(forKey: "list") as? [String] else {
             os_log("Unable to decode the name for a Meal object.", log: OSLog.default, type: .debug)
             return nil
         }
@@ -42,29 +42,46 @@ class RestList: NSObject, NSCoding {
     }
     
     // MARK: Fields
+    public var totalList:WhatToEatCompleteRestList
     public var name:String
-    public var list:[Restaurant]
+    public var list:[String]
     private var data:[String: Int]
-    private var kill:String?
+//    private var kill:String?
     private var location : Coordinate?
     
     // MARK: Initializers
     init(json: [String:Any], name: String, location : Coordinate? = nil) {
+        var myList = WhatToEatCompleteRestList.read();
+        if myList == nil {
+            self.totalList = WhatToEatCompleteRestList()
+            
+        } else {
+            self.totalList = myList!
+        }
         self.name = name;
         self.list = []
         self.data = [:]
         let data = json["businesses"] as! [Any]
         for rest in data {
             let rest = Restaurant(json: rest as! [String:Any])
-            list.append(rest)
+            self.list.append(rest.getId())
+            totalList.add(rest)
             self.data[rest.getId()] = rest.getRating() * 4
         }
         if (location != nil) {
             self.location = location!
         }
+        totalList.save()
     }
     
-    init(name: String, list: [Restaurant], data: [String:Int], location: Coordinate) {
+    init(name: String, list: [String], data: [String:Int], location: Coordinate) {
+        var myList = WhatToEatCompleteRestList.read();
+        if myList == nil {
+            self.totalList = WhatToEatCompleteRestList()
+            
+        } else {
+            self.totalList = myList!
+        }
         self.name = name
         self.list = list
         self.data = data
@@ -75,9 +92,12 @@ class RestList: NSObject, NSCoding {
     
     // Returns a boolean if the restaurant is in list
     public func contains(_ rest: Restaurant) -> Bool {
-        let target = rest.getId()
+        return self.contains(rest.getId())
+    }
+    
+    public func contains(_ rest: String) -> Bool {
         for item in self.list {
-            if target == item.getId() {
+            if rest == item {
                 return true
             }
         }
@@ -94,7 +114,10 @@ class RestList: NSObject, NSCoding {
     // Add an object into list
     public func add(_ rest: Restaurant) {
         if (!self.contains(rest)) {
-            self.list.append(rest);
+            self.list.append(rest.getId())
+            self.data[rest.getId()] = rest.getRating() * 4
+            self.totalList.add(rest)
+            totalList.save()
         }
     }
     
@@ -103,8 +126,8 @@ class RestList: NSObject, NSCoding {
         let target = rest.getId()
         if (self.contains(rest)) {
             var result = 0
-            for item in list {
-                if item.getId() == target {
+            for item in self.list {
+                if item == target {
                     return result
                 }
                 result = result + 1
@@ -117,18 +140,22 @@ class RestList: NSObject, NSCoding {
     
     // Get the Restaurant with given name
     public func getRest(_ withid:String) -> Restaurant? {
-        for item in self.list {
-            if item.getId() == withid {
-                return item
-            }
+        if self.contains(withid) {
+            return totalList.getRest(withid)
         }
         return nil
+    }
+    
+    public func getRest(_ index: Int) -> Restaurant {
+        return getRest(self.list[index])!
     }
     
     // Remove the Restaurant object in list
     public func remove(_ rest: Restaurant) {
         if (self.contains(rest)) {
+            self.data.removeValue(forKey: rest.getId())
             self.list.remove(at: self.getIndex(rest))
+//            self.list.remove(at: self.getIndex(rest))
         }
     }
     
@@ -152,12 +179,12 @@ class RestList: NSObject, NSCoding {
     
     private func randomHelp() -> String? {
         var total:Int = 0
-        for item in data.keys {
+        for item in self.list {
             total = total + data[item]!
         }
         var rand:Int = Int(arc4random_uniform(UInt32(total)))
         var cur:Int = 0
-        for item in data.keys {
+        for item in self.list {
             cur = cur + data[item]!
             if (cur > rand) {
                 return item
@@ -165,6 +192,10 @@ class RestList: NSObject, NSCoding {
         }
         
         return nil
+    }
+    
+    public func count() -> Int {
+        return self.list.count
     }
     
     // Read the RestList stored in the given directory

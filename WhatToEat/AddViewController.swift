@@ -9,20 +9,25 @@
 import UIKit
 import Photos
 
-class AddViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class AddViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate {
     
+    @IBOutlet weak var textField: UITextView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet var momentsEditTableView: UITableView!
     let picker = UIImagePickerController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        picker.delegate = self
+//        picker.delegate = self
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        self.hideKeyboardWhenTappedAround()
+        textField.text = "Tell others your experience!"
+        textField.textColor = UIColor.lightGray
+        textField.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,6 +35,20 @@ class AddViewController: UITableViewController, UIImagePickerControllerDelegate,
         // Dispose of any resources that can be recreated.
     }
 
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray {
+            textView.text = nil
+            textView.textColor = UIColor.black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "Tell others your experience!"
+            textView.textColor = UIColor.lightGray
+        }
+    }
+    
     // MARK: - Table view data source
 
     @IBAction func addImage(_ sender: Any) {

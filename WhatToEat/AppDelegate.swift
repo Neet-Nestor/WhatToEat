@@ -11,6 +11,55 @@ import FBSDKCoreKit
 import FacebookCore
 import TwitterKit
 
+struct FbResponse: GraphRequestProtocol {
+    
+    var graphPath = "/me"
+    var parameters: [String : Any]? = ["fields": "id, name, picture, friends, email"]
+    var accessToken = AccessToken.current
+    var httpMethod: GraphRequestHTTPMethod = .GET
+    var apiVersion: GraphAPIVersion = .defaultVersion
+    
+    struct Response: GraphResponseProtocol {
+        var name: String?
+        var id: String?
+        var friends: Dictionary<String, Any>?
+        var email: String?
+        var profilePictureUrl: String?
+        
+        init(rawResponse: Any?) {
+            // Decode JSON from rawResponse into other properties here.
+            guard let response = rawResponse as? Dictionary<String, Any> else {
+                return
+            }
+            
+            if let name = response["name"] as? String {
+                self.name = name
+            }
+            
+            if let id = response["id"] as? String {
+                self.id = id
+            }
+            
+            if let friends = response["friends"] as? Dictionary<String, Any> {
+                self.friends = friends
+            }
+            
+            if let email = response["email"] as? String {
+                self.email = email
+            }
+            
+            if let picture = response["picture"] as? Dictionary<String, Any> {
+                
+                if let data = picture["data"] as? Dictionary<String, Any> {
+                    if let url = data["url"] as? String {
+                        self.profilePictureUrl = url
+                    }
+                }
+            }
+        }
+    }
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
     func didReceiveWeiboRequest(_ request: WBBaseRequest!) {
@@ -38,14 +87,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
     // let handled: Bool = FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
     // Add any custom logic here.
-        let handled: Bool = SDKApplicationDelegate.shared.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
+        var handled = false
+        if (url.scheme == "fb690304267826071") {
+            handled = SDKApplicationDelegate.shared.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
+        }
         return handled
     }
     
     func application(_ app: UIApplication,
                      open url: URL,
                      options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        return Twitter.sharedInstance().application(app, open: url, options: options)
+        if (url.scheme == "twitterkit-ILt3tj0pk4MUk5Qne45GHRjlD") {
+            return Twitter.sharedInstance().application(app, open: url, options: options)
+        }
+        return false
     }
     
     /*

@@ -36,22 +36,24 @@ class Common {
 //            if (error != nil) {
 //                return
 //            }
-            let responseParse = response as! HTTPURLResponse
-            if (responseParse.statusCode == 200) {
-                // save data to object
-                let dict = try! JSONSerialization.jsonObject(with: data!, options: [])
-                let restList = RestList(json: dict as! [String : Any], name: "baseOnLocation",
-                                        location: Coordinate(latitude : latitude, longitude : longitude))
-                let dao = RestListDAO()
-                dao.savelist(restList)
-                dao.save()
-            }
+            if (response != nil) {
+                let responseParse = response as! HTTPURLResponse
+                if (responseParse.statusCode == 200) {
+                    // save data to object
+                    let dict = try! JSONSerialization.jsonObject(with: data!, options: [])
+                    let restList = RestList(json: dict as! [String : Any], name: "baseOnLocation",
+                                            location: Coordinate(latitude : latitude, longitude : longitude))
+                    let dao = RestListDAO()
+                    dao.savelist(restList)
+                    dao.save()
+                }
 //            } else {
 //                //send alert when status code is not 200
 //                let alert = UIAlertController(title: "Alert", message: "statusCode: \(responseParse.statusCode)", preferredStyle: UIAlertControllerStyle.alert)
 //                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
 //                vc.present(alert, animated: true, completion: nil)
 //            }
+            }
         }
         tache.resume()
     }

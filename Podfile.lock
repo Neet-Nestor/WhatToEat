@@ -27,6 +27,9 @@ PODS:
   - NVActivityIndicatorView (4.0.1):
     - NVActivityIndicatorView/Presenter (= 4.0.1)
   - NVActivityIndicatorView/Presenter (4.0.1)
+  - Socket.IO-Client-Swift (12.1.3):
+    - Starscream (~> 2.1.1)
+  - Starscream (2.1.1)
   - TwitterCore (3.0.3)
   - TwitterKit (3.2.2):
     - TwitterCore (>= 3.0.3)
@@ -37,6 +40,7 @@ DEPENDENCIES:
   - FacebookLogin
   - FacebookShare
   - NVActivityIndicatorView
+  - Socket.IO-Client-Swift (~> 12)
   - TwitterKit
   - Weibo_SDK (from `https://github.com/sinaweibosdk/weibo_ios_sdk.git`)
 
@@ -58,10 +62,12 @@ SPEC CHECKSUMS:
   FBSDKLoginKit: 56a057ca6822535ea0faa25f57a7c41edb697fd4
   FBSDKShareKit: 18a2cd118aef11dd657fe7e8b64bae5c719088b2
   NVActivityIndicatorView: 77ed6d7b571643e24899e7858bf9ae2ee4c21f31
+  Socket.IO-Client-Swift: 2d3838d0e7bc105626872081fb6a23141145e8f8
+  Starscream: 142bd8ef24592d985daee9fa48c936070b85b15f
   TwitterCore: 549c74ed5f3d6134392dc944c6d215e233e50ad8
   TwitterKit: b9feccfc70bef86fe389c06a63a72fed9f020b9c
   Weibo_SDK: 652ca78c2f7147a5de5e75e7cbea89838a81772a
 
-PODFILE CHECKSUM: 7f599b5b75f90745f8f0469f0a788fb89039093e
+PODFILE CHECKSUM: 90369caef24c2de6dcb2b328c7127d8a0bf643a2
 
 COCOAPODS: 1.3.1

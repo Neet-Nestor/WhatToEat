@@ -111,6 +111,42 @@ class SettingTableViewController: UITableViewController {
                     print("User cancelled login.")
                 case .success(let grantedPermissions, let declinedPermissions, let accessToken):
                     print("Logged in!")
+
+                    
+                    let connection = GraphRequestConnection()
+                    connection.add(FbResponse()) { response, result in
+                        switch result {
+                        case .success(let response):
+                            print("Custom Graph Request Succeeded: \(response)")
+                            print("My facebook id is \(response.id)")
+                            print("My name is \(response.name)")
+                            print("My picture is \(response.profilePictureUrl)")
+                            var friendObjects = response.friends!["data"] as! [NSDictionary]
+                            for friendObject in friendObjects {
+                                print(friendObject["id"] as! NSString)
+                            }
+                            print("\(friendObjects.count)")
+                        case .failed(let error):
+                            print("Custom Graph Request Failed: \(error)")
+                        }
+                    }
+                    connection.start()
+                    
+//                    let params = ["fields": "id, first_name, last_name, name, email, picture"]
+//                    let graphRequest = GraphRequestConnection(graphPath: "/me/friends", parameters: params)
+//                    let connection = FBSDKGraphRequestConnection()
+//                    connection.add(graphRequest, completionHandler: { (connection, result, error) in
+//                        if error == nil {
+//                            if let userData = result as? [String:Any] {
+//                                print(userData)
+//                            }
+//                        } else {
+//                            print("Error Getting Friends \(error)");
+//                        }
+//
+//                    })
+                    
+                    connection.start()
                 }
             }
         } /*else if (indexPath.row == 0 && indexPath.section == 2) {

@@ -90,7 +90,7 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
         if cell == nil{
             cell = MomentsTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: identify)
         }
-        comment_height = cell!.setData(name: dataItem[indexPath.row]["name"]! as! String, imagePic: dataItem[indexPath.row]["avator"]! as! String,content: dataItem[indexPath.row]["content"]! as! String,imgData: dataItem[indexPath.row]["imageUrls"]! as! [String],indexRow:indexPath as NSIndexPath,selectItem: selectItems[indexPath.row],like:goodComm[indexPath.row]["good"]!,likeItem:likeItems[indexPath.row],CommentNameArray:goodComm[indexPath.row]["commentName"]! ,CommentArray:goodComm[indexPath.row]["comment"]! )
+        comment_height = cell!.setData(name: dataItem[indexPath.row]["user_name"]! as! String, imagePic: dataItem[indexPath.row]["avator"]! as! String,content: dataItem[indexPath.row]["content"]! as! String,imgData: dataItem[indexPath.row]["image_urls"]! as! [String],indexRow:indexPath as NSIndexPath,selectItem: selectItems[indexPath.row],likeArray:dataItem[indexPath.row]["likes"]! as! [[String : String]],likeItem:likeItems[indexPath.row],CommentArray:dataItem[indexPath.row]["comments"]! as! [[String : String]] )
 //        cell!.displayView.tapedImageV = {[unowned self] index in
 //            cell!.pbVC.show(inVC: self,index: index)
 //        }
@@ -115,7 +115,7 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
  
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
         var h_content = cellHeightByData(data: dataItem[indexPath.row]["content"]! as! String)
-        let h_image = cellHeightByData1(imageNum: (dataItem[indexPath.row]["imageUrls"]! as AnyObject).count)
+        let h_image = cellHeightByData1(imageNum: (dataItem[indexPath.row]["image_urls"]! as AnyObject).count)
         var h_like:CGFloat = 0.0
         // let h_comment = cellHeightByCommentNum(Comment: goodComm[indexPath.row]["commentName"]!.count)
         if h_content>13*5{
@@ -123,10 +123,15 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
                 h_content = 13*5
             }
         }
-        if goodComm[indexPath.row]["good"]!.count > 0{
-            h_like = 40
+        let likesArray = dataItem[indexPath.row]["likes"] as! [[String: Any]]
+        if likesArray.count > 0{
+            var likesString:String = likesArray[0]["user_name"] as! String
+            for index in 1...likesArray.count - 1 {
+                likesString = "\(likesString), \(likesArray[index]["user_name"])"
+            }
+            h_like = likesString.stringHeightWith(fontSize: 14, width: UIScreen.main.bounds.width - 10 - 55 - 15)
         }
-        return h_content + h_image + 40 + h_like + comment_height
+        return h_content + h_image + 60 + h_like + comment_height
     }
 
     
@@ -221,8 +226,8 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @objc func sendComment(_ sender:UIButton){
-        goodComm[sender.tag]["commentName"]!.append("Neet")
-        goodComm[sender.tag]["comment"]!.append(commentView.commentTextField.text!)
+//        goodComm[sender.tag]["commentName"]!.append("Neet")
+//        goodComm[sender.tag]["comment"]!.append(commentView.commentTextField.text!)
         self.commentView.commentTextField.resignFirstResponder()
         self.tableView?.reloadData()
     }

@@ -16,14 +16,23 @@ import TwitterKit
 class FoundViewController: UIViewController {
 
     @IBOutlet weak var tweetBtn: UIButton!
-    var resultRest: Restaurant?
-    @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var miniImage: UIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet var stars: [UIImageView]!
+    @IBOutlet weak var tagsLabel: UILabel!
+    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var distanceLabel: UILabel!
+    @IBOutlet weak var priceLabel: UILabel!
+    var resultRest: Restaurant?
+    var myLocation: Coordinate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         if (resultRest != nil) {
-            self.nameLabel.text = resultRest?.getName()
+            if (resultRest != nil) {
+                self.nameLabel.text = resultRest?.getName()
+            }
             let point = MKPointAnnotation()
             let latitude = resultRest?.getCoordinate().getLatitude()
             let longitude = resultRest?.getCoordinate().getLongitude()
@@ -37,16 +46,22 @@ class FoundViewController: UIViewController {
         let shareContent = LinkShareContent(url: URL(string:"http://students.washington.edu/qiny8")!)
         let FBShareBtn = ShareButton<LinkShareContent>()
         FBShareBtn.content = shareContent
-        FBShareBtn.center = CGPoint(x: view.center.x,y:view.center.y + 150)
+        FBShareBtn.center = CGPoint(x: tweetBtn.frame.minX - 50 ,y: view.frame.maxY - 49 - 28)
         self.view.addSubview(FBShareBtn)
-        let TwilogInButton = TWTRLogInButton(logInCompletion: { session, error in
-            if (session != nil) {
-                print("signed in as \(session?.userName)");
-            } else {
-                print("error: \(error?.localizedDescription)");
-            }
-        })
+//        let TwilogInButton = TWTRLogInButton(logInCompletion: { session, error in
+//            if (session != nil) {
+//                print("signed in as \(session?.userName)");
+//            } else {
+//                print("error: \(error?.localizedDescription)");
+//            }
+//        })
         self.view.addSubview(FBShareBtn)
+//        let margins = view.layoutMarginsGuide
+//        let consBottom = NSLayoutConstraint(item: FBShareBtn, attribute: .bottom, relatedBy: .equal, toItem: margins, attribute: .bottom, multiplier: 1.0, constant: 13.0)
+//        consBottom.isActive = true
+//        let consRight = NSLayoutConstraint(item: FBShareBtn, attribute: .trailing, relatedBy: .equal, toItem: tweetBtn, attribute: .leading, multiplier: 1.0, constant: 15.0)
+//        consRight.isActive = true
+//        view.addConstraints([consRight, consBottom])
         //self.view.addSubview(loginButton)
         //FBShareBtn.leadingAnchor.
         //FBShareBtn.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 15).isActive = true
@@ -64,6 +79,26 @@ class FoundViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationItem.title = "Congratulation!"
+    }
+    
+    func setResultRest() {
+        self.nameLabel.text = resultRest?.getName()
+        self.miniImage.image = (resultRest?.getImage())!
+        //cell.stars[0].image = UIImage(named: "filledStar_2x")
+        if let star = resultRest?.getRating() {
+            for index in 0...(star - 1) {
+                self.stars[index].image = UIImage(named: "filledStar_2x")
+            }
+        }
+        self.tagsLabel.text = resultRest?.getTags().joined(separator: ", ")
+        self.addressLabel.text = resultRest?.getAddr().toString()
+        
+        let restLocation = resultRest?.getCoordinate()
+        let dis = resultRest?.getCoordinate()
+            .getKmDistance(other: myLocation!)
+        
+        self.distanceLabel.text = "\(dis ?? 0) km"
+        self.priceLabel.text = resultRest?.getDollarSign()
     }
 
     @IBAction func shareToFB(_ sender: UIButton) {

@@ -165,6 +165,21 @@ class RestList: NSObject, NSCoding {
         }
     }
     
+    // Remove the Restaurant object with the given name in list
+    public func remove(_ restName: String) {
+        if (self.contains(restName)) {
+            self.data.removeValue(forKey: restName)
+            var result = 0
+            for item in self.list {
+                if item == restName {
+                    break
+                }
+                result = result + 1
+            }
+            self.list.remove(at: result)
+        }
+    }
+    
     // Save this object
     public func save() -> String {
         let ArchiveURL = RestList.DocumentsDirectory.appendingPathComponent(self.name).path;

@@ -76,6 +76,7 @@ class PreviewListViewController: UIViewController, UITableViewDelegate, UITableV
         if (segue.destination is FoundViewController) {
             let foundVC = segue.destination as! FoundViewController
             foundVC.resultRest = restList?.random()
+            foundVC.myLocation = restList?.getLocation()
         }
     }
     /*

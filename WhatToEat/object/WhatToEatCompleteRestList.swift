@@ -70,6 +70,7 @@ class WhatToEatCompleteRestList: NSObject, NSCoding {
         if (!self.contains(rest)) {
             self.list.append(rest);
         }
+        self.save()
     }
     
     public func add(_ rest: [Restaurant]) {
@@ -110,6 +111,7 @@ class WhatToEatCompleteRestList: NSObject, NSCoding {
         if (self.contains(rest)) {
             self.list.remove(at: self.getIndex(rest))
         }
+        self.save()
     }
     
     public func clear() {

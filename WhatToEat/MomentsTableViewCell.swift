@@ -84,7 +84,7 @@ class MomentsTableViewCell: UITableViewCell {
     }
     
     // return height of Comments
-    func setData(name:String,imagePic:String,content:String,imgData:[String],indexRow:NSIndexPath,selectItem:Bool,like:[String],likeItem:Bool,CommentNameArray:[String],CommentArray:[String]) -> CGFloat{
+    func setData(name:String,imagePic:String,content:String,imgData:[String],indexRow:NSIndexPath,selectItem:Bool,likeArray:[[String: String]],likeItem:Bool, CommentArray:[[String: String]]) -> CGFloat{
         var h = cellHeightByData(data: content)
         let h1 = cellHeightByData1(imageNum: imgData.count)
         var h2:CGFloat = 0.0
@@ -102,7 +102,7 @@ class MomentsTableViewCell: UITableViewCell {
                 h = 13*5
                 contentLabel.frame = CGRect(origin: CGPoint(x:55,y:25), size:CGSize(width:UIScreen.main.bounds.width - 55 - 10,height:h))
                 zhankaiBtn = UIButton(frame: CGRect(origin: CGPoint(x:55,y:h+10+17), size:CGSize(width:60,height:15)))
-                zhankaiBtn.setTitle("展开全文", for: .normal)
+                zhankaiBtn.setTitle("Show More", for: .normal)
                 zhankaiBtn.addTarget(self, action: #selector(MomentsTableViewCell.clickDown(_:)), for: .touchUpInside)
                 zhankaiBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
                 zhankaiBtn.setTitleColor(UIColor(red: 74/255, green: 83/255, blue: 130/255, alpha: 1), for: .normal)
@@ -114,7 +114,7 @@ class MomentsTableViewCell: UITableViewCell {
                 cellflag1 = !selectItem
                 contentLabel.frame = CGRect(origin: CGPoint(x:55,y:25), size:CGSize(width:UIScreen.main.bounds.width - 55 - 10,height:h))
                 zhankaiBtn = UIButton(frame: CGRect(origin: CGPoint(x:55,y:h+10+17), size:CGSize(width:60,height:15)))
-                zhankaiBtn.setTitle("点击收起", for: .normal)
+                zhankaiBtn.setTitle("Show Less", for: .normal)
                 zhankaiBtn.addTarget(self, action: #selector(MomentsTableViewCell.clickDown(_:)), for: .touchUpInside)
                 zhankaiBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
                 zhankaiBtn.setTitleColor(UIColor(red: 74/255, green: 83/255, blue: 130/255, alpha: 1), for: .normal)
@@ -133,18 +133,18 @@ class MomentsTableViewCell: UITableViewCell {
         self.menuview.frame.origin.x = UIScreen.main.bounds.width - 10 - 15
         self.menuview.likeBtn.setImage(UIImage(named: "likewhite"), for: .normal)
         if !likeItem{
-            self.menuview.likeBtn.setTitle("赞", for: .normal)
+            self.menuview.likeBtn.setTitle("Like!", for: .normal)
             likeflag = !likeItem
         }
         if likeItem{
-            self.menuview.likeBtn.setTitle("取消赞", for: .normal)
+            self.menuview.likeBtn.setTitle("Cancel Like", for: .normal)
             likeflag = !likeItem
         }
         
         self.menuview.likeBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         self.menuview.commentBtn.setImage(UIImage(named: "c"), for: .normal)
-        self.menuview.commentBtn.setTitle("评论", for: .normal)
-        self.menuview.commentBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        self.menuview.commentBtn.setTitle("Comment", for: .normal)
+        self.menuview.commentBtn.titleLabel?.font = UIFont.systemFont(ofSize: 10)
         self.menuview.likeBtn.tag = indexRow.row
         self.menuview.likeBtn.addTarget(self, action: #selector(MomentsTableViewCell.LikeBtn(_:)), for: .touchUpInside)
         self.menuview.commentBtn.addTarget(self, action: #selector(MomentsTableViewCell.CommentBtn(_:)), for: .touchUpInside)
@@ -163,27 +163,36 @@ class MomentsTableViewCell: UITableViewCell {
             models.append(model)
         }*/
 //        pbVC.photoModels = models
-        if like.count > 0{
-            
-            self.likeView.frame = CGRect(origin: CGPoint(x:55,y:h2+19.5), size:CGSize(width:UIScreen.main.bounds.width - 10 - 55 - 15,height:40))
-            for i in 0..<like.count{
-                likeLabelArray.append(like[i])
+        var likeHeight:CGFloat = 0.0
+        if likeArray.count > 0{
+            var likesString:String = likeArray[0]["user_name"] as! String
+            for index in 1...likeArray.count - 1 {
+                likesString = "\(likesString), \(likeArray[index]["user_name"])"
+            }
+            likeHeight = likesString.stringHeightWith(fontSize: 10, width: UIScreen.main.bounds.width - 10 - 55 - 15)
+            self.likeView.frame = CGRect(origin: CGPoint(x:55,y:h2+19.5), size:CGSize(width:UIScreen.main.bounds.width - 10 - 55 - 15,height:likeHeight))
+            for i in 0..<likeArray.count{
+                likeLabelArray.append(likeArray[i]["user_name"]!)
             }
             self.likeView.likeLabel.text = likeLabelArray.joined(separator: ",")
+            self.likeView.likeLabel.numberOfLines = 0
+            self.likeView.likeLabel.font = UIFont.systemFont(ofSize: 14)
+            self.likeView.likeLabel.lineBreakMode = .byWordWrapping
+            self.likeView.likeLabel.sizeToFit()
             self.contentView.addSubview(self.likeView)
         }
-        if CommentNameArray.count>0{
-            var h3 = h2+19.5+20
-            if like.count == 0{
+        if CommentArray.count>0{
+            var h3 = h2+19.5+likeHeight
+            if likeArray.count == 0{
                 h3 = h2+19.5
             }
-            for i in 0..<CommentNameArray.count{
+            for i in 0..<CommentArray.count{
                 let comment_view = CommentView()
                 //comment_view.nameLabel.text = CommentNameArray[i]
-                let mutableString = NSMutableAttributedString(string: "\(CommentNameArray[i]): \(CommentArray[i])")
-                mutableString.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor(red: 74/255, green: 83/255, blue: 200/255, alpha: 1), range: NSRange(location:0,length:CommentNameArray[i].count))
+                let mutableString = NSMutableAttributedString(string: "\(CommentArray[i]["user_name"]!): \(CommentArray[i]["comment"]!)")
+                mutableString.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor(red: 74/255, green: 83/255, blue: 200/255, alpha: 1), range: NSRange(location:0,length:CommentArray[i]["user_name"]!.count))
                 // set label Attribute
-                let h4 = "\(CommentNameArray[i]): \(CommentArray[i])".stringHeightWith(fontSize: 17, width: 300)
+                let h4 = "\(CommentArray[i]["user_name"]!): \(CommentArray[i]["comment"]!)".stringHeightWith(fontSize: 17, width: 300)
                 NSLog("\(h4)")
                 comment_view.commentLabel.attributedText = mutableString
                 comment_view.commentLabel.frame = CGRect(origin: CGPoint(x:5,y:2), size: CGSize(width:290,height:h4))

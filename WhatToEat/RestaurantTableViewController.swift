@@ -16,7 +16,7 @@ class RestaurantTableViewController: UIViewController, UITableViewDataSource, UI
     let locationManager = CLLocationManager()
     @IBOutlet weak var tableview: UITableView!
     var location: Coordinate?
-    var chosenRestName: String?
+    var chosenRest: Restaurant?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,13 +98,13 @@ class RestaurantTableViewController: UIViewController, UITableViewDataSource, UI
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! RestaurantListCell
-        chosenRestName = cell.nameLabel.text!
+        chosenRest = restList?.getRest(indexPath.row)
         self.performSegue(withIdentifier: "addToListFromNearby", sender: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let des = segue.destination as? AddToListViewController {
-            des.restName = chosenRestName
+            des.rest = chosenRest
         }
     }
     /*

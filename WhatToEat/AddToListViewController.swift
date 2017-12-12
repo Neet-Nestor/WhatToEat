@@ -12,7 +12,7 @@ class AddToListViewController: UIViewController, UITableViewDelegate, UITableVie
 
     @IBOutlet weak var table: UITableView!
     var lists: [RestList]?
-    var restName: String?
+    var rest: Restaurant?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,16 +91,16 @@ class AddToListViewController: UIViewController, UITableViewDelegate, UITableVie
         let alert = UIAlertController(title: "Add to list", message: "Do you sure you want to add the restaurant to this list?", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { _ in
-            let dao = RestListDAO()
+            let dao = RestListDAO.getDAO()
             let cell = self.table.cellForRow(at: indexPath) as! AddToListTableViewCell
-            let chosenList = dao.getList(cell.listNameLabel.text!)
-            if (self.restName != nil) {
+            let chosenList = dao?.getList(cell.listNameLabel.text!)
+            if (self.rest != nil) {
                 var myList = WhatToEatCompleteRestList.read();
                 if myList == nil {
                     myList = WhatToEatCompleteRestList()
                     
                 }
-                chosenList?.add(myList!.getRest(self.restName!)!)
+                chosenList?.add(self.rest!)
                 chosenList?.save()
             } else {
                 let alert2 = UIAlertController(title: "Error", message: "Something", preferredStyle: .alert)

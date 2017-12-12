@@ -27,6 +27,47 @@ class AddToListViewController: UIViewController, UITableViewDelegate, UITableVie
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        let dao = RestListDAO()
+        lists = dao.read()
+    }
+    
+    @IBAction func newList(_ sender: UIBarButtonItem) {
+        //1. Create the alert controller.
+        let alert = UIAlertController(title: "Add new list", message: "Please enter a list name", preferredStyle: .alert)
+        
+        //2. Add the text field. You can configure it however you need.
+        alert.addTextField { (textField) in
+            textField.placeholder = "Delicious list!"
+        }
+        
+        // 3. Grab the value from the text field, and print it when the user clicks OK.
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+            let textField = alert?.textFields![0] // Force unwrapping because we know it exists.
+            print("Text field: \(textField?.text)")
+            var dao = RestListDAO.getDAO()
+            if (textField?.text != nil && textField?.text != "") {
+                if dao != nil && !dao!.contains(textField!.text!) {
+                    let rest = RestList(textField!.text!)
+                    rest.save();
+                    self.table.reloadData()
+                    let sucAlert = UIAlertController(title: "Success", message: "You successfully add a new list!", preferredStyle: .alert)
+                    sucAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: {_ in
+                    }))
+                    self.present(sucAlert, animated: true, completion: nil)
+                } else {
+                    let dupAlert = UIAlertController(title: "Error", message: "You already have this list!", preferredStyle: .alert)
+                    dupAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: {_ in
+                    }))
+                    
+                    self.present(dupAlert, animated: true, completion: nil)
+                }
+            }
+        }))
+        
+        // 4. Present the alert.
+        self.present(alert, animated: true, completion: nil)
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (lists != nil) {
@@ -37,7 +78,9 @@ class AddToListViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "listCell", for: indexPath) as! RestaurantListCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "listCell", for: indexPath) as! AddToListTableViewCell
+        let list = lists![indexPath.row]
+        cell.listNameLabel.text = list.name
         return cell
     }
     

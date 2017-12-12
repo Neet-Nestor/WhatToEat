@@ -26,82 +26,82 @@ import Foundation
 //    ]
 //]
 
-var dataItem = [
-    [
-        "moment_id": "the id of this moment you generate in your database",
-        "user_id": "213498232",
-        "user_name": "Neet",
-        "avator": "https://xxx",
-        "content": "some content",
-        "image_urls": [],
-        "likes":[
-            [
-                "user_id": "222222222222",
-                "user_name": "Neet"
-            ],
-            [
-                "user_id": "1111111111",
-                "user_name": "Andrew"
-            ],
-            [
-                "user_id": "1111111111",
-                "user_name": "Andrew"
-            ],[
-                "user_id": "1111111111",
-                "user_name": "Andrew"
-            ],[
-                "user_id": "1111111111",
-                "user_name": "Andrew"
-            ],[
-                "user_id": "1111111111",
-                "user_name": "Andrew"
-            ],[
-                "user_id": "1111111111",
-                "user_name": "Andrew"
-            ],[
-                "user_id": "1111111111",
-                "user_name": "Andrew"
-            ],[
-                "user_id": "1111111111",
-                "user_name": "Andrew"
-            ]
-        ],
-        "comments": [
-            [
-                "user_id": "222222222222",
-                "user_name": "Neet",
-                "comment": "Happy Birthday Zichu!"
-            ],
-            [
-                "user_id": "1111111111",
-                "user_name": "Andrew",
-                "comment": "Happy Birthday Zichu Again!"
-            ]
-        ]
-    ],
-    [
-        "moment_id": "the id of this moment you generate in your database",
-        "user_id": "213498232",
-        "user_name": "Neet",
-        "avator": "https://xxx",
-        "content": "some content",
-        "image_urls": [],
-        "likes":[
-        ],
-        "comments": [
-            [
-                "user_id": "222222222222",
-                "user_name": "Neet",
-                "comment": "Happy Birthday Zichu!"
-            ],
-            [
-                "user_id": "1111111111",
-                "user_name": "Andrew",
-                "comment": "Happy Birthday Zichu Again!"
-            ]
-        ]
-    ]
-]
+//var dataItem = [
+//    [
+//        "moment_id": "the id of this moment you generate in your database",
+//        "user_id": "213498232",
+//        "user_name": "Neet",
+//        "avator": "https://xxx",
+//        "content": "some content somesome content somesome content somesome content somesome content somesome content somesome content somesome content somesome content somesome content some",
+//        "image_urls": [],
+//        "likes":[
+//            [
+//                "user_id": "222222222222",
+//                "user_name": "Neet"
+//            ],
+//            [
+//                "user_id": "1111111111",
+//                "user_name": "Andrew"
+//            ],
+//            [
+//                "user_id": "1111111111",
+//                "user_name": "Andrew"
+//            ],[
+//                "user_id": "1111111111",
+//                "user_name": "Andrew"
+//            ],[
+//                "user_id": "1111111111",
+//                "user_name": "Andrew"
+//            ],[
+//                "user_id": "1111111111",
+//                "user_name": "Andrew"
+//            ],[
+//                "user_id": "1111111111",
+//                "user_name": "Andrew"
+//            ],[
+//                "user_id": "1111111111",
+//                "user_name": "Andrew"
+//            ],[
+//                "user_id": "1111111111",
+//                "user_name": "Andrew"
+//            ]
+//        ],
+//        "comments": [
+//            [
+//                "user_id": "222222222222",
+//                "user_name": "Neet",
+//                "comment": "Happy Birthday Zichu!"
+//            ],
+//            [
+//                "user_id": "1111111111",
+//                "user_name": "Andrew",
+//                "comment": "Happy Birthday Zichu Again!"
+//            ]
+//        ]
+//    ],
+//    [
+//        "moment_id": "the id of this moment you generate in your database",
+//        "user_id": "213498232",
+//        "user_name": "Neet",
+//        "avator": "https://xxx",
+//        "content": "some content",
+//        "image_urls": [],
+//        "likes":[
+//        ],
+//        "comments": [
+//            [
+//                "user_id": "222222222222",
+//                "user_name": "Neet",
+//                "comment": "Happy Birthday Zichu!"
+//            ],
+//            [
+//                "user_id": "1111111111",
+//                "user_name": "Andrew",
+//                "comment": "Happy Birthday Zichu Again!"
+//            ]
+//        ]
+//    ]
+//]
 //    [
 //        "name":"Tom",
 //        "avator":"22",
@@ -196,4 +196,5 @@ var dataItem = [
 //        ]
 //    ]
 //]
+
 

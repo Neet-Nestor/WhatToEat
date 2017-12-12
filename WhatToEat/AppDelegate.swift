@@ -10,6 +10,7 @@ import UIKit
 import FBSDKCoreKit
 import FacebookCore
 import TwitterKit
+import SocketIO
 
 struct FbResponse: GraphRequestProtocol {
     
@@ -61,14 +62,15 @@ struct FbResponse: GraphRequestProtocol {
 }
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
-    func didReceiveWeiboRequest(_ request: WBBaseRequest!) {
-        
-    }
+class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    func didReceiveWeiboResponse(_ response: WBBaseResponse!) {
-        
-    }
+//    func didReceiveWeiboRequest(_ request: WBBaseRequest!) {
+//
+//    }
+//
+//    func didReceiveWeiboResponse(_ response: WBBaseResponse!) {
+//
+//    }
     
 
     var window: UIWindow?

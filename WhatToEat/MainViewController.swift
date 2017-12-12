@@ -25,6 +25,11 @@ class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         matchBtn.clipsToBounds = true
         listPicker.delegate = self
         listPicker.dataSource = self
+        let dao = RestListDAO()
+        for restList in dao.read() {
+            lists.append(restList.name)
+        }
+        print(lists)
     }
 
     override func didReceiveMemoryWarning() {

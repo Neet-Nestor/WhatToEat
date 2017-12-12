@@ -68,6 +68,7 @@
 		FC82D83D1FDE5CBC00DCB22A /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC82D8341FDE5CBC00DCB22A /* History.swift */; };
 		FC82D83F1FDE646500DCB22A /* AddToListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC82D83E1FDE646500DCB22A /* AddToListViewController.swift */; };
 		FC82D8421FDE6D4400DCB22A /* AddToListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC82D8411FDE6D4400DCB22A /* AddToListTableViewCell.swift */; };
+		FC82D8441FDF518600DCB22A /* EditRestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC82D8431FDF518600DCB22A /* EditRestViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -142,6 +143,7 @@
 		FC82D8341FDE5CBC00DCB22A /* History.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		FC82D83E1FDE646500DCB22A /* AddToListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToListViewController.swift; sourceTree = "<group>"; };
 		FC82D8411FDE6D4400DCB22A /* AddToListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToListTableViewCell.swift; sourceTree = "<group>"; };
+		FC82D8431FDF518600DCB22A /* EditRestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRestViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -257,13 +259,14 @@
 				498C40521FCFA20500D1108D /* DisplayView.swift */,
 				498C3D6E1FCF48C400D1108D /* MomentData.swift */,
 				498C3D681FCF3F4500D1108D /* MomentsViewController.swift */,
-				498C3D701FCF493800D1108D /* CommentView.swift */,
 				498C3D721FCF4A9A00D1108D /* MomentsTableViewCell.swift */,
+				498C3D701FCF493800D1108D /* CommentView.swift */,
 				498C3D741FCF4B1900D1108D /* CommentLikeView.swift */,
 				498C3D761FCF621A00D1108D /* Menu.swift */,
 				49B969101FD54AAA00D9BD27 /* WhatToEat-Bridging-Header.h */,
 				49B4FFE51FD9B4EA00FAD007 /* HistoryViewController.swift */,
 				FC82D8161FDE4DEC00DCB22A /* NewMomentViewController.swift */,
+				FC82D8431FDF518600DCB22A /* EditRestViewController.swift */,
 			);
 			path = WhatToEat;
 			sourceTree = "<group>";
@@ -462,6 +465,7 @@
 				498C3D6F1FCF48C400D1108D /* MomentData.swift in Sources */,
 				FC82D83B1FDE5CBC00DCB22A /* Restaurant.swift in Sources */,
 				498C3D771FCF621A00D1108D /* Menu.swift in Sources */,
+				FC82D8441FDF518600DCB22A /* EditRestViewController.swift in Sources */,
 				49F573041FC6B82700E55E3B /* RestaurantListCell.swift in Sources */,
 				FC82D8361FDE5CBC00DCB22A /* Address.swift in Sources */,
 				495652F91FD3F5D500E27833 /* NSFileManager+Haneke.swift in Sources */,

@@ -15,6 +15,7 @@ class RestaurantTableViewController: UIViewController, UITableViewDataSource, UI
     var refresher: UIRefreshControl!
     let locationManager = CLLocationManager()
     @IBOutlet weak var tableview: UITableView!
+    var location: Coordinate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +28,7 @@ class RestaurantTableViewController: UIViewController, UITableViewDataSource, UI
         tableview.addSubview(refresher)
     }
     
-    @objc func update() {
+    @objc func update(){
         self.locationManager.requestWhenInUseAuthorization()
         
         if CLLocationManager.locationServicesEnabled() {
@@ -62,36 +63,22 @@ class RestaurantTableViewController: UIViewController, UITableViewDataSource, UI
         cell.address.text = restList?.getRest(indexPath.row).getAddr().toString()
         
         let restLocation = restList?.getRest(indexPath.row).getCoordinate()
-        let myLocation = restList?.getLocation()
-        let dis = restList?.getRest(indexPath.row).getCoordinate()
-            .getKmDistance(other: (restList?.getLocation())!)
         
+        
+        var dis = 0.0
+        if (location != nil) {
+            dis = (restList?.getRest(indexPath.row).getCoordinate()
+                .getKmDistance(other: location!))!
+        }
         cell.distance.text = "\(dis ?? 0) km"
         cell.cost.text = restList?.getRest(indexPath.row).getDollarSign()
         return cell
     }
     
-    func showLocationDisabledPopUp() {
-        let alertController = UIAlertController(title: "Location Access Disabled",
-                                                message: "In order to get restaurants list we need your location",
-                                                preferredStyle: .alert)
-        
-        //        let cancelAction = UIAlertAction(title: "Use without location", style: .cancel, handler: nil)
-        let cancelAction = UIAlertAction(title: "Open without location", style: .cancel)
-        alertController.addAction(cancelAction)
-        
-        let openAction = UIAlertAction(title: "Open Settings", style: .default) { (action) in
-            if let url = URL(string: UIApplicationOpenSettingsURLString) {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            }
-        }
-        alertController.addAction(openAction)
-        self.present(alertController, animated: true, completion: nil)
-    }
-    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
         print("locations = \(locValue.latitude) \(locValue.longitude)")
+        location = Coordinate(latitude: locValue.latitude, longitude: locValue.longitude)
         Common.saveToRestList(latitude : locValue.latitude, longitude : locValue.longitude)
         let dao = RestListDAO.getDAO()
         restList = dao!.getList("baseOnLocation")

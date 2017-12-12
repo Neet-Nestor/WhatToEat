@@ -41,8 +41,7 @@ class Common {
                 if (responseParse.statusCode == 200) {
                     // save data to object
                     let dict = try! JSONSerialization.jsonObject(with: data!, options: [])
-                    let restList = RestList(json: dict as! [String : Any], name: "baseOnLocation",
-                                            location: Coordinate(latitude : latitude, longitude : longitude))
+                    let restList = RestList(json: dict as! [String : Any], name: "baseOnLocation")
                     let dao = RestListDAO()
                     dao.savelist(restList)
                     dao.save()

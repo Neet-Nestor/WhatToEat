@@ -25,13 +25,13 @@ class FoundViewController: UIViewController {
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     var resultRest: Restaurant?
-    var myLocation: Coordinate?
+    var distance: Double?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         if (resultRest != nil) {
             if (resultRest != nil) {
-                self.nameLabel.text = resultRest?.getName()
+                setResultRest()
             }
             let point = MKPointAnnotation()
             let latitude = resultRest?.getCoordinate().getLatitude()
@@ -94,10 +94,8 @@ class FoundViewController: UIViewController {
         self.addressLabel.text = resultRest?.getAddr().toString()
         
         let restLocation = resultRest?.getCoordinate()
-        let dis = resultRest?.getCoordinate()
-            .getKmDistance(other: myLocation!)
         
-        self.distanceLabel.text = "\(dis ?? 0) km"
+        self.distanceLabel.text = "\(distance ?? 0) km"
         self.priceLabel.text = resultRest?.getDollarSign()
     }
 
@@ -136,7 +134,8 @@ class FoundViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.destination is FinishViewController) {
             let finishVC = segue.destination as! FinishViewController
-            finishVC.restName = resultRest!.getName()
+            finishVC.resultRest = resultRest
+            finishVC.distance = self.distance
         }
     }
     /*

@@ -88,6 +88,7 @@ class History: NSObject, NSCoding {
 //        }
         totalList.add(rest)
         totalList.save()
+        self.save()
     }
     
     // Get the index of an Restaurant object
@@ -134,7 +135,7 @@ class History: NSObject, NSCoding {
                 totalList.save()
             }
         }
-
+        self.save()
     }
     
     // Get the money totaly spent
@@ -151,6 +152,7 @@ class History: NSObject, NSCoding {
         if index <= self.list.count {
             self.list.remove(at: index)
         }
+        self.save()
     }
     
     // Save this object
@@ -164,9 +166,13 @@ class History: NSObject, NSCoding {
     }
 
     // Read the RestList stored in the given directory
-    public static func read() -> History?  {
+    public static func read() -> History  {
         //        RestList.DocumentsDirectory.path
-        return NSKeyedUnarchiver.unarchiveObject(withFile: ArchiveURL.path) as? History
+        var result = NSKeyedUnarchiver.unarchiveObject(withFile: ArchiveURL.path) as? History
+        if result == nil {
+            result = History()
+        }
+        return result!
     }
     
     // Clear history

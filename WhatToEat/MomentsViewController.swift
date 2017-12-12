@@ -7,9 +7,16 @@
 //
 
 import UIKit
+import SocketIO
+import FacebookCore
+import FacebookLogin
 
 class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,
         UIScrollViewDelegate, UITextFieldDelegate{
+    
+    var socket : SocketIOClient? = nil
+    @IBOutlet weak var loadingLabel: UILabel!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     var tableView:UITableView?
     var refreshControl = UIRefreshControl()
@@ -24,35 +31,78 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
     var test = UITextField()
     var commentView = PingLunFun()
     var comment_height:CGFloat = 0.0
+    var dataArray: [[String: Any]]? = nil
+    var commentsArray: [[String: Any]]? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        for _ in 0...dataItem.count{
-            selectItems.append(false)
-            likeItems.append(false)
+        loadingLabel.isHidden = true
+        spinner.isHidden = true
+        
+        if let accessToken = AccessToken.current {
+            // User is logged in, use 'accessToken' here.
+            loadingLabel.isHidden = false
+            spinner.isHidden = false
+            spinner.startAnimating()
+            
+            // server codes
+            let serverAddr = "http://ec2-54-202-218-99.us-west-2.compute.amazonaws.com:3001"
+            let myURL = URL(string: serverAddr)
+            
+            socket = SocketIOClient(socketURL: myURL!)
+            socket?.on(clientEvent: .connect) {data, ack in
+                print("socket connected")
+                self.socket?.emit("pyqGet")
+            }
+            socket?.on("pyqSend") {data, ack in
+                print("Receive: \(data)")
+            }
+            socket?.on("pyqGet") {data, ack in
+                print("Receive: \(data)")
+                self.dataArray = data[0] as! [[String: Any]]
+                self.commentsArray = data[1] as! [[String: Any]]
+                
+                for _ in 0...self.dataArray!.count{
+                    self.selectItems.append(false)
+                    self.likeItems.append(false)
+                }
+                self.test.delegate = self
+                self.commentView.commentTextField.delegate = self
+                self.self.refreshControl.addTarget(self, action: #selector(MomentsViewController.refreshData),
+                                         for: UIControlEvents.valueChanged)
+                self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+                self.tableView = UITableView(frame: self.view.frame, style:UITableViewStyle.grouped)
+                self.tableView!.delegate = self
+                self.tableView!.dataSource = self
+                self.tableView?.tableHeaderView = self.headerView()
+                self.tableView?.contentInset = UIEdgeInsets(top: 50,left: 0,bottom: 0,right: 0)
+                self.view.addSubview(self.tableView!)
+                self.tableView?.addSubview(self.refreshControl)
+                self.tableView!.allowsMultipleSelection = true
+                self.view.backgroundColor = UIColor.white
+                self.commentView.frame = CGRect(origin: CGPoint(x: 0,y: 0), size: CGSize(width: self.view.bounds.width, height: 30))
+                self.commentView.isHidden = true
+                self.view.addSubview(self.commentView)
+                self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(MomentsViewController.handleTap(_:))))
+                NotificationCenter.default.addObserver(self, selector:#selector(MomentsViewController.keyBoardWillShow(_:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
+                NotificationCenter.default.addObserver(self, selector:#selector(MomentsViewController.keyBoardWillHide(_:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
+                self.tableView?.reloadData()
+                self.spinner.stopAnimating()
+                self.spinner.isHidden = true
+                self.loadingLabel.isHidden = true
+            }
+            
+            socket?.on("pyqLike") {data, ack in
+                print("Receive: \(data)")
+            }
+            
+            socket?.on("pyqComment") {data, ack in
+                print("Receive: \(data)")
+            }
+            socket?.connect()
         }
-        test.delegate = self
-        self.commentView.commentTextField.delegate = self
-        refreshControl.addTarget(self, action: #selector(MomentsViewController.refreshData),
-                                 for: UIControlEvents.valueChanged)
-        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
-        self.tableView = UITableView(frame: self.view.frame, style:UITableViewStyle.grouped)
-        self.tableView!.delegate = self
-        self.tableView!.dataSource = self
-        self.tableView?.tableHeaderView = headerView()
-        self.tableView?.contentInset = UIEdgeInsets(top: 50,left: 0,bottom: 0,right: 0)
-        self.view.addSubview(self.tableView!)
-        self.tableView?.addSubview(refreshControl)
-        self.tableView!.allowsMultipleSelection = true
-        self.view.backgroundColor = UIColor.white
-        commentView.frame = CGRect(origin: CGPoint(x: 0,y: 0), size: CGSize(width: self.view.bounds.width, height: 30))
-        commentView.isHidden = true
-        self.view.addSubview(self.commentView)
-        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(MomentsViewController.handleTap(_:))))
-        NotificationCenter.default.addObserver(self, selector:#selector(MomentsViewController.keyBoardWillShow(_:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(MomentsViewController.keyBoardWillHide(_:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
 
     @objc func refreshData() {
@@ -62,12 +112,20 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1;
+        if let accessToken = AccessToken.current {
+            return 1;
+        }
+        return 0
     }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataItem.count
+        if let accessToken = AccessToken.current {
+            if (dataArray != nil) {
+                return dataArray!.count
+            }
+        }
+        return 0
     }
     
     override func viewDidLayoutSubviews() {
@@ -84,55 +142,61 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
         -> UITableViewCell
     {
-        let identify:String = "SwiftCell\(indexPath.row)"
-        //禁止重用机制
-        var cell:MomentsTableViewCell? = tableView.cellForRow(at: indexPath) as? MomentsTableViewCell
-        if cell == nil{
-            cell = MomentsTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: identify)
-        }
-        comment_height = cell!.setData(name: dataItem[indexPath.row]["user_name"]! as! String, imagePic: dataItem[indexPath.row]["avator"]! as! String,content: dataItem[indexPath.row]["content"]! as! String,imgData: dataItem[indexPath.row]["image_urls"]! as! [String],indexRow:indexPath as NSIndexPath,selectItem: selectItems[indexPath.row],likeArray:dataItem[indexPath.row]["likes"]! as! [[String : String]],likeItem:likeItems[indexPath.row],CommentArray:dataItem[indexPath.row]["comments"]! as! [[String : String]] )
-//        cell!.displayView.tapedImageV = {[unowned self] index in
-//            cell!.pbVC.show(inVC: self,index: index)
-//        }
-        cell!.selectionStyle = .none
-        
-        cell!.heightZhi = { cellflag in
-            self.selectItems[indexPath.row] = cellflag
-            self.tableView?.reloadData()
-        }
-        cell!.likechange = { cellflag in
-            self.likeItems[indexPath.row] = cellflag
-            self.tableView?.reloadData()
-        }
-        cell!.commentchange = { () in
-            self.replyViewDraw = cell!.convert(cell!.bounds,to:self.view.window).origin.y + cell!.frame.size.height
-            self.commentView.commentTextField.becomeFirstResponder()
-            self.commentView.sendBtn.addTarget(self, action: #selector(MomentsViewController.sendComment(_:)), for:.touchUpInside)
-            self.commentView.sendBtn.tag = indexPath.row
-        }
-        return cell!
-    }
- 
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
-        var h_content = cellHeightByData(data: dataItem[indexPath.row]["content"]! as! String)
-        let h_image = cellHeightByData1(imageNum: (dataItem[indexPath.row]["image_urls"]! as AnyObject).count)
-        var h_like:CGFloat = 0.0
-        // let h_comment = cellHeightByCommentNum(Comment: goodComm[indexPath.row]["commentName"]!.count)
-        if h_content>13*5{
-            if !self.selectItems[indexPath.row]{
-                h_content = 13*5
+        if (dataArray != nil) {
+            let identify:String = "SwiftCell\(indexPath.row)"
+            //禁止重用机制
+            var cell:MomentsTableViewCell? = tableView.cellForRow(at: indexPath) as? MomentsTableViewCell
+            if cell == nil{
+                cell = MomentsTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: identify)
             }
-        }
-        let likesArray = dataItem[indexPath.row]["likes"] as! [[String: Any]]
-        if likesArray.count > 0{
-            var likesString:String = likesArray[0]["user_name"] as! String
-            for index in 1...likesArray.count - 1 {
-                likesString = "\(likesString), \(likesArray[index]["user_name"])"
+            comment_height = cell!.setData(name: dataArray![indexPath.row]["user_name"]! as! String, imagePic: dataArray![indexPath.row]["avator"]! as! String,content: dataArray![indexPath.row]["content"]! as! String,imgData: dataArray![indexPath.row]["image_urls"]! as! [String],indexRow:indexPath as NSIndexPath,selectItem: selectItems[indexPath.row],likeArray:dataArray![indexPath.row]["likes"]! as! [[String : String]],likeItem:likeItems[indexPath.row],commentArray:commentsArray![indexPath.row] as! [[String: String]])
+    //        cell!.displayView.tapedImageV = {[unowned self] index in
+    //            cell!.pbVC.show(inVC: self,index: index)
+    //        }
+            cell!.selectionStyle = .none
+            
+            cell!.heightZhi = { cellflag in
+                self.selectItems[indexPath.row] = cellflag
+                self.tableView?.reloadData()
             }
-            h_like = likesString.stringHeightWith(fontSize: 14, width: UIScreen.main.bounds.width - 10 - 55 - 15)
+            cell!.likechange = { cellflag in
+                self.likeItems[indexPath.row] = cellflag
+                self.tableView?.reloadData()
+            }
+            cell!.commentchange = { () in
+                self.replyViewDraw = cell!.convert(cell!.bounds,to:self.view.window).origin.y + cell!.frame.size.height
+                self.commentView.commentTextField.becomeFirstResponder()
+                self.commentView.sendBtn.addTarget(self, action: #selector(MomentsViewController.sendComment(_:)), for:.touchUpInside)
+                self.commentView.sendBtn.tag = indexPath.row
+            }
+            return cell!
         }
-        return h_content + h_image + 60 + h_like + comment_height
+        return UITableViewCell()
     }
+     
+        func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
+            if (dataArray != nil && commentsArray != nil) {
+                var h_content = cellHeightByData(data: dataArray![indexPath.row]["content"]! as! String)
+                let h_image = cellHeightByData1(imageNum: (dataArray![indexPath.row]["image_urls"]! as AnyObject).count)
+                var h_like:CGFloat = 0.0
+                // let h_comment = cellHeightByCommentNum(Comment: goodComm[indexPath.row]["commentName"]!.count)
+                if h_content>13*5{
+                    if !self.selectItems[indexPath.row]{
+                        h_content = 13*5
+                    }
+                }
+                let likesArray = commentsArray![indexPath.row]["likes"] as! [[String: Any]]
+                if likesArray.count > 0{
+                    var likesString:String = likesArray[0]["user_name"] as! String
+                    for index in 1...likesArray.count - 1 {
+                        likesString = "\(likesString), \(likesArray[index]["user_name"])"
+                    }
+                    h_like = likesString.stringHeightWith(fontSize: 14, width: UIScreen.main.bounds.width - 10 - 55 - 15)
+                }
+                return h_content + h_image + 60 + h_like + comment_height
+            }
+            return 0
+        }
 
     
     func headerView() ->UIView{

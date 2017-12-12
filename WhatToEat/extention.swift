@@ -67,7 +67,7 @@ extension UILabel {
 func cellHeightByData(data:String)->CGFloat{
     
     let content = data
-    let height=content.stringHeightWith(fontSize: 15,width: UIScreen.main.bounds.width - 55 - 10)
+    let height=content.stringHeightWith(fontSize: 15,width: UIScreen.main.bounds.width - 55 - 15)
     return  height
     
 }
@@ -109,5 +109,23 @@ extension UIViewController {
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    func showLocationDisabledPopUp() {
+        let alertController = UIAlertController(title: "Location Access Disabled",
+                                                message: "In order to get restaurants list we need your location",
+                                                preferredStyle: .alert)
+        
+        //        let cancelAction = UIAlertAction(title: "Use without location", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Open without location", style: .cancel)
+        alertController.addAction(cancelAction)
+        
+        let openAction = UIAlertAction(title: "Open Settings", style: .default) { (action) in
+            if let url = URL(string: UIApplicationOpenSettingsURLString) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+        alertController.addAction(openAction)
+        self.present(alertController, animated: true, completion: nil)
     }
 }

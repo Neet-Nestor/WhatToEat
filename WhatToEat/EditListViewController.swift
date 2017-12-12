@@ -12,8 +12,9 @@ class EditListViewController: UIViewController, UITableViewDelegate, UITableView
 
     @IBOutlet weak var table: UITableView!
     //var restList: RestList?
-    var testList = ["this", "is", "a", "test"]
+    var lists: [RestList]?
     var listName:String?
+    var selectedList: RestList?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,11 +22,19 @@ class EditListViewController: UIViewController, UITableViewDelegate, UITableView
         // Do any additional setup after loading the view.
         table.delegate = self
         table.dataSource = self
+        let dao = RestListDAO()
+        lists = dao.read()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        let dao = RestListDAO()
+        lists = dao.read()
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -35,27 +44,35 @@ class EditListViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == UITableViewCellEditingStyle.delete) {
             // handle delete (by removing the data from your array and updating the tableview)
-            let cell = table.cellForRow(at: indexPath) as! RestaurantListCell
-            let restName = cell.nameLabel.text!
+            let cell = table.cellForRow(at: indexPath) as! AddToListTableViewCell
+            let listName = cell.listNameLabel.text!
             let dao = RestListDAO()
-            let list = dao.getList(listName!)
-            list?.remove(restName)
-            list?.save()
+//            let list = dao.getList(listName!)
+//            list?.remove(restName)
+//            list?.save()
+            dao.remove(listName)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let dao = RestListDAO()
+        let cell = table.cellForRow(at: indexPath) as! AddToListTableViewCell
+        self.selectedList = dao.getList("\(cell.listNameLabel!.text)")!
     }
     
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        if (restList != nil) {
-//            return restList!.list.count
-//        } else {
-//            return 0
-//        }
-        return testList.count
+        if (lists != nil) {
+            return lists!.count
+        } else {
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "EditCellTableCell", for: indexPath) as! RestaurantListCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "listCell", for: indexPath) as! AddToListTableViewCell
+        let list = lists![indexPath.row]
+        cell.listNameLabel.text = list.name
         // Configure the cell...
 //        let rest = restList?.list[indexPath.row]
 //        cell.nameLabel.text = rest?.getName()
@@ -77,6 +94,14 @@ class EditListViewController: UIViewController, UITableViewDelegate, UITableView
 //        cell.distance.text = "\(dis ?? 0) km"
 //        cell.cost.text = rest?.getDollarSign()
         return cell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let dest = segue.destination as? EditRestViewController {
+            if (self.selectedList != nil) {
+                dest.restList = self.selectedList
+            }
+        }
     }
     
     /*

@@ -33,10 +33,10 @@ class RestListDAO: NSObject, NSCoding {
     // MARK: Functions
  
     // Read out all the list that is stored in the local directory.
-    public func read() -> [RestList?]  {
-        var result:[RestList?] = []
+    public func read() -> [RestList]  {
+        var result:[RestList] = []
         for item in self.list.keys {
-            result.append(RestList.read(url: list[item]!))
+            result.append(RestList.read(url: list[item]!)!)
         }
         return result;
     }
@@ -59,7 +59,18 @@ class RestListDAO: NSObject, NSCoding {
                 print("Error: \(error.domain)")
             }
         }
-        
+
+    }
+    
+    // contains
+    public func contains(_ name: String) -> Bool {
+        var aList = self.read()
+        for item in aList {
+            if item.name == name {
+                return true
+            }
+        }
+        return false
     }
     
     // Save a RestList object.

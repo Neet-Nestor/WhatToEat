@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import SocketIO
 
 class LaunchScreenViewController: UIViewController, CLLocationManagerDelegate {
 
@@ -33,30 +34,52 @@ class LaunchScreenViewController: UIViewController, CLLocationManagerDelegate {
         } else {
             showLocationDisabledPopUp()
         }
+        let serverAddr = "http://ec2-54-202-218-99.us-west-2.compute.amazonaws.com:3001"
+        let myURL = URL(string: serverAddr)
+        
+//        socket = SocketIOClient(socketURL: myURL!)
+//        socket?.on(clientEvent: .connect) {data, ack in
+//            print("socket connected")
+//        }
+//        socket?.on("pyqSend") {data, ack in
+//            print("Receive: \(data)")
+//        }
+//        socket?.on("pyqGet") {data, ack in
+//            print("Receive: \(data)")
+//        }
+//
+//        socket?.on("pyqLike") {data, ack in
+//            print("Receive: \(data)")
+//        }
+//
+//        socket?.on("pyqComment") {data, ack in
+//            print("Receive: \(data)")
+//        }
+//        socket?.connect()
     }
     
-    // Show the popup to the user if we have been deined access
-    func showLocationDisabledPopUp() {
-        let alertController = UIAlertController(title: "Location Access Disabled",
-                                                message: "In order to get restaurants list we need your location",
-                                                preferredStyle: .alert)
-        
-//        let cancelAction = UIAlertAction(title: "Use without location", style: .cancel, handler: nil)
-        let cancelAction = UIAlertAction(title: "Open without location", style: .default) { (action) in
-            self.showMain()
-        }
-
-        alertController.addAction(cancelAction)
-        
-        let openAction = UIAlertAction(title: "Open Settings", style: .default) { (action) in
-            if let url = URL(string: UIApplicationOpenSettingsURLString) {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            }
-        }
-        alertController.addAction(openAction)
-        
-        self.present(alertController, animated: true, completion: nil)
-    }
+//    // Show the popup to the user if we have been deined access
+//    func showLocationDisabledPopUp() {
+//        let alertController = UIAlertController(title: "Location Access Disabled",
+//                                                message: "In order to get restaurants list we need your location",
+//                                                preferredStyle: .alert)
+//        
+////        let cancelAction = UIAlertAction(title: "Use without location", style: .cancel, handler: nil)
+//        let cancelAction = UIAlertAction(title: "Open without location", style: .default) { (action) in
+//            self.showMain()
+//        }
+//
+//        alertController.addAction(cancelAction)
+//
+//        let openAction = UIAlertAction(title: "Open Settings", style: .default) { (action) in
+//            if let url = URL(string: UIApplicationOpenSettingsURLString) {
+//                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+//            }
+//        }
+//        alertController.addAction(openAction)
+//
+//        self.present(alertController, animated: true, completion: nil)
+//    }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate

@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import SocketIO
 
 typealias heightChange = (_ cellFlag:Bool) -> Void
 typealias likeChange = (_ cellFlag:Bool) -> Void
 typealias commentChange = () -> ()
 
 class MomentsTableViewCell: UITableViewCell {
+    var socket : SocketIOClient? = nil
     var flag = true
     var show = false
     var likeflag = true
@@ -84,15 +86,16 @@ class MomentsTableViewCell: UITableViewCell {
     }
     
     // return height of Comments
-    func setData(name:String,imagePic:String,content:String,imgData:[String],indexRow:NSIndexPath,selectItem:Bool,likeArray:[[String: String]],likeItem:Bool, CommentArray:[[String: String]]) -> CGFloat{
+    func setData(name:String,imagePic:String,content:String,imgData:[String],indexRow:NSIndexPath,selectItem:Bool,likeArray:[[String: String]],likeItem:Bool, commentArray:[[String: String]]) -> CGFloat{
         var h = cellHeightByData(data: content)
-        let h1 = cellHeightByData1(imageNum: imgData.count)
+//        let h1 = cellHeightByData1(imageNum: imgData.count)
+        let h1:CGFloat = 0.0
         var h2:CGFloat = 0.0
         var totalyCommentHeight:CGFloat = 0.0
         nameLabel.text = name
         avatorImage.image = UIImage(named: imagePic)
         if h<13*5{
-            contentLabel.frame = CGRect(origin: CGPoint(x:55,y:25), size:CGSize(width:UIScreen.main.bounds.width - 55 - 10,height:h))
+            contentLabel.frame = CGRect(origin: CGPoint(x:55,y:25), size:CGSize(width:UIScreen.main.bounds.width - 55 - 15,height:h))
             collectionViewFrame = CGRect(origin: CGPoint(x:50,y:h+10+15), size:CGSize(width:230,height:h1))
             h2 = h1 + h + 27
         }
@@ -101,7 +104,7 @@ class MomentsTableViewCell: UITableViewCell {
                 cellflag1 = !selectItem
                 h = 13*5
                 contentLabel.frame = CGRect(origin: CGPoint(x:55,y:25), size:CGSize(width:UIScreen.main.bounds.width - 55 - 10,height:h))
-                zhankaiBtn = UIButton(frame: CGRect(origin: CGPoint(x:55,y:h+10+17), size:CGSize(width:60,height:15)))
+                zhankaiBtn = UIButton(frame: CGRect(origin: CGPoint(x:55,y:h+10+17), size:CGSize(width:100,height:15)))
                 zhankaiBtn.setTitle("Show More", for: .normal)
                 zhankaiBtn.addTarget(self, action: #selector(MomentsTableViewCell.clickDown(_:)), for: .touchUpInside)
                 zhankaiBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
@@ -181,18 +184,18 @@ class MomentsTableViewCell: UITableViewCell {
             self.likeView.likeLabel.sizeToFit()
             self.contentView.addSubview(self.likeView)
         }
-        if CommentArray.count>0{
+        if commentArray.count>0{
             var h3 = h2+19.5+likeHeight
             if likeArray.count == 0{
                 h3 = h2+19.5
             }
-            for i in 0..<CommentArray.count{
+            for i in 0..<commentArray.count{
                 let comment_view = CommentView()
                 //comment_view.nameLabel.text = CommentNameArray[i]
-                let mutableString = NSMutableAttributedString(string: "\(CommentArray[i]["user_name"]!): \(CommentArray[i]["comment"]!)")
-                mutableString.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor(red: 74/255, green: 83/255, blue: 200/255, alpha: 1), range: NSRange(location:0,length:CommentArray[i]["user_name"]!.count))
+                let mutableString = NSMutableAttributedString(string: "\(commentArray[i]["user_name"]!): \(commentArray[i]["comment"]!)")
+                mutableString.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor(red: 74/255, green: 83/255, blue: 200/255, alpha: 1), range: NSRange(location:0,length:commentArray[i]["user_name"]!.count))
                 // set label Attribute
-                let h4 = "\(CommentArray[i]["user_name"]!): \(CommentArray[i]["comment"]!)".stringHeightWith(fontSize: 17, width: 300)
+                let h4 = "\(commentArray[i]["user_name"]!): \(commentArray[i]["comment"]!)".stringHeightWith(fontSize: 17, width: 300)
                 NSLog("\(h4)")
                 comment_view.commentLabel.attributedText = mutableString
                 comment_view.commentLabel.frame = CGRect(origin: CGPoint(x:5,y:2), size: CGSize(width:290,height:h4))
@@ -234,24 +237,25 @@ class MomentsTableViewCell: UITableViewCell {
     
     @objc func LikeBtn(_ sender:UIButton){
         
-        /*
-        if !likeflag{
-            
-            //服务器接口上传数据
-            goodComm[sender.tag]["good"]!.removeAtIndex(goodComm[sender.tag]["good"]!.indexOf("胖大海")!)
-            if self.likechange != nil{
-                self.likechange!(cellFlag: self.likeflag)
-            }
-            menuview.menuHide()
-        }
-        else{
-            goodComm[sender.tag]["good"]!.append("胖大海")
-            if self.likechange != nil{
-                self.likechange!(cellFlag: self.likeflag)
-            }
-            menuview.menuHide()
-        }
-        */
+//        if !likeflag{
+//
+//            //服务器接口上传数据
+//            goodComm[sender.tag]["good"]!.removeAtIndex(goodComm[sender.tag]["good"]!.indexOf("胖大海")!)
+//            if self.likechange != nil{
+//                self.likechange!(cellFlag: self.likeflag)
+//            }
+//            menuview.menuHide()
+//        }
+//        else{
+//            goodComm[sender.tag]["good"]!.append("胖大海")
+//            if self.likechange != nil{
+//                self.likechange!(cellFlag: self.likeflag)
+//            }
+//            menuview.menuHide()
+//        }
+//
+        
     }
+    
 }
 

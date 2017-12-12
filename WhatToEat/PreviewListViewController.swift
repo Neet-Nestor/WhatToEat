@@ -7,22 +7,48 @@
 //
 
 import UIKit
+import CoreLocation
 
-class PreviewListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class PreviewListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,CLLocationManagerDelegate {
 
     @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var theNavigationItem: UINavigationItem!
     var restList: RestList?
     @IBOutlet weak var tableView: UITableView!
+    var locationManager = CLLocationManager()
+    var coordinate: Coordinate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
         // Do any additional setup after loading the view.
+        update()
         if (restList != nil) {
             
         }
+    }
+    
+    func update(){
+        self.locationManager.requestWhenInUseAuthorization()
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.requestLocation()
+        } else {
+            showLocationDisabledPopUp()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let locValue:CLLocationCoordinate2D = manager.location!.coordinate
+        print("locations = \(locValue.latitude) \(locValue.longitude)")
+        self.coordinate = Coordinate(latitude: locValue.latitude, longitude: locValue.longitude)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Failed to find user's location: \(error.localizedDescription)")
+        showLocationDisabledPopUp()
     }
     
     override func didReceiveMemoryWarning() {
@@ -62,10 +88,11 @@ class PreviewListViewController: UIViewController, UITableViewDelegate, UITableV
         cell.tags.text = rest?.getTags().joined(separator: ", ")
         cell.address.text = rest?.getAddr().toString()
         
-        let restLocation = rest?.getCoordinate()
-        let myLocation = restList?.getLocation()
-        let dis = rest?.getCoordinate()
-            .getKmDistance(other: (restList?.getLocation())!)
+        var dis = 0.0
+        if (coordinate != nil) {
+            dis = (rest?.getCoordinate()
+                .getKmDistance(other: coordinate!))!
+        }
         
         cell.distance.text = "\(dis ?? 0) km"
         cell.cost.text = rest?.getDollarSign()
@@ -75,8 +102,10 @@ class PreviewListViewController: UIViewController, UITableViewDelegate, UITableV
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.destination is FoundViewController) {
             let foundVC = segue.destination as! FoundViewController
-            foundVC.resultRest = restList?.random()
-            foundVC.myLocation = restList?.getLocation()
+            let randRest = restList?.random()
+            foundVC.resultRest = randRest
+            foundVC.distance = randRest?.getCoordinate()
+                .getKmDistance(other: coordinate!)
         }
     }
     /*

@@ -52,7 +52,7 @@ class AddToListViewController: UIViewController, UITableViewDelegate, UITableVie
                     let rest = RestList(textField!.text!)
                     dao?.savelist(rest)
                     dao?.save()
-                    self.lists = dao?.read()
+                    self.lists = RestListDAO.getDAO()!.read()
                     self.table.reloadData()
                     let sucAlert = UIAlertController(title: "Success", message: "You successfully add a new list!", preferredStyle: .alert)
                     sucAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: {_ in

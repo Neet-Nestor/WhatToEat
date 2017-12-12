@@ -62,9 +62,13 @@ class Common {
                     // save data to object
                     let dict = try! JSONSerialization.jsonObject(with: data!, options: [])
                     let restList = RestList(json: dict as! [String : Any], name: "baseOnLocation")
-                    let dao = RestListDAO()
-                    dao.savelist(restList)
-                    dao.save()
+                    var dao = RestListDAO.getDAO()
+                    if dao == nil {
+                        dao == RestListDAO()
+                    }
+//                    let dao = RestListDAO()
+                    dao!.savelist(restList)
+                    dao!.save()
                 }
 //            } else {
 //                //send alert when status code is not 200

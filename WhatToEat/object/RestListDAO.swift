@@ -36,7 +36,10 @@ class RestListDAO: NSObject, NSCoding {
     public func read() -> [RestList]  {
         var result:[RestList] = []
         for item in self.list.keys {
-            result.append(RestList.read(url: list[item]!)!)
+            var mylist = RestList.read(url: list[item]!)
+            if mylist != nil {
+                result.append(RestList.read(url: list[item]!)!)
+            }
         }
         return result;
     }
@@ -76,13 +79,14 @@ class RestListDAO: NSObject, NSCoding {
     // Save a RestList object.
     public func savelist(_ restlist:RestList) {
         list[restlist.name] = restlist.save()
+        self.save()
     }
     
     // Save this object
     public func save() {
         let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(self, toFile: RestListDAO.ArchiveURL.path)
         if isSuccessfulSave {
-            os_log("successfully saved.", log: OSLog.default, type: .debug)
+            os_log("successfully saved. dao", log: OSLog.default, type: .debug)
         } else {
             os_log("Failed to save...", log: OSLog.default, type: .error)
         }

@@ -38,26 +38,6 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.test.delegate = self
-        self.commentView.commentTextField.delegate = self
-        self.self.refreshControl.addTarget(self, action: #selector(MomentsViewController.refreshData),
-                                           for: UIControlEvents.valueChanged)
-        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
-        self.tableView = UITableView(frame: self.view.frame, style:UITableViewStyle.grouped)
-        self.tableView!.delegate = self
-        self.tableView!.dataSource = self
-        self.tableView?.tableHeaderView = self.headerView()
-        self.tableView?.contentInset = UIEdgeInsets(top: 50,left: 0,bottom: 0,right: 0)
-        self.view.addSubview(self.tableView!)
-        self.tableView?.addSubview(self.refreshControl)
-        self.tableView!.allowsMultipleSelection = true
-        self.view.backgroundColor = UIColor.white
-        self.commentView.frame = CGRect(origin: CGPoint(x: 0,y: 0), size: CGSize(width: self.view.bounds.width, height: 30))
-        self.commentView.isHidden = true
-        self.view.addSubview(self.commentView)
-        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(MomentsViewController.handleTap(_:))))
-        NotificationCenter.default.addObserver(self, selector:#selector(MomentsViewController.keyBoardWillShow(_:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(MomentsViewController.keyBoardWillHide(_:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
         // Do any additional setup after loading the view.
         loadingLabel.isHidden = true
         spinner.isHidden = true
@@ -65,39 +45,6 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
         // server codes
         
 //        Common.socket = SocketIOClient(socketURL: myURL!)
-        Common.socket.on(clientEvent: .connect) {data, ack in
-            print("socket connected")
-            Common.socket.emit("pyqGet")
-        }
-        Common.socket.on("pyqSend") {data, ack in
-            print("Receive: \(data)")
-        }
-        Common.socket.on("pyqGet") {data, ack in
-            print("Receive: \(data)")
-            self.dataArray = data as! NSArray
-            let dataArray2 = self.dataArray![0] as! NSArray
-            for _ in 0...dataArray2.count{
-                self.selectItems.append(false)
-                self.likeItems.append(false)
-            }
-            self.tableView?.reloadData()
-            self.spinner.stopAnimating()
-            self.spinner.isHidden = true
-            self.loadingLabel.isHidden = true
-            if (self.refreshControl.isRefreshing) {
-                self.refreshControl.endRefreshing()
-            }
-        }
-        
-        Common.socket.on("pyqLike") {data, ack in
-            print("Receive: \(data)")
-        }
-        
-        Common.socket.on("pyqComment") {data, ack in
-            print("Receive: \(data)")
-            Common.socket.emit("pyqGet")
-        }
-        Common.socket.connect()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -108,6 +55,59 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
             spinner.isHidden = false
             spinner.startAnimating()
             socket?.connect()
+            Common.socket.on(clientEvent: .connect) {data, ack in
+                print("socket connected")
+                Common.socket.emit("pyqGet")
+            }
+            Common.socket.on("pyqSend") {data, ack in
+                print("Receive: \(data)")
+            }
+            Common.socket.on("pyqGet") {data, ack in
+                print("Receive: \(data)")
+                self.dataArray = data as! NSArray
+                let dataArray2 = self.dataArray![0] as! NSArray
+                for _ in 0...dataArray2.count{
+                    self.selectItems.append(false)
+                    self.likeItems.append(false)
+                }
+                self.test.delegate = self
+                self.commentView.commentTextField.delegate = self
+                self.self.refreshControl.addTarget(self, action: #selector(MomentsViewController.refreshData),
+                                                   for: UIControlEvents.valueChanged)
+                self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+                self.tableView = UITableView(frame: self.view.frame, style:UITableViewStyle.grouped)
+                self.tableView!.delegate = self
+                self.tableView!.dataSource = self
+                self.tableView?.contentInset = UIEdgeInsets(top: 50,left: 0,bottom: 0,right: 0)
+                self.view.addSubview(self.tableView!)
+                self.tableView?.addSubview(self.refreshControl)
+                self.tableView!.allowsMultipleSelection = true
+                self.view.backgroundColor = UIColor.white
+                self.commentView.frame = CGRect(origin: CGPoint(x: 0,y: 0), size: CGSize(width: self.view.bounds.width, height: 30))
+                self.commentView.isHidden = true
+                self.view.addSubview(self.commentView)
+                self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(MomentsViewController.handleTap(_:))))
+                NotificationCenter.default.addObserver(self, selector:#selector(MomentsViewController.keyBoardWillShow(_:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
+                NotificationCenter.default.addObserver(self, selector:#selector(MomentsViewController.keyBoardWillHide(_:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
+                self.tableView?.tableHeaderView = self.headerView()
+                self.tableView?.reloadData()
+                self.spinner.stopAnimating()
+                self.spinner.isHidden = true
+                self.loadingLabel.isHidden = true
+                if (self.refreshControl.isRefreshing) {
+                    self.refreshControl.endRefreshing()
+                }
+            }
+            
+            Common.socket.on("pyqLike") {data, ack in
+                print("Receive: \(data)")
+            }
+            
+            Common.socket.on("pyqComment") {data, ack in
+                print("Receive: \(data)")
+                Common.socket.emit("pyqGet")
+            }
+            Common.socket.connect()
         }
     }
 
@@ -234,7 +234,9 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.nameLable.textColor = UIColor.white
         self.avatorImage.frame = CGRect(origin: CGPoint(x:0, y:150), size: CGSize(width:70, height:70))
         self.avatorImage.frame.origin.x = self.view.bounds.width - 80
-        self.avatorImage.hnk_setImageFromURL(URL(string: Common.myFacebookProfileImageURL!)!)
+        if (Common.myFacebookProfileImageURL != nil) {
+            self.avatorImage.hnk_setImageFromURL(URL(string: Common.myFacebookProfileImageURL!)!)
+        }
         self.avatorImage.layer.borderWidth = 2
         self.avatorImage.layer.borderColor = UIColor.white.cgColor
         let view:UIView = UIView(frame: CGRect(origin: CGPoint(x:0, y:200), size: CGSize(width:self.view.bounds.width, height:26)))

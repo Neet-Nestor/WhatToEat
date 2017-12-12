@@ -98,7 +98,8 @@ class EditListViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let dao = RestListDAO.getDAO()
         let cell = table.cellForRow(at: indexPath) as! AddToListTableViewCell
-        self.selectedList = dao?.getList("\(cell.listNameLabel!.text)")!
+        self.selectedList = dao?.getList("\(cell.listNameLabel!.text!)")!
+        self.performSegue(withIdentifier: "EditListToEditRest", sender: nil)
     }
     
 

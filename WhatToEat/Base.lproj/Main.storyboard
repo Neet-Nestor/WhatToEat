@@ -1786,7 +1786,6 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="listNameLabel" destination="UDE-qA-AHv" id="BUA-dJ-Oev"/>
-                                            <segue destination="RvK-ut-s2x" kind="show" id="k0C-4i-fK2"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1810,6 +1809,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="table" destination="pbm-lk-qJv" id="OYE-SS-3mr"/>
+                        <segue destination="RvK-ut-s2x" kind="show" identifier="EditListToEditRest" id="2xf-Zo-DBm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KhO-Rq-njq" userLabel="First Responder" sceneMemberID="firstResponder"/>

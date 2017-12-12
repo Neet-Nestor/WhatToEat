@@ -34,8 +34,6 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
     var dataArray: NSArray?
     var highlightMoment: Int?
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -267,50 +265,46 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @objc func keyBoardWillShow(_ note:NSNotification)
     {
-        if UIApplication.shared.keyWindow?.rootViewController?.presentedViewController is MomentsViewController {
-            let userInfo  = note.userInfo as! NSDictionary
-            let keyBoardBounds = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-            let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
-            let deltaY = keyBoardBounds.size.height
-            let commentY = self.view.frame.height - deltaY
-            var frame = self.commentView.frame
-            let animations:(() -> Void) = {
-                self.commentView.isHidden = false
-                self.commentView.frame.origin.y = commentY - 30
-                frame.origin.y = commentY
-                var point:CGPoint = self.tableView!.contentOffset
-                point.y -= (frame.origin.y - self.replyViewDraw)
-                self.tableView!.contentOffset = point
-            }
-            
-            if duration > 0 {
-                let options = UIViewAnimationOptions(rawValue: UInt((userInfo[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).intValue << 16))
-                UIView.animate(withDuration: duration, delay: 0, options:options, animations: animations, completion: nil)
-            }else{
-                animations()
-            }
+        let userInfo  = note.userInfo as! NSDictionary
+        let keyBoardBounds = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
+        let deltaY = keyBoardBounds.size.height
+        let commentY = self.view.frame.height - deltaY
+        var frame = self.commentView.frame
+        let animations:(() -> Void) = {
+            self.commentView.isHidden = false
+            self.commentView.frame.origin.y = commentY - 30
+            frame.origin.y = commentY
+            var point:CGPoint = self.tableView!.contentOffset
+            point.y -= (frame.origin.y - self.replyViewDraw)
+            self.tableView!.contentOffset = point
+        }
+        
+        if duration > 0 {
+            let options = UIViewAnimationOptions(rawValue: UInt((userInfo[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).intValue << 16))
+            UIView.animate(withDuration: duration, delay: 0, options:options, animations: animations, completion: nil)
+        }else{
+            animations()
         }
     }
     
     @objc func keyBoardWillHide(_ note:NSNotification)
     {
-        if UIApplication.shared.keyWindow?.rootViewController?.presentedViewController is MomentsViewController {
-            let userInfo  = note.userInfo as! NSDictionary
-            let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
-            let animations:(() -> Void) = {
-                self.commentView.isHidden = true
-                self.commentView.transform = CGAffineTransform.identity
-                self.tableView!.frame.origin.y = 0
-            }
+        let userInfo  = note.userInfo as! NSDictionary
+        let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
+        let animations:(() -> Void) = {
+            self.commentView.isHidden = true
+            self.commentView.transform = CGAffineTransform.identity
+            self.tableView!.frame.origin.y = 0
+        }
+        
+        if duration > 0 {
+            let options = UIViewAnimationOptions(rawValue: UInt((userInfo[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).intValue << 16))
             
-            if duration > 0 {
-                let options = UIViewAnimationOptions(rawValue: UInt((userInfo[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).intValue << 16))
-                
-                UIView.animate(withDuration: duration, delay: 0, options:options, animations: animations, completion: nil)
-                
-            }else{
-                animations()
-            }
+            UIView.animate(withDuration: duration, delay: 0, options:options, animations: animations, completion: nil)
+            
+        }else{
+            animations()
         }
     }
     
@@ -341,6 +335,11 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        NotificationCenter.default.removeObserver(self)
+        NotificationCenter.default.addObserver(self, selector:#selector(MomentsViewController.keyBoardWillHide(_:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     @IBAction func unwindToMoments(segue:UIStoryboardSegue) { }

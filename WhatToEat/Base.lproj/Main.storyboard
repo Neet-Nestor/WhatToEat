@@ -314,7 +314,6 @@
                                             <outletCollection property="stars" destination="dgD-Ek-UdY" collectionClass="NSMutableArray" id="Zw4-5A-DoC"/>
                                             <outletCollection property="stars" destination="2md-uG-80P" collectionClass="NSMutableArray" id="MOU-vj-LJF"/>
                                             <outletCollection property="stars" destination="CNb-pp-80h" collectionClass="NSMutableArray" id="sw0-8W-F4y"/>
-                                            <segue destination="cJr-yc-IX9" kind="show" id="4aC-5G-jp2"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -337,6 +336,7 @@
                     <navigationItem key="navigationItem" title="Restaurants" id="lf3-95-YGd"/>
                     <connections>
                         <outlet property="tableview" destination="P5g-ND-47O" id="HbT-5K-5Mj"/>
+                        <segue destination="cJr-yc-IX9" kind="show" identifier="addToListFromNearby" id="E2D-eh-peQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7ot-oF-Pis" userLabel="First Responder" sceneMemberID="firstResponder"/>

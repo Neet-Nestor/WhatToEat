@@ -91,9 +91,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // let handled: Bool = FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
     // Add any custom logic here.
         var handled = false
-        if (url.scheme == "fb690304267826071") {
             handled = SDKApplicationDelegate.shared.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
-        }
         return handled
     }
     

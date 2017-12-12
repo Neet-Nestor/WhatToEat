@@ -39,21 +39,15 @@ class LaunchScreenViewController: UIViewController, CLLocationManagerDelegate {
         let serverAddr = "http://ec2-54-202-218-99.us-west-2.compute.amazonaws.com:3001"
         let myURL = URL(string: serverAddr)
         
-        do {
-            try WhatToEatCompleteRestList.read()!
-        } catch  {
+        if WhatToEatCompleteRestList.read() == nil {
             WhatToEatCompleteRestList().save()
         }
         
-        do {
-            try History.read()!
-        } catch  {
+        if History.read() == nil {
             History().save()
         }
        
-        do {
-            try RestListDAO.getDAO()!
-        } catch {
+        if RestListDAO.getDAO() == nil {
             RestListDAO().save()
         }
 //        socket = SocketIOClient(socketURL: myURL!)

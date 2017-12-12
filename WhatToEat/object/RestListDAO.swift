@@ -55,14 +55,9 @@ class RestListDAO: NSObject, NSCoding {
     // Remove a list with certian name
     public func remove(_ name: String) {
         if list.keys.contains(name) {
-            do {
-                try FileManager.default.removeItem(at: NSURL(string:list[name]!) as! URL)
-                list.removeValue(forKey: name)
-            } catch let error as NSError {
-                print("Error: \(error.domain)")
-            }
+            list.removeValue(forKey: name)
+            self.save()
         }
-
     }
     
     // contains

@@ -90,6 +90,7 @@ class EditListViewController: UIViewController, UITableViewDelegate, UITableView
 //            list?.remove(restName)
 //            list?.save()
             dao?.remove(listName)
+            
             lists = dao?.read()
             self.table.reloadData()
         }

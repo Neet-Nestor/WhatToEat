@@ -91,7 +91,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // let handled: Bool = FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
     // Add any custom logic here.
         var handled = false
+        if (url.scheme == "fb690304267826071") {
             handled = SDKApplicationDelegate.shared.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
+        }
         return handled
     }
     
@@ -100,9 +102,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         if (url.scheme == "twitterkit-ILt3tj0pk4MUk5Qne45GHRjlD") {
             return Twitter.sharedInstance().application(app, open: url, options: options)
+        } else if (url.scheme == "fb690304267826071") {
+            return SDKApplicationDelegate.shared.application(app, open: url, sourceApplication: options[.sourceApplication] as? String, annotation: options[.annotation])
         }
         return false
     }
+    
     
     /*
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {

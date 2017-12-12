@@ -18,6 +18,7 @@ class AddToListViewController: UIViewController, UITableViewDelegate, UITableVie
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        lists = RestListDAO.getDAO()!.read()
         self.table.delegate = self
         self.table.dataSource = self
     }
@@ -27,10 +28,9 @@ class AddToListViewController: UIViewController, UITableViewDelegate, UITableVie
         // Dispose of any resources that can be recreated.
     }
     
+    
     override func viewDidAppear(_ animated: Bool) {
         //let dao = RestListDAO()
-        lists = RestListDAO.getDAO()!.read()
-        
     }
     
     @IBAction func newList(_ sender: UIBarButtonItem) {

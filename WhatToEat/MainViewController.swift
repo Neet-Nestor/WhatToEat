@@ -49,14 +49,11 @@ class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         return lists[row]
     }
     
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.destination is PreviewListViewController) {
             let previewVC = segue.destination as! PreviewListViewController
             let dao = RestListDAO.getDAO()
+            let test = listPicker.selectedRow(inComponent: 1)
             previewVC.restList = dao!.getList("baseOnLocation")!
         }
     }

@@ -1202,6 +1202,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="xFg-FH-Dn9"/>
                     </view>
+                    <connections>
+                        <outlet property="table" destination="xfQ-sB-umE" id="arm-WQ-Qo8"/>
+                        <outlet property="total" destination="0ws-Qd-yqN" id="vqw-Fr-Ce8"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nNv-yg-j24" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

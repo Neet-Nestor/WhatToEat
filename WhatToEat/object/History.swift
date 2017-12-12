@@ -81,7 +81,7 @@ class History: NSObject, NSCoding {
     
     // Add an object into list
     public func add(_ rest: Restaurant) {
-        self.list.append(OneEat(name: rest.getName(), price: rest.getAvg$()))
+        self.list.append(OneEat(id: rest.getId(), name: rest.getName(), price: rest.getAvg$()))
 //        if (!self.contains(rest)) {
 ////            self.list.append(rest.getId());
 //            self.list[rest.getId()] = rest.getAvg$()

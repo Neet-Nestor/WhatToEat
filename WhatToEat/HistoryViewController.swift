@@ -21,23 +21,25 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "historyCell", for: indexPath) as! HistoryTableViewCell
         let hist = self.historyList!.list[self.historyList!.list.count - 1 - indexPath.row]
-        let rest = totalList?.getRest(hist.name)
+        let rest = totalList?.getRest(hist.id)
         if rest != nil {
             cell.myImage.image = rest!.getImage()
             cell.myLabel.text = rest!.getName()
             if hist.price == nil {
-                hist.price = totalList?.getRest(hist.name)?.getAvg$()
+                hist.price = rest!.getAvg$()
             }
             cell.myPrice.text = "$\(hist.price!)"
         } else {
             cell.myImage.image = nil
             cell.myLabel.text = nil
-            cell.myPrice.text = "$0.00)"
+            cell.myPrice.text = "$0.00"
         }
         return cell
     }
     
     
+    @IBOutlet weak var total: UILabel!
+    @IBOutlet weak var table: UITableView!
     public var historyList:History?
     public var totalList:WhatToEatCompleteRestList?
 
@@ -45,6 +47,9 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewDidLoad()
         self.historyList = History.read()
         self.totalList = WhatToEatCompleteRestList.read()
+        self.table.dataSource = self
+        self.table.delegate = self
+        self.total.text = "Total Cost: $\((self.historyList?.getTotalPrice())!)"
         // Do any additional setup after loading the view.
     }
 

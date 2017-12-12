@@ -49,7 +49,8 @@ class AddToListViewController: UIViewController, UITableViewDelegate, UITableVie
             if (textField?.text != nil && textField?.text != "") {
                 if dao != nil && !dao!.contains(textField!.text!) {
                     let rest = RestList(textField!.text!)
-                    rest.save();
+                    dao?.savelist(rest)
+                    self.lists = dao?.read()
                     self.table.reloadData()
                     let sucAlert = UIAlertController(title: "Success", message: "You successfully add a new list!", preferredStyle: .alert)
                     sucAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: {_ in

@@ -9,10 +9,12 @@
 import UIKit
 
 class HistoryViewController: UIViewController {
+    
+    public var historyList:History?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.historyList = History.read()
         // Do any additional setup after loading the view.
     }
 

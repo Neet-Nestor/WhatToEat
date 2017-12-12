@@ -22,8 +22,8 @@ class EditListViewController: UIViewController, UITableViewDelegate, UITableView
         // Do any additional setup after loading the view.
         table.delegate = self
         table.dataSource = self
-        let dao = RestListDAO()
-        lists = dao.read()
+        let dao = RestListDAO.getDAO()
+        lists = dao?.read()
     }
 
     override func didReceiveMemoryWarning() {
@@ -33,8 +33,47 @@ class EditListViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        let dao = RestListDAO()
-        lists = dao.read()
+        let dao = RestListDAO.getDAO()
+        lists = dao?.read()
+    }
+    
+    @IBAction func newList(_ sender: UIBarButtonItem) {
+        //1. Create the alert controller.
+        let alert = UIAlertController(title: "Add new list", message: "Please enter a list name", preferredStyle: .alert)
+        
+        //2. Add the text field. You can configure it however you need.
+        alert.addTextField { (textField) in
+            textField.placeholder = "Delicious list!"
+        }
+        
+        // 3. Grab the value from the text field, and print it when the user clicks OK.
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+            let textField = alert?.textFields![0] // Force unwrapping because we know it exists.
+            print("Text field: \(textField?.text)")
+            var dao = RestListDAO.getDAO()
+            if (textField?.text != nil && textField?.text != "") {
+                if dao != nil && !dao!.contains(textField!.text!) {
+                    let rest = RestList(textField!.text!)
+                    dao?.savelist(rest)
+                    dao?.save()
+                    self.lists = RestListDAO.getDAO()!.read()
+                    self.table.reloadData()
+                    let sucAlert = UIAlertController(title: "Success", message: "You successfully add a new list!", preferredStyle: .alert)
+                    sucAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: {_ in
+                    }))
+                    self.present(sucAlert, animated: true, completion: nil)
+                } else {
+                    let dupAlert = UIAlertController(title: "Error", message: "You already have this list!", preferredStyle: .alert)
+                    dupAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: {_ in
+                    }))
+                    
+                    self.present(dupAlert, animated: true, completion: nil)
+                }
+            }
+        }))
+        
+        // 4. Present the alert.
+        self.present(alert, animated: true, completion: nil)
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -46,18 +85,20 @@ class EditListViewController: UIViewController, UITableViewDelegate, UITableView
             // handle delete (by removing the data from your array and updating the tableview)
             let cell = table.cellForRow(at: indexPath) as! AddToListTableViewCell
             let listName = cell.listNameLabel.text!
-            let dao = RestListDAO()
+            let dao = RestListDAO.getDAO()
 //            let list = dao.getList(listName!)
 //            list?.remove(restName)
 //            list?.save()
-            dao.remove(listName)
+            dao?.remove(listName)
+            lists = dao?.read()
+            self.table.reloadData()
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let dao = RestListDAO()
+        let dao = RestListDAO.getDAO()
         let cell = table.cellForRow(at: indexPath) as! AddToListTableViewCell
-        self.selectedList = dao.getList("\(cell.listNameLabel!.text)")!
+        self.selectedList = dao?.getList("\(cell.listNameLabel!.text)")!
     }
     
 

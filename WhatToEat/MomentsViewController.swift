@@ -267,48 +267,50 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @objc func keyBoardWillShow(_ note:NSNotification)
     {
-        
-        let userInfo  = note.userInfo as! NSDictionary
-        let keyBoardBounds = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-        let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
-        let deltaY = keyBoardBounds.size.height
-        let commentY = self.view.frame.height - deltaY
-        var frame = self.commentView.frame
-        let animations:(() -> Void) = {
-            self.commentView.isHidden = false
-            self.commentView.frame.origin.y = commentY - 30
-            frame.origin.y = commentY
-            var point:CGPoint = self.tableView!.contentOffset
-            point.y -= (frame.origin.y - self.replyViewDraw)
-            self.tableView!.contentOffset = point
-        }
-        
-        if duration > 0 {
-            let options = UIViewAnimationOptions(rawValue: UInt((userInfo[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).intValue << 16))
-            UIView.animate(withDuration: duration, delay: 0, options:options, animations: animations, completion: nil)
-        }else{
-            animations()
+        if UIApplication.shared.keyWindow?.rootViewController?.presentedViewController is MomentsViewController {
+            let userInfo  = note.userInfo as! NSDictionary
+            let keyBoardBounds = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+            let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
+            let deltaY = keyBoardBounds.size.height
+            let commentY = self.view.frame.height - deltaY
+            var frame = self.commentView.frame
+            let animations:(() -> Void) = {
+                self.commentView.isHidden = false
+                self.commentView.frame.origin.y = commentY - 30
+                frame.origin.y = commentY
+                var point:CGPoint = self.tableView!.contentOffset
+                point.y -= (frame.origin.y - self.replyViewDraw)
+                self.tableView!.contentOffset = point
+            }
+            
+            if duration > 0 {
+                let options = UIViewAnimationOptions(rawValue: UInt((userInfo[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).intValue << 16))
+                UIView.animate(withDuration: duration, delay: 0, options:options, animations: animations, completion: nil)
+            }else{
+                animations()
+            }
         }
     }
     
     @objc func keyBoardWillHide(_ note:NSNotification)
     {
-        
-        let userInfo  = note.userInfo as! NSDictionary
-        let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
-        let animations:(() -> Void) = {
-            self.commentView.isHidden = true
-            self.commentView.transform = CGAffineTransform.identity
-            self.tableView!.frame.origin.y = 0
-        }
-        
-        if duration > 0 {
-            let options = UIViewAnimationOptions(rawValue: UInt((userInfo[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).intValue << 16))
+        if UIApplication.shared.keyWindow?.rootViewController?.presentedViewController is MomentsViewController {
+            let userInfo  = note.userInfo as! NSDictionary
+            let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
+            let animations:(() -> Void) = {
+                self.commentView.isHidden = true
+                self.commentView.transform = CGAffineTransform.identity
+                self.tableView!.frame.origin.y = 0
+            }
             
-            UIView.animate(withDuration: duration, delay: 0, options:options, animations: animations, completion: nil)
-            
-        }else{
-            animations()
+            if duration > 0 {
+                let options = UIViewAnimationOptions(rawValue: UInt((userInfo[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).intValue << 16))
+                
+                UIView.animate(withDuration: duration, delay: 0, options:options, animations: animations, completion: nil)
+                
+            }else{
+                animations()
+            }
         }
     }
     

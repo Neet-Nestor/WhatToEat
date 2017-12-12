@@ -77,24 +77,20 @@ class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         return lists[row]
     }
     
-<<<<<<< HEAD
-=======
 //    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
 //
 //    }
     
->>>>>>> eb8783f63d5ec7d1ce3c9c9920d041253a2bd176
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.destination is PreviewListViewController) {
             let previewVC = segue.destination as! PreviewListViewController
             let dao = RestListDAO.getDAO()
-<<<<<<< HEAD
-            let test = listPicker.selectedRow(inComponent: 1)
-            previewVC.restList = dao!.getList("baseOnLocation")!
-=======
+
+            let test = listPicker.selectedRow(inComponent: 0)
+            previewVC.restList = dao!.getList("Nearby")!
+
             var name = self.lists[listPicker.selectedRow(inComponent: 0)]
             previewVC.restList = dao!.getList(name)!
->>>>>>> eb8783f63d5ec7d1ce3c9c9920d041253a2bd176
         }
     }
     

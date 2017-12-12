@@ -104,8 +104,10 @@ class PreviewListViewController: UIViewController, UITableViewDelegate, UITableV
             let foundVC = segue.destination as! FoundViewController
             let randRest = restList?.random()
             foundVC.resultRest = randRest
-            foundVC.distance = randRest?.getCoordinate()
-                .getKmDistance(other: coordinate!)
+            if (coordinate != nil) {
+                foundVC.distance = randRest?.getCoordinate()
+                    .getKmDistance(other: coordinate!)
+            }
         }
     }
     /*

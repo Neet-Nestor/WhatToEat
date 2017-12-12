@@ -94,7 +94,12 @@ class AddToListViewController: UIViewController, UITableViewDelegate, UITableVie
             let cell = self.table.cellForRow(at: indexPath) as! AddToListTableViewCell
             let chosenList = dao.getList(cell.listNameLabel.text!)
             if (self.restName != nil) {
-                chosenList?.add(WhatToEatCompleteRestList.read()!.getRest(self.restName!)!)
+                var myList = WhatToEatCompleteRestList.read();
+                if myList == nil {
+                    myList = WhatToEatCompleteRestList()
+                    
+                }
+                chosenList?.add(myList!.getRest(self.restName!)!)
                 chosenList?.save()
             } else {
                 let alert2 = UIAlertController(title: "Error", message: "Something", preferredStyle: .alert)

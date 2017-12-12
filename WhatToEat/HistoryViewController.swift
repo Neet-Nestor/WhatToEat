@@ -8,13 +8,43 @@
 
 import UIKit
 
-class HistoryViewController: UIViewController {
+class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if (self.historyList != nil) {
+            return (historyList?.list.count)!
+        } else {
+            return 0
+        }
+
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "historyCell", for: indexPath) as! HistoryTableViewCell
+        let hist = self.historyList!.list[self.historyList!.list.count - 1 - indexPath.row]
+        let rest = totalList?.getRest(hist.name)
+        if rest != nil {
+            cell.myImage.image = rest!.getImage()
+            cell.myLabel.text = rest!.getName()
+            if hist.price == nil {
+                hist.price = totalList?.getRest(hist.name)?.getAvg$()
+            }
+            cell.myPrice.text = "$\(hist.price!)"
+        } else {
+            cell.myImage.image = nil
+            cell.myLabel.text = nil
+            cell.myPrice.text = "$0.00)"
+        }
+        return cell
+    }
+    
     
     public var historyList:History?
+    public var totalList:WhatToEatCompleteRestList?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.historyList = History.read()
+        self.totalList = WhatToEatCompleteRestList.read()
         // Do any additional setup after loading the view.
     }
 

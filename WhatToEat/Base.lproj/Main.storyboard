@@ -1114,7 +1114,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="579"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="hFE-Xy-x3d">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="historyCell" id="hFE-Xy-x3d" customClass="HistoryTableViewCell" customModule="WhatToEat" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="71"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hFE-Xy-x3d" id="Vjc-qB-OXb">
@@ -1140,7 +1140,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jax-kt-RDA">
-                                                    <rect key="frame" x="78.666666666666657" y="0.0" width="320.33333333333337" height="27"/>
+                                                    <rect key="frame" x="78" y="0.0" width="320.33333333333337" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1161,6 +1161,11 @@
                                                 <constraint firstAttribute="trailing" secondItem="jax-kt-RDA" secondAttribute="trailing" constant="15" id="ziO-8z-d5E"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="myImage" destination="Bo3-cA-JFu" id="Izk-bY-s6l"/>
+                                            <outlet property="myLabel" destination="jax-kt-RDA" id="e44-9x-kgm"/>
+                                            <outlet property="myPrice" destination="3nm-vb-V4i" id="vAq-UO-No1"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <sections/>

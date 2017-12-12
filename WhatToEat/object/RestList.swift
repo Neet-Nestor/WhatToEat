@@ -66,7 +66,7 @@ class RestList: NSObject, NSCoding {
             let rest = Restaurant(json: rest as! [String:Any])
             self.list.append(rest.getId())
             totalList.add(rest)
-            
+            self.data[rest.getId()] = rest.getRating() * 4
 //            if location != nil {
 //                let dis = location!.getKmDistance(other: rest.getCoordinate())
 //                self.data[rest.getId()] = rest.getRating() * 4 - Int(dis * 8)

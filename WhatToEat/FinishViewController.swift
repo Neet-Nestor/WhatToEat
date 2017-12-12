@@ -40,7 +40,10 @@ class FinishViewController: UIViewController, UITextViewDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         var myhis = History.read()
-        myhis.add(resultRest!)
+        if myhis == nil {
+            myhis = History()
+        }
+        myhis!.add(resultRest!)
     }
 
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -84,9 +87,12 @@ class FinishViewController: UIViewController, UITextViewDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let des = segue.destination as? MainViewController {
-            if costInput.text != nil {
+            if costInput.text != "" {
                 var hisList = History.read()
-                hisList.changePrice(index: 1, price: Double(costInput.text!)!)
+                if hisList == nil {
+                    hisList = History()
+                }
+                hisList!.changePrice(index: 1, price: Double(costInput.text!)!)
             }
             
             

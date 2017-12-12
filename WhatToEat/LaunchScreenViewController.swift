@@ -36,7 +36,8 @@ class LaunchScreenViewController: UIViewController, CLLocationManagerDelegate {
         }
         let serverAddr = "http://ec2-54-202-218-99.us-west-2.compute.amazonaws.com:3001"
         let myURL = URL(string: serverAddr)
-        
+        WhatToEatCompleteRestList().save()
+        History().save()
 //        socket = SocketIOClient(socketURL: myURL!)
 //        socket?.on(clientEvent: .connect) {data, ack in
 //            print("socket connected")

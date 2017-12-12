@@ -142,7 +142,11 @@ class History: NSObject, NSCoding {
     public func getTotalPrice() -> Double {
         var result: Double = 0
         for item in self.list {
-            result = result + item.price
+            var myPrice = item.price
+            if myPrice == nil {
+                myPrice = getRest(item.name)?.getAvg$()
+            }
+            result = result + myPrice!
         }
         return result
     }
@@ -166,13 +170,9 @@ class History: NSObject, NSCoding {
     }
 
     // Read the RestList stored in the given directory
-    public static func read() -> History  {
+    public static func read() -> History?  {
         //        RestList.DocumentsDirectory.path
-        var result = NSKeyedUnarchiver.unarchiveObject(withFile: ArchiveURL.path) as? History
-        if result == nil {
-            result = History()
-        }
-        return result!
+        return NSKeyedUnarchiver.unarchiveObject(withFile: ArchiveURL.path) as? History
     }
     
     // Clear history

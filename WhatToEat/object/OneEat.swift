@@ -17,15 +17,15 @@ class OneEat: NSObject, NSCoding {
     
     required convenience init?(coder aDecoder: NSCoder) {
         let name = aDecoder.decodeObject(forKey: "name") as! String
-        let price = aDecoder.decodeObject(forKey: "price") as! Double
+        let price = aDecoder.decodeObject(forKey: "price") as? Double
         self.init(name: name, price: price)
     }
     
     public var totalList:WhatToEatCompleteRestList
     public var name:String
-    public var price:Double
+    public var price:Double?
     
-    init(name: String, price: Double) {
+    init(name: String, price: Double?) {
         var myList = WhatToEatCompleteRestList.read();
         if myList == nil {
             self.totalList = WhatToEatCompleteRestList()

@@ -21,7 +21,7 @@ class RestaurantTableViewController: UIViewController, UITableViewDataSource, UI
         super.viewDidLoad()
         let dao = RestListDAO.getDAO()
         //restList = dao!.read()[0]
-        restList = dao!.getList("baseOnLocation")
+        restList = dao!.getList("Nearby")
         refresher = UIRefreshControl()
         refresher.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refresher.addTarget(self, action: #selector(RestaurantTableViewController.update), for: UIControlEvents.valueChanged)
@@ -81,7 +81,7 @@ class RestaurantTableViewController: UIViewController, UITableViewDataSource, UI
         location = Coordinate(latitude: locValue.latitude, longitude: locValue.longitude)
         Common.saveToRestList(latitude : locValue.latitude, longitude : locValue.longitude)
         let dao = RestListDAO.getDAO()
-        restList = dao!.getList("baseOnLocation")
+        restList = dao!.getList("Nearby")
         tableview.reloadData()
         refresher.endRefreshing()
     }

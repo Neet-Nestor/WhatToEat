@@ -13,7 +13,7 @@ class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     
     @IBOutlet weak var matchBtn: UIButton!
     @IBOutlet weak var listPicker: UIPickerView!
-    var lists = ["Match Nearby"]
+    var lists = ["Nearby"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,11 +25,39 @@ class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         matchBtn.clipsToBounds = true
         listPicker.delegate = self
         listPicker.dataSource = self
-        let dao = RestListDAO()
-        for restList in dao.read() {
-            lists.append(restList.name)
+        let dao = RestListDAO.getDAO()
+        if dao != nil {
+            self.lists = []
+            for restList in dao!.read() {
+                lists.append(restList.name)
+//                if restList.name == "baseOnLocation" && self.lists.contains("Match Nearby"){
+//                    self.lists.remove(at: self.lists.index(of: "Match Nearby")!)
+//                }
+            }
+            if self.lists == [] {
+                self.lists.append("Nearby")
+            }
+            print(lists)
         }
-        print(lists)
+
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        let dao = RestListDAO.getDAO()
+        if dao != nil {
+            self.lists = []
+            for restList in dao!.read() {
+                lists.append(restList.name)
+                //                if restList.name == "baseOnLocation" && self.lists.contains("Match Nearby"){
+                //                    self.lists.remove(at: self.lists.index(of: "Match Nearby")!)
+                //                }
+            }
+            if self.lists == [] {
+                self.lists.append("Nearby")
+            }
+            print(lists)
+        }
+        self.listPicker.reloadAllComponents()
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,15 +77,16 @@ class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         return lists[row]
     }
     
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
-    }
+//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+//
+//    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.destination is PreviewListViewController) {
             let previewVC = segue.destination as! PreviewListViewController
             let dao = RestListDAO.getDAO()
-            previewVC.restList = dao!.getList("baseOnLocation")!
+            var name = self.lists[listPicker.selectedRow(inComponent: 0)]
+            previewVC.restList = dao!.getList(name)!
         }
     }
     

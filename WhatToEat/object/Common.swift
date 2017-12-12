@@ -61,7 +61,7 @@ class Common {
                 if (responseParse.statusCode == 200) {
                     // save data to object
                     let dict = try! JSONSerialization.jsonObject(with: data!, options: [])
-                    let restList = RestList(json: dict as! [String : Any], name: "baseOnLocation")
+                    let restList = RestList(json: dict as! [String : Any], name: "Nearby")
                     var dao = RestListDAO.getDAO()
                     if dao == nil {
                         dao == RestListDAO()

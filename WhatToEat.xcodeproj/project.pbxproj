@@ -647,10 +647,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = UU4FCBJ2LR;
+				DEVELOPMENT_TEAM = N5VTJF23RJ;
 				INFOPLIST_FILE = WhatToEat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = edu.andrewLiu.WhatToEat;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.uw.wlan.WhatToEat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WhatToEat/WhatToEat-Bridging-Header.h";
@@ -668,10 +668,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = UU4FCBJ2LR;
+				DEVELOPMENT_TEAM = N5VTJF23RJ;
 				INFOPLIST_FILE = WhatToEat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = edu.andrewLiu.WhatToEat;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.uw.wlan.WhatToEat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WhatToEat/WhatToEat-Bridging-Header.h";

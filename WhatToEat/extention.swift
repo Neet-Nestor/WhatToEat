@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SocketIO
 
 extension String{
         
@@ -101,6 +102,7 @@ func cellHeightByCommentNum(Comment:Int)->CGFloat{
 }
     
 extension UIViewController {
+    
     func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
         tap.cancelsTouchesInView = false

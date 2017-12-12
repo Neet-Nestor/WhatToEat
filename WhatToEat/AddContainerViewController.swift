@@ -7,9 +7,28 @@
 //
 
 import UIKit
+import SocketIO
 
 class AddContainerViewController: UIViewController {
 
+    @IBOutlet weak var tableViewContainer: UIView!
+    var addView: AddViewController?
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let des = segue.destination as? AddViewController {
+            self.addView = des
+        }
+        if let des = segue.destination as? MomentsViewController {
+            if addView?.textField.text != nil {
+                Common.socket.emit("pyqSend", ["user_id" : Common.myFacebookID,
+                                               "user_name" : Common.myFacebookName,
+                                               "content" : addView?.textField.text,
+                                               "avator" : Common.myFacebookProfileImageURL])
+            }
+            des.refreshData()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

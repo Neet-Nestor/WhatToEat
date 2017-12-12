@@ -56,10 +56,13 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Post" id="kWv-uM-nOT">
                             <connections>
-                                <segue destination="HDh-Dr-kbI" kind="unwind" unwindAction="unwindToMomentsWithSegue:" id="6DM-bt-nav"/>
+                                <segue destination="HDh-Dr-kbI" kind="unwind" unwindAction="unwindToMomentsWithSegue:" id="bgC-Eu-LIA"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableViewContainer" destination="Rep-yD-1Vf" id="cRg-f0-0uB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jWk-PF-pCh" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="HDh-Dr-kbI" userLabel="Exit" sceneMemberID="exit"/>
@@ -86,7 +89,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="acQ-Jr-kjR">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -110,7 +113,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wFN-xP-hjl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="860" y="1377.2113943028487"/>
+            <point key="canvasLocation" x="859.4202898550725" y="1376.4945652173915"/>
         </scene>
         <!--Moments-->
         <scene sceneID="ZJB-Rb-KDE">
@@ -1140,7 +1143,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jax-kt-RDA">
-                                                    <rect key="frame" x="78" y="0.0" width="320.33333333333337" height="27"/>
+                                                    <rect key="frame" x="78" y="0.0" width="320.33333333333331" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>

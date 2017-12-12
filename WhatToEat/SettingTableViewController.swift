@@ -126,6 +126,9 @@ class SettingTableViewController: UITableViewController {
                                 print(friendObject["id"] as! NSString)
                             }
                             print("\(friendObjects.count)")
+                            Common.myFacebookID = response.id
+                            Common.myFacebookName = response.name
+                            Common.myFacebookProfileImageURL = response.profilePictureUrl
                         case .failed(let error):
                             print("Custom Graph Request Failed: \(error)")
                         }

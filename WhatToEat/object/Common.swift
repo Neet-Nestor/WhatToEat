@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreLocation
+import SocketIO
 
 class Common {
 
@@ -15,6 +16,25 @@ class Common {
 //        case baseOnLocation
 //        case custom
 //    }
+    
+    
+    static var _socket:SocketIOClient? = nil
+    
+    public static var socket:SocketIOClient {
+        get {
+            if Common._socket == nil {
+                let serverAddr = "http://ec2-54-202-218-99.us-west-2.compute.amazonaws.com:3001"
+                let myURL = URL(string: serverAddr)
+                
+                Common._socket = SocketIOClient(socketURL: myURL!)
+            }
+            return Common._socket!
+        }
+    }
+    
+    static var myFacebookID: String? = nil
+    static var myFacebookName: String? = nil
+    static var myFacebookProfileImageURL: String? = nil
     
     public static var defaultLocation : Coordinate {
         get {

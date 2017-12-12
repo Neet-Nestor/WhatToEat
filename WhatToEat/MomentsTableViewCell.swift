@@ -58,7 +58,7 @@ class MomentsTableViewCell: UITableViewCell {
         contentLabel.sizeToFit()
         timeLabel.font = UIFont.systemFont(ofSize: 12)
         timeLabel.textColor = UIColor.gray
-        timeLabel.text = "两小时前"
+        timeLabel.text = "Moment Ago"
         btn.setImage(UIImage(named:"menu"), for: .normal)
         btn.addTarget(self, action: #selector(MomentsTableViewCell.click), for: .touchUpInside)
         
@@ -86,14 +86,14 @@ class MomentsTableViewCell: UITableViewCell {
     }
     
     // return height of Comments
-    func setData(name:String,imagePic:String,content:String,imgData:[String],indexRow:NSIndexPath,selectItem:Bool,likeArray:[[String: String]],likeItem:Bool, commentArray:[[String: String]]) -> CGFloat{
+    func setData(name:String,imagePic:String,content:String,imgData:[String],indexRow:NSIndexPath,selectItem:Bool,likeArray:[[String: String]],likeItem:Bool, commentArray:[[String: Any]]) -> CGFloat{
         var h = cellHeightByData(data: content)
 //        let h1 = cellHeightByData1(imageNum: imgData.count)
         let h1:CGFloat = 0.0
         var h2:CGFloat = 0.0
         var totalyCommentHeight:CGFloat = 0.0
         nameLabel.text = name
-        avatorImage.image = UIImage(named: imagePic)
+        avatorImage.hnk_setImageFromURL(URL(string: imagePic)!)
         if h<13*5{
             contentLabel.frame = CGRect(origin: CGPoint(x:55,y:25), size:CGSize(width:UIScreen.main.bounds.width - 55 - 15,height:h))
             collectionViewFrame = CGRect(origin: CGPoint(x:50,y:h+10+15), size:CGSize(width:230,height:h1))
@@ -134,22 +134,23 @@ class MomentsTableViewCell: UITableViewCell {
         btn.frame.origin.x = UIScreen.main.bounds.width - 10 - 15
         self.menuview.frame = CGRect(origin: CGPoint(x:0,y:h2 - 8), size:CGSize(width:14.5,height:0))
         self.menuview.frame.origin.x = UIScreen.main.bounds.width - 10 - 15
-        self.menuview.likeBtn.setImage(UIImage(named: "likewhite"), for: .normal)
-        if !likeItem{
-            self.menuview.likeBtn.setTitle("Like!", for: .normal)
-            likeflag = !likeItem
-        }
-        if likeItem{
-            self.menuview.likeBtn.setTitle("Cancel Like", for: .normal)
-            likeflag = !likeItem
-        }
+//        self.menuview.likeBtn.setImage(UIImage(named: "likewhite"), for: .normal)
+//        if !likeItem{
+//            self.menuview.likeBtn.setTitle("Like!", for: .normal)
+//            likeflag = !likeItem
+//        }
+//        if likeItem{
+//            self.menuview.likeBtn.setTitle("Cancel Like", for: .normal)
+//            likeflag = !likeItem
+//        }
         
-        self.menuview.likeBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+//        self.menuview.likeBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         self.menuview.commentBtn.setImage(UIImage(named: "c"), for: .normal)
         self.menuview.commentBtn.setTitle("Comment", for: .normal)
         self.menuview.commentBtn.titleLabel?.font = UIFont.systemFont(ofSize: 10)
-        self.menuview.likeBtn.tag = indexRow.row
-        self.menuview.likeBtn.addTarget(self, action: #selector(MomentsTableViewCell.LikeBtn(_:)), for: .touchUpInside)
+        self.menuview.commentBtn.tag = indexRow.row
+//        self.menuview.likeBtn.tag = indexRow.row
+//        self.menuview.likeBtn.addTarget(self, action: #selector(MomentsTableViewCell.LikeBtn(_:)), for: .touchUpInside)
         self.menuview.commentBtn.addTarget(self, action: #selector(MomentsTableViewCell.CommentBtn(_:)), for: .touchUpInside)
         for i in 0..<imgData.count{
             let imgUrl = imgData[i]
@@ -192,10 +193,13 @@ class MomentsTableViewCell: UITableViewCell {
             for i in 0..<commentArray.count{
                 let comment_view = CommentView()
                 //comment_view.nameLabel.text = CommentNameArray[i]
-                let mutableString = NSMutableAttributedString(string: "\(commentArray[i]["user_name"]!): \(commentArray[i]["comment"]!)")
-                mutableString.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor(red: 74/255, green: 83/255, blue: 200/255, alpha: 1), range: NSRange(location:0,length:commentArray[i]["user_name"]!.count))
+                let userName = commentArray[i]["my_user_name"] as! String
+                let commentContent = commentArray[i]["content"] as! String
+                let mutableString = NSMutableAttributedString(string: "\(userName): \(commentContent)")
+                
+                mutableString.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor(red: 74/255, green: 83/255, blue: 200/255, alpha: 1), range: NSRange(location:0,length:userName.count))
                 // set label Attribute
-                let h4 = "\(commentArray[i]["user_name"]!): \(commentArray[i]["comment"]!)".stringHeightWith(fontSize: 17, width: 300)
+                let h4 = "\(userName): \(commentContent)".stringHeightWith(fontSize: 17, width: 300)
                 NSLog("\(h4)")
                 comment_view.commentLabel.attributedText = mutableString
                 comment_view.commentLabel.frame = CGRect(origin: CGPoint(x:5,y:2), size: CGSize(width:290,height:h4))

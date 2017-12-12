@@ -9,6 +9,8 @@
 import UIKit
 import CoreLocation
 import SocketIO
+import FacebookCore
+import FacebookLogin
 
 class LaunchScreenViewController: UIViewController, CLLocationManagerDelegate {
 
@@ -130,8 +132,33 @@ class LaunchScreenViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func showMain() {
-        let vc = self.storyboard!.instantiateViewController(withIdentifier: "MainVC")
-        self.show(vc as! UITabBarController, sender: vc)
+        if (Common.myFacebookProfileImageURL == nil
+            || Common.myFacebookID == nil
+            || Common.myFacebookName == nil) {
+            if let accessToken = AccessToken.current {
+                // User is logged in, use 'accessToken' here.
+                let connection = GraphRequestConnection()
+                connection.add(FbResponse()) { response, result in
+                    switch result {
+                    case .success(let response):
+                        //                        var friendObjects = response.friends!["data"] as! [NSDictionary]
+                        //                        for friendObject in friendObjects {
+                        //                            print(friendObject["id"] as! NSString)
+                        //                        }
+                        //                        print("\(friendObjects.count)")
+                        Common.myFacebookID = response.id
+                        Common.myFacebookName = response.name
+                        Common.myFacebookProfileImageURL = response.profilePictureUrl
+                        let vc = self.storyboard!.instantiateViewController(withIdentifier: "MainVC")
+                        self.show(vc as! UITabBarController, sender: vc)
+                    case .failed(let error):
+                        fatalError("Cannot get FB")
+                        print("Custom Graph Request Failed: \(error)")
+                    }
+                }
+                connection.start()
+            }
+        }
     }
 
     /*

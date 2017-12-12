@@ -55,6 +55,7 @@
 		49F573041FC6B82700E55E3B /* RestaurantListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F573031FC6B82700E55E3B /* RestaurantListCell.swift */; };
 		CC8641961FD3FB58004D79C5 /* RestaurantTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8641951FD3FB58004D79C5 /* RestaurantTableViewController.swift */; };
 		CCFB0AE91FD4CAE300A0FA23 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFB0AE81FD4CAE300A0FA23 /* LaunchScreenViewController.swift */; };
+		DFEECE981FDFAFD300B34B18 /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEECE971FDFAFD300B34B18 /* HistoryTableViewCell.swift */; };
 		FC1CB8B21FDD17E2006B54C1 /* EditListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1CB8B11FDD17E2006B54C1 /* EditListViewController.swift */; };
 		FC82D8171FDE4DEC00DCB22A /* NewMomentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC82D8161FDE4DEC00DCB22A /* NewMomentViewController.swift */; };
 		FC82D8351FDE5CBC00DCB22A /* RestListDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC82D82C1FDE5CBA00DCB22A /* RestListDAO.swift */; };
@@ -128,6 +129,7 @@
 		7FB6E1D473298E72857EAA3B /* Pods-WhatToEat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhatToEat.release.xcconfig"; path = "Pods/Target Support Files/Pods-WhatToEat/Pods-WhatToEat.release.xcconfig"; sourceTree = "<group>"; };
 		CC8641951FD3FB58004D79C5 /* RestaurantTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantTableViewController.swift; sourceTree = "<group>"; };
 		CCFB0AE81FD4CAE300A0FA23 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
+		DFEECE971FDFAFD300B34B18 /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
 		E53400A814E8486C331654B9 /* Pods_WhatToEat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WhatToEat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E75E447E18B34E757EBBDBE9 /* Pods-WhatToEat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhatToEat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WhatToEat/Pods-WhatToEat.debug.xcconfig"; sourceTree = "<group>"; };
 		FC1CB8B11FDD17E2006B54C1 /* EditListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditListViewController.swift; sourceTree = "<group>"; };
@@ -265,6 +267,7 @@
 				498C3D761FCF621A00D1108D /* Menu.swift */,
 				49B969101FD54AAA00D9BD27 /* WhatToEat-Bridging-Header.h */,
 				49B4FFE51FD9B4EA00FAD007 /* HistoryViewController.swift */,
+				DFEECE971FDFAFD300B34B18 /* HistoryTableViewCell.swift */,
 				FC82D8161FDE4DEC00DCB22A /* NewMomentViewController.swift */,
 				FC82D8431FDF518600DCB22A /* EditRestViewController.swift */,
 			);
@@ -462,6 +465,7 @@
 				498C3D751FCF4B1900D1108D /* CommentLikeView.swift in Sources */,
 				498C3D6D1FCF43F500D1108D /* extention.swift in Sources */,
 				498C3D711FCF493800D1108D /* CommentView.swift in Sources */,
+				DFEECE981FDFAFD300B34B18 /* HistoryTableViewCell.swift in Sources */,
 				498C3D6F1FCF48C400D1108D /* MomentData.swift in Sources */,
 				FC82D83B1FDE5CBC00DCB22A /* Restaurant.swift in Sources */,
 				498C3D771FCF621A00D1108D /* Menu.swift in Sources */,
@@ -643,10 +647,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = N5VTJF23RJ;
+				DEVELOPMENT_TEAM = UU4FCBJ2LR;
 				INFOPLIST_FILE = WhatToEat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = edu.uw.wlan.WhatToEat;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.andrewLiu.WhatToEat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WhatToEat/WhatToEat-Bridging-Header.h";
@@ -664,10 +668,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = N5VTJF23RJ;
+				DEVELOPMENT_TEAM = UU4FCBJ2LR;
 				INFOPLIST_FILE = WhatToEat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = edu.uw.wlan.WhatToEat;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.andrewLiu.WhatToEat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WhatToEat/WhatToEat-Bridging-Header.h";

@@ -28,8 +28,9 @@ class AddToListViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        let dao = RestListDAO()
-        lists = dao.read()
+        //let dao = RestListDAO()
+        lists = RestListDAO.getDAO()!.read()
+        
     }
     
     @IBAction func newList(_ sender: UIBarButtonItem) {
@@ -50,6 +51,7 @@ class AddToListViewController: UIViewController, UITableViewDelegate, UITableVie
                 if dao != nil && !dao!.contains(textField!.text!) {
                     let rest = RestList(textField!.text!)
                     dao?.savelist(rest)
+                    dao?.save()
                     self.lists = dao?.read()
                     self.table.reloadData()
                     let sucAlert = UIAlertController(title: "Success", message: "You successfully add a new list!", preferredStyle: .alert)

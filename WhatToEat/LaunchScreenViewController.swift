@@ -167,6 +167,9 @@ class LaunchScreenViewController: UIViewController, CLLocationManagerDelegate {
                     }
                 }
                 connection.start()
+            } else {
+                let vc = self.storyboard!.instantiateViewController(withIdentifier: "MainVC")
+                self.show(vc as! UITabBarController, sender: vc)
             }
         }
     }

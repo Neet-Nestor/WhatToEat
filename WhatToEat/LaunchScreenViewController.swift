@@ -97,6 +97,7 @@ class LaunchScreenViewController: UIViewController, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
         print("locations = \(locValue.latitude) \(locValue.longitude)")
+        Common._myLocation = Coordinate(latitude: locValue.latitude, longitude: locValue.longitude)
         Common.saveToRestList(latitude : locValue.latitude, longitude : locValue.longitude)
         showMain()
     }
@@ -105,7 +106,8 @@ class LaunchScreenViewController: UIViewController, CLLocationManagerDelegate {
         print("Failed to find user's location: \(error.localizedDescription)")
         Common.saveToRestList(latitude : Common.defaultLocation.getLatitude()!,
                               longitude : Common.defaultLocation.getLongitude()!)
-        showLocationDisabledPopUp()
+        
+        showLocationFailPopUp()
     }
     
 //    private func saveToRestList(latitude : Double, longitude : Double) {

@@ -19,6 +19,7 @@ class FinishViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var shareTextView: UITextView!
     @IBOutlet weak var costInput: UITextField!
+    var historyGenerated: History?
     var resultRest: Restaurant?
     var distance: Double?
     
@@ -60,8 +61,9 @@ class FinishViewController: UIViewController, UITextViewDelegate {
         }
     }
     
-    @IBAction func doneButtonPressed(_ sender: Any) {
-    }
+//    @IBAction func doneButtonPressed(_ sender: Any) {
+//
+//    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -86,16 +88,27 @@ class FinishViewController: UIViewController, UITextViewDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let des = segue.destination as? MainViewController {
-            if costInput.text != "" {
-                var hisList = History.read()
-                if hisList == nil {
-                    hisList = History()
+        if (segue.identifier == "unwindToMainSegue") {
+            if let des = segue.destination as? MainViewController {
+                if (costInput.text != nil &&
+                    costInput.text!.count > 0 &&
+                    Double(costInput.text!) != nil) {
+                    var hisList = History.read()
+                    if hisList == nil {
+                        hisList = History()
+                    }
+                    hisList!.changePrice(index: 1, price: Double(costInput.text!)!)
                 }
-                hisList!.changePrice(index: 1, price: Double(costInput.text!)!)
+                if (shareTextView.textColor != UIColor.lightGray
+                    && shareTextView.text.count > 0) {
+                    let shareText = "I ate at \(self.nameLabel.text!), which mainly serves \(self.tagsLabel.text!) and located at\(self.addressLabel.text!). \(shareTextView.text!)"
+                    Common.socket.emit("pyqSend", ["user_id" : Common.myFacebookID,
+                                                   "user_name" : Common.myFacebookName,
+                                                   "content" : shareText,
+                                                   "avator" : Common.myFacebookProfileImageURL])
+                }
+                
             }
-            
-            
         }
     }
 

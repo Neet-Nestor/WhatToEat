@@ -27,6 +27,14 @@ class PreviewListViewController: UIViewController, UITableViewDelegate, UITableV
         if (restList != nil) {
             
         }
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        if (coordinate == nil) {
+            coordinate = Common.myLocation
+        }
     }
     
     func update(){
@@ -104,10 +112,11 @@ class PreviewListViewController: UIViewController, UITableViewDelegate, UITableV
             let foundVC = segue.destination as! FoundViewController
             let randRest = restList?.random()
             foundVC.resultRest = randRest
-            if (coordinate != nil) {
-                foundVC.distance = randRest?.getCoordinate()
-                    .getKmDistance(other: coordinate!)
+            if (coordinate == nil) {
+                coordinate = Common.myLocation
             }
+            foundVC.distance = randRest?.getCoordinate()
+                .getKmDistance(other: coordinate!)
         }
     }
     /*

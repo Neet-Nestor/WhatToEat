@@ -130,4 +130,15 @@ extension UIViewController {
         alertController.addAction(openAction)
         self.present(alertController, animated: true, completion: nil)
     }
+    
+    func showLocationFailPopUp() {
+        let alertController = UIAlertController(title: "Location Fetch Failed",
+                                                message: "Something wrong happened and we cannot get your current location, please try again later",
+                                                preferredStyle: .alert)
+        
+        //        let cancelAction = UIAlertAction(title: "Use without location", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "OK", style: .cancel)
+        alertController.addAction(cancelAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
 }

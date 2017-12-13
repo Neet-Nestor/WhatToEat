@@ -207,6 +207,14 @@ class RestList: NSObject, NSCoding {
         }
     }
     
+    public func remove(_ index: Int) {
+        if index >= 0 && index < self.list.count {
+            var target = self.list[index]
+            self.remove(target)
+        }
+        
+    }
+    
     // Save this object
     public func save() -> String {
         let ArchiveURL = RestList.DocumentsDirectory.appendingPathComponent(self.name).path;

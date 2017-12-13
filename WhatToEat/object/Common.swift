@@ -10,12 +10,25 @@ import Foundation
 import CoreLocation
 import SocketIO
 
-class Common {
+class Common: UIViewController, CLLocationManagerDelegate {
 
 //    public enum listName {
 //        case baseOnLocation
 //        case custom
 //    }
+    
+    let locationManager = CLLocationManager()
+    
+    static var _myLocation: Coordinate? = nil
+    
+    public static var myLocation: Coordinate {
+        get {
+            if (_myLocation == nil) {
+                _myLocation = Coordinate(latitude: 0.0, longitude: 0.0)
+            }
+            return _myLocation!
+        }
+    }
     
     
     static var _socket:SocketIOClient? = nil

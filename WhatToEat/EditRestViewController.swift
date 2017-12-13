@@ -32,14 +32,19 @@ class EditRestViewController: UIViewController, UITableViewDelegate, UITableView
         return true
     }
     
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return .delete
+    }
+    
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == UITableViewCellEditingStyle.delete) {
             // handle delete (by removing the data from your array and updating the tableview)
             let cell = table.cellForRow(at: indexPath) as! RestaurantListCell
-            let restName = cell.nameLabel.text!
             let dao = RestListDAO.getDAO()
 //            dao.remove(listName)
-            restList?.remove(restName)
+            restList?.remove(indexPath.row)
+            self.table.reloadData()
         }
     }
     

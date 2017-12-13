@@ -80,6 +80,10 @@ class EditListViewController: UIViewController, UITableViewDelegate, UITableView
         return true
     }
     
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return .delete
+    }
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == UITableViewCellEditingStyle.delete) {
             // handle delete (by removing the data from your array and updating the tableview)

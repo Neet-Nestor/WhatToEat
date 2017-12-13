@@ -9,6 +9,15 @@
 import UIKit
 
 class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    
+    
+    @IBOutlet weak var total: UILabel!
+    @IBOutlet weak var table: UITableView!
+    public var historyList:History?
+    public var totalList:WhatToEatCompleteRestList?
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (self.historyList != nil) {
             return (historyList?.list.count)!
@@ -17,6 +26,13 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
 
     }
+    
+    @IBAction func clearButtonPress(_ sender: Any) {
+        self.historyList?.clear()
+        self.total.text = "\(self.historyList!.getTotalPrice())"
+        self.table.reloadData()
+    }
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "historyCell", for: indexPath) as! HistoryTableViewCell
@@ -37,11 +53,6 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         return cell
     }
     
-    
-    @IBOutlet weak var total: UILabel!
-    @IBOutlet weak var table: UITableView!
-    public var historyList:History?
-    public var totalList:WhatToEatCompleteRestList?
 
     override func viewDidLoad() {
         super.viewDidLoad()

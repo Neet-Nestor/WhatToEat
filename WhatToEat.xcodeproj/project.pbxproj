@@ -57,6 +57,7 @@
 		CCFB0AE91FD4CAE300A0FA23 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFB0AE81FD4CAE300A0FA23 /* LaunchScreenViewController.swift */; };
 		DFEECE981FDFAFD300B34B18 /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEECE971FDFAFD300B34B18 /* HistoryTableViewCell.swift */; };
 		FC1CB8B21FDD17E2006B54C1 /* EditListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1CB8B11FDD17E2006B54C1 /* EditListViewController.swift */; };
+		FC3EE6A41FE0C339008B0903 /* loginTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3EE6A31FE0C339008B0903 /* loginTableViewCell.swift */; };
 		FC82D8171FDE4DEC00DCB22A /* NewMomentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC82D8161FDE4DEC00DCB22A /* NewMomentViewController.swift */; };
 		FC82D8351FDE5CBC00DCB22A /* RestListDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC82D82C1FDE5CBA00DCB22A /* RestListDAO.swift */; };
 		FC82D8361FDE5CBC00DCB22A /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC82D82D1FDE5CBA00DCB22A /* Address.swift */; };
@@ -133,6 +134,7 @@
 		E53400A814E8486C331654B9 /* Pods_WhatToEat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WhatToEat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E75E447E18B34E757EBBDBE9 /* Pods-WhatToEat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhatToEat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WhatToEat/Pods-WhatToEat.debug.xcconfig"; sourceTree = "<group>"; };
 		FC1CB8B11FDD17E2006B54C1 /* EditListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditListViewController.swift; sourceTree = "<group>"; };
+		FC3EE6A31FE0C339008B0903 /* loginTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginTableViewCell.swift; sourceTree = "<group>"; };
 		FC82D8161FDE4DEC00DCB22A /* NewMomentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMomentViewController.swift; sourceTree = "<group>"; };
 		FC82D82C1FDE5CBA00DCB22A /* RestListDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestListDAO.swift; sourceTree = "<group>"; };
 		FC82D82D1FDE5CBA00DCB22A /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
@@ -270,6 +272,7 @@
 				DFEECE971FDFAFD300B34B18 /* HistoryTableViewCell.swift */,
 				FC82D8161FDE4DEC00DCB22A /* NewMomentViewController.swift */,
 				FC82D8431FDF518600DCB22A /* EditRestViewController.swift */,
+				FC3EE6A31FE0C339008B0903 /* loginTableViewCell.swift */,
 			);
 			path = WhatToEat;
 			sourceTree = "<group>";
@@ -473,6 +476,7 @@
 				49F573041FC6B82700E55E3B /* RestaurantListCell.swift in Sources */,
 				FC82D8361FDE5CBC00DCB22A /* Address.swift in Sources */,
 				495652F91FD3F5D500E27833 /* NSFileManager+Haneke.swift in Sources */,
+				FC3EE6A41FE0C339008B0903 /* loginTableViewCell.swift in Sources */,
 				495652FA1FD3F5D500E27833 /* NSHTTPURLResponse+Haneke.swift in Sources */,
 				FC82D8381FDE5CBC00DCB22A /* OneEat.swift in Sources */,
 				499313EC1FB0E40F0048EE36 /* ViewController.swift in Sources */,

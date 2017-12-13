@@ -176,13 +176,9 @@ class History: NSObject, NSCoding {
     }
     
     // Clear history
-    public static func clear() {
-            do {
-                try FileManager.default.removeItem(at: NSURL(fileURLWithPath: History.ArchiveURL.path) as URL)
-
-            } catch let error as NSError {
-                print("Error: \(error.domain)")
-            }
+    public func clear() {
+        self.list = []
+        self.save()
         
     }
     

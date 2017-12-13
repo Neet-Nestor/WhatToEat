@@ -13,6 +13,8 @@ import FacebookCore
 class SettingTableViewController: UITableViewController {
 
     @IBOutlet weak var logInCell: UITableViewCell!
+    @IBOutlet weak var facebookImageView:UIImageView!
+    @IBOutlet weak var facebookLoginLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,61 +103,73 @@ class SettingTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.row == 0 && indexPath.section == 0) {
-            let loginManager = LoginManager()
-            //readPermissions: [ .publicProfile, .email, .userFriends ]
-            loginManager.logIn(readPermissions:[.publicProfile, .email, .userFriends], viewController: self) { loginResult in
-                switch loginResult {
-                case .failed(let error):
-                    print(error)
-                case .cancelled:
-                    print("User cancelled login.")
-                case .success(let grantedPermissions, let declinedPermissions, let accessToken):
-                    print("Logged in!")
+            if let accessToken = AccessToken.current {
+                let loginManager = LoginManager()
+                //readPermissions: [ .publicProfile, .email, .userFriends ]
+                loginManager.logIn(readPermissions:[.publicProfile, .email, .userFriends], viewController: self) { loginResult in
+                    switch loginResult {
+                    case .failed(let error):
+                        print(error)
+                    case .cancelled:
+                        print("User cancelled login.")
+                    case .success(let grantedPermissions, let declinedPermissions, let accessToken):
+                        print("Logged in!")
 
-                    
-                    let connection = GraphRequestConnection()
-                    connection.add(FbResponse()) { response, result in
-                        switch result {
-                        case .success(let response):
-                            print("Custom Graph Request Succeeded: \(response)")
-                            print("My facebook id is \(response.id)")
-                            print("My name is \(response.name)")
-                            print("My picture is \(response.profilePictureUrl)")
-                            var friendObjects = response.friends!["data"] as! [NSDictionary]
-                            for friendObject in friendObjects {
-                                print(friendObject["id"] as! NSString)
+                        
+                        let connection = GraphRequestConnection()
+                        connection.add(FbResponse()) { response, result in
+                            switch result {
+                            case .success(let response):
+                                print("Custom Graph Request Succeeded: \(response)")
+                                print("My facebook id is \(response.id)")
+                                print("My name is \(response.name)")
+                                print("My picture is \(response.profilePictureUrl)")
+                                var friendObjects = response.friends!["data"] as! [NSDictionary]
+                                for friendObject in friendObjects {
+                                    print(friendObject["id"] as! NSString)
+                                }
+                                print("\(friendObjects.count)")
+                                Common.myFacebookID = response.id
+                                Common.myFacebookName = response.name
+                                Common.myFacebookProfileImageURL = response.profilePictureUrl
+                                let cell = tableView.cellForRow(at: indexPath) as! loginTableViewCell
+                                self.facebookImageView.hnk_setImageFromURL(URL(string: Common.myFacebookProfileImageURL!)!)
+                                self.facebookLoginLabel.text = "\(Common.myFacebookName!)"
+                            case .failed(let error):
+                                print("Custom Graph Request Failed: \(error)")
                             }
-                            print("\(friendObjects.count)")
-                            Common.myFacebookID = response.id
-                            Common.myFacebookName = response.name
-                            Common.myFacebookProfileImageURL = response.profilePictureUrl
-                        case .failed(let error):
-                            print("Custom Graph Request Failed: \(error)")
                         }
+                        connection.start()
+                        
+    //                    let params = ["fields": "id, first_name, last_name, name, email, picture"]
+    //                    let graphRequest = GraphRequestConnection(graphPath: "/me/friends", parameters: params)
+    //                    let connection = FBSDKGraphRequestConnection()
+    //                    connection.add(graphRequest, completionHandler: { (connection, result, error) in
+    //                        if error == nil {
+    //                            if let userData = result as? [String:Any] {
+    //                                print(userData)
+    //                            }
+    //                        } else {
+    //                            print("Error Getting Friends \(error)");
+    //                        }
+    //
+    //                    })
+                        
+                        connection.start()
                     }
-                    connection.start()
-                    
-//                    let params = ["fields": "id, first_name, last_name, name, email, picture"]
-//                    let graphRequest = GraphRequestConnection(graphPath: "/me/friends", parameters: params)
-//                    let connection = FBSDKGraphRequestConnection()
-//                    connection.add(graphRequest, completionHandler: { (connection, result, error) in
-//                        if error == nil {
-//                            if let userData = result as? [String:Any] {
-//                                print(userData)
-//                            }
-//                        } else {
-//                            print("Error Getting Friends \(error)");
-//                        }
-//
-//                    })
-                    
-                    connection.start()
                 }
             }
-        } /*else if (indexPath.row == 0 && indexPath.section == 2) {
-            let historyVC = storyboard?.instantiateViewController(withIdentifier: "HistoryVC")
-            present(historyVC!, animated: true, completion: nil)
-        }*/
+        }
+        if (indexPath.section == 1 && indexPath.row == 1) {
+            let alertController = UIAlertController(title: "Success!",
+                                                    message: "Successfully Cleaned Cache!",
+                                                    preferredStyle: .alert)
+            
+            //        let cancelAction = UIAlertAction(title: "Use without location", style: .cancel, handler: nil)
+            let cancelAction = UIAlertAction(title: "OK!", style: .cancel)
+            alertController.addAction(cancelAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

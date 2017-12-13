@@ -46,7 +46,7 @@ class FoundViewController: UIViewController {
         let shareContent = LinkShareContent(url: URL(string:"http://students.washington.edu/qiny8")!)
         let FBShareBtn = ShareButton<LinkShareContent>()
         FBShareBtn.content = shareContent
-        FBShareBtn.center = CGPoint(x: tweetBtn.frame.minX - 50 ,y: view.frame.maxY - 49 - 28)
+        FBShareBtn.frame = CGRect(origin: CGPoint(x: tweetBtn.frame.minX - FBShareBtn.frame.width - 50 ,y: tweetBtn.frame.origin.y), size: CGSize(width: FBShareBtn.frame.width, height: FBShareBtn.frame.height))
         self.view.addSubview(FBShareBtn)
 //        let TwilogInButton = TWTRLogInButton(logInCompletion: { session, error in
 //            if (session != nil) {

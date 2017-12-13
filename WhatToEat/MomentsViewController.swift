@@ -70,7 +70,7 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
                 self.test.delegate = self
                 self.commentView.commentTextField.delegate = self
-                self.self.refreshControl.addTarget(self, action: #selector(MomentsViewController.refreshData),
+                self.refreshControl.addTarget(self, action: #selector(MomentsViewController.refreshData),
                                                    for: UIControlEvents.valueChanged)
                 self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
                 self.tableView = UITableView(frame: self.view.frame, style:UITableViewStyle.grouped)
@@ -225,7 +225,8 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
         imagePic.image = UIImage(named: "22")
         imagePicView.addSubview(imagePic)
         imagePic.clipsToBounds = true
-        self.nameLable.frame = CGRect(origin: CGPoint(x:0, y:170), size: CGSize(width:60, height:18))
+        self.nameLable.frame = CGRect(origin: CGPoint(x: 0, y:170), size: CGSize(width:60, height:18))
+        self.nameLable.textAlignment = .right
         self.nameLable.frame.origin.x = self.view.bounds.width - 140
         self.nameLable.text = Common.myFacebookName
         self.nameLable.font = UIFont.systemFont(ofSize: 22)

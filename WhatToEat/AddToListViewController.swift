@@ -90,6 +90,7 @@ class AddToListViewController: UIViewController, UITableViewDelegate, UITableVie
         //1. Create the alert controller.
         let alert = UIAlertController(title: "Add to list", message: "Do you sure you want to add the restaurant to this list?", preferredStyle: .alert)
         
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { _ in
             let dao = RestListDAO.getDAO()
             let cell = self.table.cellForRow(at: indexPath) as! AddToListTableViewCell
@@ -106,7 +107,6 @@ class AddToListViewController: UIViewController, UITableViewDelegate, UITableVie
                 let alert2 = UIAlertController(title: "Error", message: "Something", preferredStyle: .alert)
             }
         }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
     

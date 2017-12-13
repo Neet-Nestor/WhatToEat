@@ -104,6 +104,7 @@ class PreviewListViewController: UIViewController, UITableViewDelegate, UITableV
         
         cell.distance.text = "\(dis ?? 0) km"
         cell.cost.text = rest?.getDollarSign()
+        cell.isUserInteractionEnabled = false
         return cell
     }
     

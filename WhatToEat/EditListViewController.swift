@@ -24,6 +24,7 @@ class EditListViewController: UIViewController, UITableViewDelegate, UITableView
         table.dataSource = self
         let dao = RestListDAO.getDAO()
         lists = dao?.read()
+        self.navigationItem.title = "Edit Lists"
     }
 
     override func didReceiveMemoryWarning() {
@@ -77,6 +78,9 @@ class EditListViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if (lists![indexPath.row].name == "Nearby") {
+            return false
+        }
         return true
     }
     

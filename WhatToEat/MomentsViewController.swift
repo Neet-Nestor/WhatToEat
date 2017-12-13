@@ -40,11 +40,32 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Do any additional setup after loading the view.
         loadingLabel.isHidden = true
         spinner.isHidden = true
-        
-        self.refreshControl.addTarget(self, action: #selector(MomentsViewController.refreshData),
-                                      for: UIControlEvents.valueChanged)
-        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.noLoginLabel.isHidden = false
+        if let accessToken = AccessToken.current {
+            self.noLoginLabel.isHidden = true
+            self.tableView = UITableView(frame: self.view.frame, style:UITableViewStyle.grouped)
+            self.tableView!.delegate = self
+            self.tableView!.dataSource = self
             
+            self.refreshControl.addTarget(self, action: #selector(MomentsViewController.refreshData),
+                                          for: UIControlEvents.valueChanged)
+            self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+            
+            self.test.delegate = self
+            self.commentView.commentTextField.delegate = self
+            self.tableView?.contentInset = UIEdgeInsets(top: 50,left: 0,bottom: 0,right: 0)
+            self.view.addSubview(self.tableView!)
+            self.tableView?.addSubview(self.refreshControl)
+            self.tableView!.allowsMultipleSelection = true
+            self.view.backgroundColor = UIColor.white
+            self.commentView.frame = CGRect(origin: CGPoint(x: 0,y: 0), size: CGSize(width: self.view.bounds.width, height: 30))
+            self.commentView.isHidden = true
+            self.view.addSubview(self.commentView)
+            self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(MomentsViewController.handleTap(_:))))
+            NotificationCenter.default.addObserver(self, selector:#selector(MomentsViewController.keyBoardWillShow(_:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
+            NotificationCenter.default.addObserver(self, selector:#selector(MomentsViewController.keyBoardWillHide(_:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
+            self.tableView?.tableHeaderView = self.headerView()
+        }
         // server codes
         
 //        Common.socket = SocketIOClient(socketURL: myURL!)
@@ -74,32 +95,11 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
                     self.selectItems.append(false)
                     self.likeItems.append(false)
                 }
-                self.test.delegate = self
-                self.commentView.commentTextField.delegate = self
-                self.tableView = UITableView(frame: self.view.frame, style:UITableViewStyle.grouped)
-                self.tableView!.delegate = self
-                self.tableView!.dataSource = self
-                self.tableView?.contentInset = UIEdgeInsets(top: 50,left: 0,bottom: 0,right: 0)
-                self.view.addSubview(self.tableView!)
-                if !(self.tableView?.subviews.contains(self.refreshControl))! {
-                    self.tableView?.addSubview(self.refreshControl)
-                }
-                self.tableView!.allowsMultipleSelection = true
-                self.view.backgroundColor = UIColor.white
-                self.commentView.frame = CGRect(origin: CGPoint(x: 0,y: 0), size: CGSize(width: self.view.bounds.width, height: 30))
-                self.commentView.isHidden = true
-                self.view.addSubview(self.commentView)
-                self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(MomentsViewController.handleTap(_:))))
-                NotificationCenter.default.addObserver(self, selector:#selector(MomentsViewController.keyBoardWillShow(_:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
-                NotificationCenter.default.addObserver(self, selector:#selector(MomentsViewController.keyBoardWillHide(_:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
-                self.tableView?.tableHeaderView = self.headerView()
                 self.tableView?.reloadData()
                 self.spinner.stopAnimating()
                 self.spinner.isHidden = true
                 self.loadingLabel.isHidden = true
-                if (self.refreshControl.isRefreshing) {
-                    self.refreshControl.endRefreshing()
-                }
+                self.refreshControl.endRefreshing()
             }
             
             Common.socket.on("pyqLike") {data, ack in
@@ -116,8 +116,9 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     @objc func refreshData() {
+        self.refreshControl.beginRefreshing()
+        biaozhi = false
         Common.socket.emit("pyqGet")
-        biaozhi = true
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {

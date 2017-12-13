@@ -692,7 +692,7 @@
                         <viewLayoutGuide key="safeArea" id="6oP-Xo-qWU"/>
                     </view>
                     <navigationItem key="navigationItem" title="Your Lists" id="hPv-V7-xsZ">
-                        <barButtonItem key="rightBarButtonItem" title="Next" id="Qr3-Z6-UUG">
+                        <barButtonItem key="rightBarButtonItem" title="Random!" id="Qr3-Z6-UUG">
                             <connections>
                                 <segue destination="Yby-Dw-SOL" kind="show" id="rwL-oq-Enm"/>
                             </connections>

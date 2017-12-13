@@ -104,19 +104,20 @@ class MomentsTableViewCell: UITableViewCell {
                 cellflag1 = !selectItem
                 h = 13*5
                 contentLabel.frame = CGRect(origin: CGPoint(x:55,y:25), size:CGSize(width:UIScreen.main.bounds.width - 55 - 10,height:h))
-                zhankaiBtn = UIButton(frame: CGRect(origin: CGPoint(x:55,y:h+10+17), size:CGSize(width:100,height:15)))
+                zhankaiBtn = UIButton(frame: CGRect(origin: CGPoint(x:40,y:h+10+17), size:CGSize(width:100,height:15)))
                 zhankaiBtn.setTitle("Show More", for: .normal)
+                zhankaiBtn.titleLabel?.textAlignment = .left
                 zhankaiBtn.addTarget(self, action: #selector(MomentsTableViewCell.clickDown(_:)), for: .touchUpInside)
                 zhankaiBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
                 zhankaiBtn.setTitleColor(UIColor(red: 74/255, green: 83/255, blue: 130/255, alpha: 1), for: .normal)
                 self.contentView.addSubview(zhankaiBtn)
-                collectionViewFrame = CGRect(origin: CGPoint(x:50,y:h+10+15+15), size:CGSize(width:230,height:h1))
+                collectionViewFrame = CGRect(origin: CGPoint(x:40,y:h+10+15+15), size:CGSize(width:230,height:h1))
                 h2 = h1 + h + 27 + 12
             }
             if selectItem{
                 cellflag1 = !selectItem
                 contentLabel.frame = CGRect(origin: CGPoint(x:55,y:25), size:CGSize(width:UIScreen.main.bounds.width - 55 - 10,height:h))
-                zhankaiBtn = UIButton(frame: CGRect(origin: CGPoint(x:55,y:h+10+17), size:CGSize(width:60,height:15)))
+                zhankaiBtn = UIButton(frame: CGRect(origin: CGPoint(x:40,y:h+10+17), size:CGSize(width:100,height:15)))
                 zhankaiBtn.setTitle("Show Less", for: .normal)
                 zhankaiBtn.addTarget(self, action: #selector(MomentsTableViewCell.clickDown(_:)), for: .touchUpInside)
                 zhankaiBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)

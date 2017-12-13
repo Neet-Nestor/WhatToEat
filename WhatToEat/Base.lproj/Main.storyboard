@@ -161,6 +161,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="loadingLabel" destination="xot-Zq-vHP" id="bae-LS-9C9"/>
+                        <outlet property="newMomentButton" destination="gpy-Nx-583" id="Wym-gP-88r"/>
                         <outlet property="noLoginLabel" destination="b54-J5-nNt" id="uKN-ix-pjD"/>
                         <outlet property="spinner" destination="2GR-ao-odU" id="ISx-v0-EYw"/>
                     </connections>

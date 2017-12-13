@@ -34,6 +34,7 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
     var dataArray: NSArray?
     var highlightMoment: Int?
     @IBOutlet weak var noLoginLabel:UILabel!
+    @IBOutlet var newMomentButton:UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,8 +42,10 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
         loadingLabel.isHidden = true
         spinner.isHidden = true
         self.noLoginLabel.isHidden = false
+        self.navigationItem.rightBarButtonItem = nil
         if let accessToken = AccessToken.current {
             self.noLoginLabel.isHidden = true
+            self.navigationItem.rightBarButtonItem = self.newMomentButton
             self.tableView = UITableView(frame: self.view.frame, style:UITableViewStyle.grouped)
             self.tableView!.delegate = self
             self.tableView!.dataSource = self

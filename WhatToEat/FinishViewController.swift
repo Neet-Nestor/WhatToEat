@@ -88,27 +88,25 @@ class FinishViewController: UIViewController, UITextViewDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == "unwindToMainSegue") {
-            if let des = segue.destination as? MainViewController {
-                if (costInput.text != nil &&
-                    costInput.text!.count > 0 &&
-                    Double(costInput.text!) != nil) {
-                    var hisList = History.read()
-                    if hisList == nil {
-                        hisList = History()
-                    }
-                    hisList!.changePrice(index: 1, price: Double(costInput.text!)!)
+        if let des = segue.destination as? MainViewController {
+            if (costInput.text != nil &&
+                costInput.text!.count > 0 &&
+                Double(costInput.text!) != nil) {
+                var hisList = History.read()
+                if hisList == nil {
+                    hisList = History()
                 }
-                if (shareTextView.textColor != UIColor.lightGray
-                    && shareTextView.text.count > 0) {
-                    let shareText = "I ate at \(self.nameLabel.text!), which mainly serves \(self.tagsLabel.text!) and located at\(self.addressLabel.text!). \(shareTextView.text!)"
-                    Common.socket.emit("pyqSend", ["user_id" : Common.myFacebookID,
-                                                   "user_name" : Common.myFacebookName,
-                                                   "content" : shareText,
-                                                   "avator" : Common.myFacebookProfileImageURL])
-                }
-                
+                hisList!.changePrice(index: 1, price: Double(costInput.text!)!)
             }
+            if (shareTextView.textColor != UIColor.lightGray
+                && shareTextView.text.count > 0) {
+                let shareText = "I ate at \(self.nameLabel.text!), which mainly serves \(self.tagsLabel.text!) and located at\(self.addressLabel.text!). \(shareTextView.text!)"
+                Common.socket.emit("pyqSend", ["user_id" : Common.myFacebookID,
+                                               "user_name" : Common.myFacebookName,
+                                               "content" : shareText,
+                                               "avator" : Common.myFacebookProfileImageURL])
+            }
+            
         }
     }
 

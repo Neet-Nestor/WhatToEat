@@ -111,6 +111,7 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
                 Common.socket.emit("pyqGet")
             }
             Common.socket.connect()
+            Common.socket.emit("pyqGet")
         }
     }
 

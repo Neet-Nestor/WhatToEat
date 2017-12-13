@@ -46,7 +46,7 @@ class MomentsTableViewCell: UITableViewCell {
             avatorImage = UIImageView(frame: CGRect(origin: CGPoint(x:8,y:10), size:CGSize(width:40,height:40)))
             self.contentView.addSubview(avatorImage)
         }
-        nameLabel.frame = CGRect(origin: CGPoint(x:55,y:8), size:CGSize(width:60,height:17))
+        nameLabel.frame = CGRect(origin: CGPoint(x:55,y:8), size:CGSize(width:260,height:17))
         nameLabel.textColor = UIColor(red: 74/255, green: 83/255, blue: 130/255, alpha: 1)
         nameLabel.font = UIFont.boldSystemFont(ofSize: 14)
         self.contentView.addSubview(nameLabel)
@@ -168,23 +168,23 @@ class MomentsTableViewCell: UITableViewCell {
         }*/
 //        pbVC.photoModels = models
         var likeHeight:CGFloat = 0.0
-        if likeArray.count > 0{
-            var likesString:String = likeArray[0]["user_name"] as! String
-            for index in 1...likeArray.count - 1 {
-                likesString = "\(likesString), \(likeArray[index]["user_name"])"
-            }
-            likeHeight = likesString.stringHeightWith(fontSize: 10, width: UIScreen.main.bounds.width - 10 - 55 - 15)
-            self.likeView.frame = CGRect(origin: CGPoint(x:55,y:h2+19.5), size:CGSize(width:UIScreen.main.bounds.width - 10 - 55 - 15,height:likeHeight))
-            for i in 0..<likeArray.count{
-                likeLabelArray.append(likeArray[i]["user_name"]!)
-            }
-            self.likeView.likeLabel.text = likeLabelArray.joined(separator: ",")
-            self.likeView.likeLabel.numberOfLines = 0
-            self.likeView.likeLabel.font = UIFont.systemFont(ofSize: 14)
-            self.likeView.likeLabel.lineBreakMode = .byWordWrapping
-            self.likeView.likeLabel.sizeToFit()
-            self.contentView.addSubview(self.likeView)
-        }
+//        if likeArray.count > 0{
+//            var likesString:String = likeArray[0]["user_name"] as! String
+//            for index in 1...likeArray.count - 1 {
+//                likesString = "\(likesString), \(likeArray[index]["user_name"])"
+//            }
+//            likeHeight = likesString.stringHeightWith(fontSize: 10, width: UIScreen.main.bounds.width - 10 - 55 - 15)
+//            self.likeView.frame = CGRect(origin: CGPoint(x:55,y:h2+19.5), size:CGSize(width:UIScreen.main.bounds.width - 10 - 55 - 15,height:likeHeight))
+//            for i in 0..<likeArray.count{
+//                likeLabelArray.append(likeArray[i]["user_name"]!)
+//            }
+//            self.likeView.likeLabel.text = likeLabelArray.joined(separator: ",")
+//            self.likeView.likeLabel.numberOfLines = 0
+//            self.likeView.likeLabel.font = UIFont.systemFont(ofSize: 14)
+//            self.likeView.likeLabel.lineBreakMode = .byWordWrapping
+//            self.likeView.likeLabel.sizeToFit()
+//            self.contentView.addSubview(self.likeView)
+//        }
         if commentArray.count>0{
             var h3 = h2+19.5+likeHeight
             if likeArray.count == 0{

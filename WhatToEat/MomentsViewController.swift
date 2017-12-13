@@ -39,6 +39,10 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Do any additional setup after loading the view.
         loadingLabel.isHidden = true
         spinner.isHidden = true
+        
+        self.refreshControl.addTarget(self, action: #selector(MomentsViewController.refreshData),
+                                      for: UIControlEvents.valueChanged)
+        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
             
         // server codes
         
@@ -70,9 +74,6 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
                 self.test.delegate = self
                 self.commentView.commentTextField.delegate = self
-                self.refreshControl.addTarget(self, action: #selector(MomentsViewController.refreshData),
-                                                   for: UIControlEvents.valueChanged)
-                self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
                 self.tableView = UITableView(frame: self.view.frame, style:UITableViewStyle.grouped)
                 self.tableView!.delegate = self
                 self.tableView!.dataSource = self
@@ -225,9 +226,9 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
         imagePic.image = UIImage(named: "22")
         imagePicView.addSubview(imagePic)
         imagePic.clipsToBounds = true
-        self.nameLable.frame = CGRect(origin: CGPoint(x: 0, y:170), size: CGSize(width:60, height:18))
+        self.nameLable.frame = CGRect(origin: CGPoint(x: 0, y:170), size: CGSize(width:200, height:18))
         self.nameLable.textAlignment = .right
-        self.nameLable.frame.origin.x = self.view.bounds.width - 140
+        self.nameLable.frame.origin.x = self.view.bounds.width - 290
         self.nameLable.text = Common.myFacebookName
         self.nameLable.font = UIFont.systemFont(ofSize: 22)
         self.nameLable.textColor = UIColor.white

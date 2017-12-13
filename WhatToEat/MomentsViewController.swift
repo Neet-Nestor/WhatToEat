@@ -33,6 +33,7 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
     var comment_height:CGFloat = 0.0
     var dataArray: NSArray?
     var highlightMoment: Int?
+    @IBOutlet weak var noLoginLabel:UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +53,7 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         if let accessToken = AccessToken.current {
+            self.noLoginLabel.isHidden = true
             // User is logged in, use 'accessToken' here.
             loadingLabel.isHidden = false
             spinner.isHidden = false
@@ -79,7 +81,7 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
                 self.tableView!.dataSource = self
                 self.tableView?.contentInset = UIEdgeInsets(top: 50,left: 0,bottom: 0,right: 0)
                 self.view.addSubview(self.tableView!)
-                if (self.tableView?.subviews.contains(self.refreshControl))! {
+                if !(self.tableView?.subviews.contains(self.refreshControl))! {
                     self.tableView?.addSubview(self.refreshControl)
                 }
                 self.tableView!.allowsMultipleSelection = true

@@ -16,20 +16,18 @@ class AddContainerViewController: UIViewController {
     var readyToSend: Bool = false
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (self.readyToSend) {
-            if let des = segue.destination as? AddViewController {
-                self.addView = des
+        if let des = segue.destination as? AddViewController {
+            self.addView = des
+        }
+        if let des = segue.destination as? MomentsViewController {
+            if addView?.textField.text != nil {
+//                if ()
+                Common.socket.emit("pyqSend", ["user_id" : Common.myFacebookID,
+                                               "user_name" : Common.myFacebookName,
+                                               "content" : addView?.textField.text,
+                                               "avator" : Common.myFacebookProfileImageURL])
             }
-            if let des = segue.destination as? MomentsViewController {
-                if addView?.textField.text != nil {
-    //                if ()
-                    Common.socket.emit("pyqSend", ["user_id" : Common.myFacebookID,
-                                                   "user_name" : Common.myFacebookName,
-                                                   "content" : addView?.textField.text,
-                                                   "avator" : Common.myFacebookProfileImageURL])
-                }
-                des.refreshData()
-            }
+            des.refreshData()
         }
     }
     @IBAction func postPressed(_ sender: Any) {

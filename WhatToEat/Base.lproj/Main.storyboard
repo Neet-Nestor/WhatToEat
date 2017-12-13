@@ -139,11 +139,19 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login to See Everyone's Experience!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b54-J5-nNt">
+                                <rect key="frame" x="68.666666666666686" y="357.66666666666669" width="277" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.92157727479934692" green="0.92155736684799194" blue="0.92156118154525757" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
+                            <constraint firstItem="b54-J5-nNt" firstAttribute="centerY" secondItem="VVJ-ul-mb7" secondAttribute="centerY" id="5yT-Kr-7Gq"/>
                             <constraint firstItem="2GR-ao-odU" firstAttribute="centerY" secondItem="VVJ-ul-mb7" secondAttribute="centerY" id="7TU-qe-hH8"/>
                             <constraint firstItem="2GR-ao-odU" firstAttribute="top" secondItem="xot-Zq-vHP" secondAttribute="bottom" constant="8" id="Ph1-bM-9Rm"/>
+                            <constraint firstItem="b54-J5-nNt" firstAttribute="centerX" secondItem="VVJ-ul-mb7" secondAttribute="centerX" id="bWc-9V-oPj"/>
                             <constraint firstItem="xot-Zq-vHP" firstAttribute="centerX" secondItem="VVJ-ul-mb7" secondAttribute="centerX" id="iBz-hI-ukK"/>
                             <constraint firstItem="2GR-ao-odU" firstAttribute="centerX" secondItem="VVJ-ul-mb7" secondAttribute="centerX" id="sDI-i2-qyg"/>
                         </constraints>
@@ -159,6 +167,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="loadingLabel" destination="xot-Zq-vHP" id="bae-LS-9C9"/>
+                        <outlet property="noLoginLabel" destination="b54-J5-nNt" id="uKN-ix-pjD"/>
                         <outlet property="spinner" destination="2GR-ao-odU" id="ISx-v0-EYw"/>
                     </connections>
                 </viewController>

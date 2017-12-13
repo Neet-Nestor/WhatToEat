@@ -54,16 +54,10 @@
                         <viewLayoutGuide key="safeArea" id="NSy-UT-8D7"/>
                     </view>
                     <navigationItem key="navigationItem" title="New Comment" id="ogU-0s-0YD">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="2lE-63-fhK">
-                            <connections>
-                                <action selector="cancelPressed:" destination="d7U-lt-S1b" id="ZkC-dm-nYD"/>
-                                <segue destination="HDh-Dr-kbI" kind="unwind" identifier="unwindSegueToMoments" unwindAction="unwindToMomentsWithSegue:" id="jdm-nP-6wa"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Post" id="kWv-uM-nOT">
                             <connections>
                                 <action selector="postPressed:" destination="d7U-lt-S1b" id="Ep8-7i-BcO"/>
-                                <segue destination="HDh-Dr-kbI" kind="unwind" unwindAction="unwindToMomentsWithSegue:" id="bgC-Eu-LIA"/>
+                                <segue destination="HDh-Dr-kbI" kind="unwind" identifier="unwindToMoment" unwindAction="unwindToMomentsWithSegue:" id="bgC-Eu-LIA"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

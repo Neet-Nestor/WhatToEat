@@ -79,7 +79,9 @@ class MomentsViewController: UIViewController, UITableViewDelegate, UITableViewD
                 self.tableView!.dataSource = self
                 self.tableView?.contentInset = UIEdgeInsets(top: 50,left: 0,bottom: 0,right: 0)
                 self.view.addSubview(self.tableView!)
-                self.tableView?.addSubview(self.refreshControl)
+                if (self.tableView?.subviews.contains(self.refreshControl))! {
+                    self.tableView?.addSubview(self.refreshControl)
+                }
                 self.tableView!.allowsMultipleSelection = true
                 self.view.backgroundColor = UIColor.white
                 self.commentView.frame = CGRect(origin: CGPoint(x: 0,y: 0), size: CGSize(width: self.view.bounds.width, height: 30))

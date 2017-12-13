@@ -103,60 +103,58 @@ class SettingTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.row == 0 && indexPath.section == 0) {
-            if let accessToken = AccessToken.current {
-                let loginManager = LoginManager()
-                //readPermissions: [ .publicProfile, .email, .userFriends ]
-                loginManager.logIn(readPermissions:[.publicProfile, .email, .userFriends], viewController: self) { loginResult in
-                    switch loginResult {
-                    case .failed(let error):
-                        print(error)
-                    case .cancelled:
-                        print("User cancelled login.")
-                    case .success(let grantedPermissions, let declinedPermissions, let accessToken):
-                        print("Logged in!")
+            let loginManager = LoginManager()
+            //readPermissions: [ .publicProfile, .email, .userFriends ]
+            loginManager.logIn(readPermissions:[.publicProfile, .email, .userFriends], viewController: self) { loginResult in
+                switch loginResult {
+                case .failed(let error):
+                    print(error)
+                case .cancelled:
+                    print("User cancelled login.")
+                case .success(let grantedPermissions, let declinedPermissions, let accessToken):
+                    print("Logged in!")
 
-                        
-                        let connection = GraphRequestConnection()
-                        connection.add(FbResponse()) { response, result in
-                            switch result {
-                            case .success(let response):
-                                print("Custom Graph Request Succeeded: \(response)")
-                                print("My facebook id is \(response.id)")
-                                print("My name is \(response.name)")
-                                print("My picture is \(response.profilePictureUrl)")
-                                var friendObjects = response.friends!["data"] as! [NSDictionary]
-                                for friendObject in friendObjects {
-                                    print(friendObject["id"] as! NSString)
-                                }
-                                print("\(friendObjects.count)")
-                                Common.myFacebookID = response.id
-                                Common.myFacebookName = response.name
-                                Common.myFacebookProfileImageURL = response.profilePictureUrl
-                                let cell = tableView.cellForRow(at: indexPath) as! loginTableViewCell
-                                self.facebookImageView.hnk_setImageFromURL(URL(string: Common.myFacebookProfileImageURL!)!)
-                                self.facebookLoginLabel.text = "\(Common.myFacebookName!)"
-                            case .failed(let error):
-                                print("Custom Graph Request Failed: \(error)")
+                    
+                    let connection = GraphRequestConnection()
+                    connection.add(FbResponse()) { response, result in
+                        switch result {
+                        case .success(let response):
+                            print("Custom Graph Request Succeeded: \(response)")
+                            print("My facebook id is \(response.id)")
+                            print("My name is \(response.name)")
+                            print("My picture is \(response.profilePictureUrl)")
+                            var friendObjects = response.friends!["data"] as! [NSDictionary]
+                            for friendObject in friendObjects {
+                                print(friendObject["id"] as! NSString)
                             }
+                            print("\(friendObjects.count)")
+                            Common.myFacebookID = response.id
+                            Common.myFacebookName = response.name
+                            Common.myFacebookProfileImageURL = response.profilePictureUrl
+                            let cell = tableView.cellForRow(at: indexPath) as! loginTableViewCell
+                            self.facebookImageView.hnk_setImageFromURL(URL(string: Common.myFacebookProfileImageURL!)!)
+                            self.facebookLoginLabel.text = "\(Common.myFacebookName!)"
+                        case .failed(let error):
+                            print("Custom Graph Request Failed: \(error)")
                         }
-                        connection.start()
-                        
-    //                    let params = ["fields": "id, first_name, last_name, name, email, picture"]
-    //                    let graphRequest = GraphRequestConnection(graphPath: "/me/friends", parameters: params)
-    //                    let connection = FBSDKGraphRequestConnection()
-    //                    connection.add(graphRequest, completionHandler: { (connection, result, error) in
-    //                        if error == nil {
-    //                            if let userData = result as? [String:Any] {
-    //                                print(userData)
-    //                            }
-    //                        } else {
-    //                            print("Error Getting Friends \(error)");
-    //                        }
-    //
-    //                    })
-                        
-                        connection.start()
                     }
+                    connection.start()
+                    
+//                    let params = ["fields": "id, first_name, last_name, name, email, picture"]
+//                    let graphRequest = GraphRequestConnection(graphPath: "/me/friends", parameters: params)
+//                    let connection = FBSDKGraphRequestConnection()
+//                    connection.add(graphRequest, completionHandler: { (connection, result, error) in
+//                        if error == nil {
+//                            if let userData = result as? [String:Any] {
+//                                print(userData)
+//                            }
+//                        } else {
+//                            print("Error Getting Friends \(error)");
+//                        }
+//
+//                    })
+                    
+                    connection.start()
                 }
             }
         }

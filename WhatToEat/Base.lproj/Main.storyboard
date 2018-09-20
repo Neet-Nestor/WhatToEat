@@ -735,13 +735,6 @@
                                     <action selector="tweet:" destination="Yby-Dw-SOL" eventType="touchUpInside" id="JZ8-s0-1PT"/>
                                 </connections>
                             </button>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Qvb-NI-EGc">
-                                <rect key="frame" x="16" y="222" width="382" height="412"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="343" id="Axi-hJ-bvN"/>
-                                    <constraint firstAttribute="height" constant="343" id="Vki-em-cDW"/>
-                                </constraints>
-                            </mapView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zV4-gN-Hbj">
                                 <rect key="frame" x="16" y="119" width="87" height="87"/>
                                 <constraints>
@@ -829,6 +822,13 @@
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Qvb-NI-EGc">
+                                <rect key="frame" x="16" y="224" width="382" height="412"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="343" id="Axi-hJ-bvN"/>
+                                    <constraint firstAttribute="height" constant="343" id="Vki-em-cDW"/>
+                                </constraints>
+                            </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>

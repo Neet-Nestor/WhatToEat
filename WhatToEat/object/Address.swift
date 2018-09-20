@@ -27,7 +27,7 @@ class Address: NSObject, NSCoding {
     // MARK: Initializer
     init(_ address: [String]) {
         self.first = address[0]
-        self.second = address[1]
+//        self.second = address[1]
     }
     
     // getter

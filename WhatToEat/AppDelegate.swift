@@ -82,7 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         //WeiboSDK.enableDebugMode(true)
         //WeiboSDK.registerApp("521970512")
-        Twitter.sharedInstance().start(withConsumerKey: "ILt3tj0pk4MUk5Qne45GHRjlD", consumerSecret: "sldP0IAMcqLzgwCAtKvcN3hKgMnTmhF4CCWu7kosQ7aVJFF7zY")
+        TWTRTwitter.sharedInstance().start(withConsumerKey: "key", consumerSecret: "secret")
 
         return true
     }
@@ -101,7 +101,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      open url: URL,
                      options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         if (url.scheme == "twitterkit-ILt3tj0pk4MUk5Qne45GHRjlD") {
-            return Twitter.sharedInstance().application(app, open: url, options: options)
+            return TWTRTwitter.sharedInstance().application(app, open: url, options: options)
         } else if (url.scheme == "fb690304267826071") {
             return SDKApplicationDelegate.shared.application(app, open: url, sourceApplication: options[.sourceApplication] as? String, annotation: options[.annotation])
         }

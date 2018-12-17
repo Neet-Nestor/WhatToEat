@@ -46,7 +46,7 @@ class FoundViewController: UIViewController {
         let shareContent = LinkShareContent(url: URL(string:"http://students.washington.edu/qiny8")!)
         let FBShareBtn = ShareButton<LinkShareContent>()
         FBShareBtn.content = shareContent
-        FBShareBtn.frame = CGRect(origin: CGPoint(x: tweetBtn.frame.minX - FBShareBtn.frame.width - 50 ,y: tweetBtn.frame.origin.y), size: CGSize(width: FBShareBtn.frame.width, height: FBShareBtn.frame.height))
+        FBShareBtn.frame = CGRect(origin: CGPoint(x: self.view.frame.minX + 80, y: self.view.frame.maxY - 126), size: CGSize(width: FBShareBtn.frame.width, height: FBShareBtn.frame.height))
         self.view.addSubview(FBShareBtn)
 //        let TwilogInButton = TWTRLogInButton(logInCompletion: { session, error in
 //            if (session != nil) {
@@ -113,13 +113,13 @@ class FoundViewController: UIViewController {
     }
  
     @IBAction func tweet(_ sender: Any) {
-        if (Twitter.sharedInstance().sessionStore.hasLoggedInUsers()) {
+        if (TWTRTwitter.sharedInstance().sessionStore.hasLoggedInUsers()) {
             // App must have at least one logged-in user to compose a Tweet
             let composer = TWTRComposerViewController.emptyComposer()
             present(composer, animated: true, completion: nil)
         } else {
             // Log in, and then check again
-            Twitter.sharedInstance().logIn { session, error in
+            TWTRTwitter.sharedInstance().logIn { session, error in
                 if session != nil { // Log in succeeded
                     let composer = TWTRComposerViewController.emptyComposer()
                     self.present(composer, animated: true, completion: nil)

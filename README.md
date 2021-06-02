@@ -1,4 +1,6 @@
 # WhatToEat
+![AppIcon](./app-icon-60x60.png)
+
 An iOS application designed for the people who is afraid of making choice and suffered everyday from picking up the right place to have a meal. It can get all nearby restaurants and make a choice for you so you don't have to make the hard choice.
 
 ## Features
